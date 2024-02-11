@@ -1,0 +1,66 @@
+version: "3"
+services:
+  webserver:                            # It will run the php codes to serve the web page
+    # image: php:apache                 # This will use the image directly from docker without any mod.
+    build:                              # Manually build the image
+      context: .
+      dockerfile: Dockerfile.custom     # Use the custom Dockerfile
+    volumes:
+      - "./:/var/www/html"              #Syncs the development directory with the docker container without the need to re-compose and run 
+    ports:
+      - 80:80                           # for web page
+      - 443:443
+  db:                                   # It will be running the mariadb
+    image: mariadb:latest
+    environment:
+      - MYSQL_DATABASE=kuberkosh_db
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=password
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+    volumes:
+      - "./db:/docker-entrypoint-initdb.d"          #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
+  phpmyadmin:                           # It will provide the GUI environment to manage the db
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 8001:80
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+
+
+
+
+# version: "3"
+# volumes:
+#   mysqldata:
+#   composer-cache:
+#     external: true
+
+# services:
+#   mysql:
+#     image: mysql:latest
+#     volumes:
+#       - ./sql:/docker-entrypoint-initdb.d/
+#       - mysqldata:/var/lib/mysql
+#     environment:
+#       - MYSQL_DATABASE=${MYSQL_DATABASE:-"my_database"}
+#       - MYSQL_USER=${MYSQL_USER:-"user"}
+#       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-"password"}
+#       - MYSQL_RANDOM_ROOT_PASSWORD
+#     ports:
+#       - "3306:3306"
+
+#   php:
+#     build:
+#       context: .
+#       dockerfile: ./Dockerfile
+#     depends_on:
+#       - mysql
+#     volumes:
+#       - ./:/project
+#       - composer-cache:/tmp/composer
+#     environment:
+#       - MYSQL_DATABASE=${MYSQL_DATABASE:-"my_database"}
+#       - MYSQL_HOST=mysql
+#       - MYSQL_USER=${MYSQL_USER:-"user"}
+#       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-"password"}

@@ -1,0 +1,5 @@
+# Use the official php:apache image as a base
+FROM php:apache
+
+# Install mysqli extension
+RUN docker-php-ext-install mysqli
