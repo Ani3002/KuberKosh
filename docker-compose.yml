@@ -18,8 +18,9 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
-      - "./db:/docker-entrypoint-initdb.d"          #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
-  phpmyadmin:                           # It will provide the GUI environment to manage the db
+      - "./assets/db:/docker-entrypoint-initdb.d"           #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
+      - "./assets/db/data:/var/lib/mysql"                   # Persist MariaDB data
+  phpmyadmin:                                               # It will provide the GUI environment to manage the db
     image: phpmyadmin/phpmyadmin
     ports:
       - 8001:80
