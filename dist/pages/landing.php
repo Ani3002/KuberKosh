@@ -3,27 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link href="../../bootstrap/css/bootstrap.min.css" rel="stylesheet" > -->
-    <script src='../js/main.js' ></script>
-    <!-- <style>
-      .custom-bg {
-        background-color: black; /* Set the background color to black */
-      }
-
-      .custom-h1{
-        color: var(--black-black-100, var(--background-mode, #FFF));
-        text-align: center;
-
-        /* h1-85px */
-        font-family: Inter;
-        font-size: 85px;
-        font-style: normal;
-        font-weight: 900;
-        line-height: 130%; /* 110.5px */
-      }
-    </style> -->
-
-    <title>Document</title>
+    <title>KuberKosh</title>
 </head>
 <body>
   <nav class="navbar navbar-expand-lg bg-transparent">
@@ -55,7 +35,7 @@
           </div>
         <p></p>
         <div class="container text-center">
-          <a class="btn btn-primary" aria-disabled="true">Sign Up</a>
+          <a class="btn btn-primary" aria-disabled="true">Get Started</a>
         </div>
       </div>
   </div>
