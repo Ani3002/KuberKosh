@@ -1,5 +1,5 @@
 <?php
-require_once('assets/src/php/functions.php');
+require_once('php/functions.php');
 // sleep(2);
 
 viewPage('index');
