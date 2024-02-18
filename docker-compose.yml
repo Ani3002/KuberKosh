@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.custom     # Use the custom Dockerfile
     volumes:
-      - "dist/:/var/www/html"              #Syncs the development directory with the docker container without the need to re-compose and run 
+      - "./dist/:/var/www/html"              #Syncs the development directory with the docker container without the need to re-compose and run 
     ports:
       - 80:80                           # for web page
       - 443:443
@@ -18,8 +18,8 @@ services:
       - MYSQL_PASSWORD=password
       - MYSQL_ALLOW_EMPTY_PASSWORD=1
     volumes:
-      - "./assets/db:/docker-entrypoint-initdb.d"           #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
-      - "./assets/db/data:/var/lib/mysql"                   # Persist MariaDB data
+      - "./db:/docker-entrypoint-initdb.d"           #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
+      - "./db/data:/var/lib/mysql"                   # Persist MariaDB data
   phpmyadmin:                                               # It will provide the GUI environment to manage the db
     image: phpmyadmin/phpmyadmin
     ports:
