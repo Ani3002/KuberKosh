@@ -61,6 +61,7 @@ gulp.task('watch', function() {
     gulp.watch('src/img/*.png', gulp.series('webpPng'));
     gulp.watch('src/img/*.svg', gulp.series('Svg'));
     gulp.watch('src/**/*.php', gulp.series('php'));
+    gulp.watch('src/scss/**/*.scss', gulp.series('js'));
 });
 
 // Default task running all the above tasks
