@@ -21,5 +21,6 @@ Desktop.ini # Windows desktop icon settings
 *.log   # Log files
 credentials.txt
 
-/assets/db/data/*
+/db/data/*
 src.zip
+node_modules

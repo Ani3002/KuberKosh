@@ -1,0 +1,33 @@
+{
+  "name": "kuberkosh",
+  "version": "1.0.0",
+  "description": "digital wallet",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"gulp watch\" \"webpack --watch\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ani3002/KuberKosh.git"
+  },
+  "author": "Anirban",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ani3002/KuberKosh/issues"
+  },
+  "homepage": "https://github.com/Ani3002/KuberKosh#readme",
+  "dependencies": {
+    "browser-sync": "^3.0.2",
+    "concurrently": "^8.2.2",
+    "css-loader": "^6.10.0",
+    "gulp": "^4.0.2",
+    "gulp-webp": "^5.0.0",
+    "sass": "^1.71.0",
+    "sass-loader": "^14.1.0",
+    "style-loader": "^3.3.4",
+    "webpack": "^5.90.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-stream": "^7.0.0"
+  }
+}

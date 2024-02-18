@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile.custom     # Use the custom Dockerfile
     volumes:
-      - "./:/var/www/html"              #Syncs the development directory with the docker container without the need to re-compose and run 
+      - "dist/:/var/www/html"              #Syncs the development directory with the docker container without the need to re-compose and run 
     ports:
       - 80:80                           # for web page
       - 443:443
