@@ -52,6 +52,12 @@ gulp.task('js', function() {
         .pipe(gulp.dest('dist/js/'));
 });
 
+// Task to copy image files to dist
+gulp.task('copyImages', function() {
+    return gulp.src('src/img/**/*.{jpg,png,svg}')
+        .pipe(gulp.dest('dist/img/'));
+});
+
 // Watch for changes in src
 gulp.task('watch', function() {
     gulp.watch('src/**/*.html', gulp.series('html'));
@@ -62,6 +68,7 @@ gulp.task('watch', function() {
     gulp.watch('src/img/*.svg', gulp.series('Svg'));
     gulp.watch('src/**/*.php', gulp.series('php'));
     gulp.watch('src/scss/**/*.scss', gulp.series('js'));
+    gulp.watch('src/img/**/*.{jpg,png,svg}', gulp.series('webp', 'copyImages'));
 });
 
 // Default task running all the above tasks
