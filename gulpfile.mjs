@@ -7,13 +7,15 @@ import webpack from 'webpack';
 import webpackConfig from './webpack.config.js';
 
 // Task to copy HTML files to dist
-gulp.task('html', function() {
+gulp.task('html', function() 
+{
     return gulp.src('src/**/*.html')
         .pipe(gulp.dest('dist/'));
 });
 
 // Task to copy PHP files to dist
-gulp.task('php', function() {
+gulp.task('php', function() 
+{
     return gulp.src('src/**/*.php')
         .pipe(gulp.dest('dist/'));
 });
@@ -23,22 +25,20 @@ gulp.task('css', function() {
     return gulp.src('src/css/*.css')
         .pipe(gulp.dest('dist/css/'));
 });
-
-// Webp Conversion From JPG
+//Webp Conversion From JPG
 gulp.task('webp', function () {
     return gulp.src('src/img/*.jpg')
-        .pipe(webp({ quality: 98 }))
+    .pipe(webp({ quality: 98 }))
         .pipe(gulp.dest('dist/img/'));
 });
-
-// Webp Conversion From PNG
+//Webp Conversion From PNG
 gulp.task('webpPng', function () {
     return gulp.src('src/img/*.png')
-        .pipe(webp({ quality: 98 }))
+    .pipe(webp({ quality: 98 }))
         .pipe(gulp.dest('dist/img/'));
 });
 
-// SVG Conversion
+//SVG Conversion
 gulp.task('Svg', function () {
     return gulp.src('src/img/*.svg')
         .pipe(gulp.dest('dist/img/'));
@@ -48,115 +48,20 @@ gulp.task('Svg', function () {
 gulp.task('js', function() {
     console.log("Running JS task with Webpack config:", webpackConfig);
     return gulp.src('src/js/*.js')
-        .pipe(webpackStream(webpackConfig, webpack))
-        .pipe(gulp.dest('dist/js/'));
-});
-
-// Task to copy image files to dist
-gulp.task('copyImages', function() {
-    return gulp.src('src/img/**/*.{jpg,png,svg}')
-        .pipe(gulp.dest('dist/img/'));
+        .pipe(webpack(webpackConfig))
+        .pipe(gulp.dest('dist/js/'))
 });
 
 // Watch for changes in src
 gulp.task('watch', function() {
     gulp.watch('src/**/*.html', gulp.series('html'));
-    gulp.watch('src/css/**/*.css', gulp.series('css'));
+    gulp.watch('src/**/*.php', gulp.series('php'));
+    gulp.watch('src/css/*.css', gulp.series('css'));
     gulp.watch('src/js/**/*.js', gulp.series('js'));
     gulp.watch('src/img/*.jpg', gulp.series('webp'));
     gulp.watch('src/img/*.png', gulp.series('webpPng'));
     gulp.watch('src/img/*.svg', gulp.series('Svg'));
-    gulp.watch('src/**/*.php', gulp.series('php'));
-    gulp.watch('src/scss/**/*.scss', gulp.series('js'));
-    gulp.watch('src/img/**/*.{jpg,png,svg}', gulp.series('webp', 'copyImages'));
+    // Add other file types you want to watch
 });
-
 // Default task running all the above tasks
-gulp.task('default', gulp.series('html', 'css', 'js', 'php', 'watch'));
-
-
-
-
-
-
-
-
-
-
-// import gulp from 'gulp';
-// import webp from 'gulp-webp';
-// import webpackStream from 'webpack-stream';
-// import webpack from 'webpack';
-
-// // webpackConfig is your existing webpack configuration
-// import webpackConfig from './webpack.config.js';
-
-// // Task to copy HTML files to dist
-// gulp.task('html', function() {
-//     return gulp.src('src/**/*.html')  // Update the source path if necessary
-//         .pipe(gulp.dest('dist/'));
-// });
-
-// // Task to copy PHP files to dist
-// gulp.task('php', function() {
-//     return gulp.src('src/**/*.php')
-//         .pipe(gulp.dest('dist/'));
-// });
-
-
-// // Task to copy CSS files to dist
-// gulp.task('css', function() {
-//     return gulp.src('src/css/*.css')
-//         .pipe(gulp.dest('dist/css/'));
-// });
-// //Webp Conversion From JPG
-// gulp.task('webp', function () {
-//     return gulp.src('src/img/*.jpg')
-//     .pipe(webp({ quality: 98 }))
-//         .pipe(gulp.dest('dist/img/'));
-// });
-// //Webp Conversion From PNG
-// gulp.task('webpPng', function () {
-//     return gulp.src('src/img/*.png')
-//     .pipe(webp({ quality: 98 }))
-//         .pipe(gulp.dest('dist/img/'));
-// });
-
-// //SVG Conversion
-// gulp.task('Svg', function () {
-//     return gulp.src('src/img/*.svg')
-//         .pipe(gulp.dest('dist/img/'));
-// });
-
-// // Task to bundle JS files using Webpack
-// gulp.task('js', function() {
-//     console.log("Running JS task with Webpack config:", webpackConfig);
-//     return gulp.src('src/js/*.js')
-//         .pipe(webpack(webpackConfig))
-//         .pipe(gulp.dest('dist/js/'))
-// });
-
-// // Watch for changes in src
-// gulp.task('watch', function() {
-//     gulp.watch('src/*.html', gulp.series('html'));
-//     gulp.watch('src/css/*.css', gulp.series('css'));
-//     gulp.watch('src/js/**/*.js', gulp.series('js'));
-//     gulp.watch('src/img/*.jpg', gulp.series('webp'));
-//     gulp.watch('src/img/*.png', gulp.series('webpPng'));
-//     gulp.watch('src/img/*.svg', gulp.series('Svg'));
-//     // Add other file types you want to watch
-
-//     //aded from chatgpt
-//     gulp.watch('src/**/*.html', gulp.series('html'));
-//     gulp.watch('src/css/**/*.css', gulp.series('css'));
-//     gulp.watch('src/js/**/*.js', gulp.series('js'));
-//     // gulp.watch(['src/**/*.html', 'src/**/*.php'], gulp.series('html'));
-//     gulp.watch('src/css/**/*.css', gulp.series('css'));
-//     gulp.watch('src/js/**/*.js', gulp.series('js'));
-//     gulp.watch('src/img/*.jpg', gulp.series('webp'));
-//     gulp.watch('src/img/*.png', gulp.series('webpPng'));
-//     gulp.watch('src/img/*.svg', gulp.series('Svg'));
-//     gulp.watch('src/**/*.php', gulp.series('php')); // Add this line for PHP files    
-// });
-// // Default task running all the above tasks
-// gulp.task('default', gulp.parallel('html', 'css', 'js', 'php', 'watch'));
+gulp.task('default', gulp.parallel('html', 'php', 'css', 'js', 'watch'));
