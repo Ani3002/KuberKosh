@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>KuberKosh</title>
     <script src="js/bundle.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -28,12 +31,12 @@
     </div>
 </nav>
 
-  <section class="p-12 slide-section custom-bg" style="background-image: url(assets/images/index/bg-img.svg);">
+  <section class="p-12 slide-section custom-bg" style="background-image: url(/img/LandingPage.webp);">
   <div class="container">
       <div class="row">
 
-          <div class="container col-md-12 col-lg-6 custom-h1 text-center">
-            <h1 class="display-3 mb-5">We make digital <span class="d-block">Transactions</span> <span class="d-block">clear and simple</span></h1>
+          <div class="container col-md-12 col-lg-12 text-center mt-md-5">
+            <h1 class="display-1">We make digital <span class="d-block">Transactions</span> <span class="d-block">clear and simple</span></h1>
           </div>
         <p></p>
         <div class="container text-center">

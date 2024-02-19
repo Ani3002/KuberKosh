@@ -1,0 +1,29 @@
+body{
+
+    .custom-btn{
+        display: flex;
+        height: 3.5rem;
+        padding: 0rem 2.0625rem;
+        justify-content: center;
+        align-items: center;
+        border-radius: 0.625rem;
+        border: 1px solid var(--gradient-light, rgba(255, 255, 255, 0.47));
+        background: var(--gradient-main, linear-gradient(225deg, #18C8FF 14.89%, #933FFE 85.85%));
+    }
+
+    //Heading Settigns
+    h1
+    {
+        font-family: 'Inter', sans-serif;
+        color: beige;
+    }
+
+
+
+    .slide-section, .cta-section
+    {
+        // background-repeat: no-repeat;
+        background-size: cover;
+        height: 56.25rem;
+    }
+}
