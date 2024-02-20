@@ -1,0 +1,13 @@
+clone the repo from github
+
+install necessary tools
+    npm and Node.js
+    docker
+
+go to the root of your project directory
+
+npm install
+
+npm start
+
+docker compose up --build
