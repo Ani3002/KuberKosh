@@ -35,7 +35,7 @@
 <!-- Nav_Bar Ends Here --------------------------- -->
 
 
-<section class="p-7 slide-section custom-bg" style="background-image: url(/img/LandingPage.webp);">
+<section class="p-3 slide-section1 custom-bg" style="background-image: url(/img/LandingPage.webp);">
   
   <!-- H1 Begins Here------------------------------- -->
   <div class="container">
@@ -51,11 +51,6 @@
       </div>
   </div>
   <!-- H1 Ends Here------------------------------- -->
-
-
-
-
-
 
 
 
