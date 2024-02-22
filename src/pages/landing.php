@@ -28,14 +28,14 @@
           <a class="nav-link active mx-3 text-light font-weight-600" aria-current="page" href="#">Support</a>
         </div>
         <a class="btn btn-primary bg-transparent mx-3 text-primary border-primary font-weight-600" aria-disabled="true">Sign In</a>
-        <a class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a>
+        <a href="/pages/signup.php" class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a>
       </div>
     </div>
 </nav>
 <!-- Nav_Bar Ends Here --------------------------- -->
 
 
-<section class="p-7 slide-section custom-bg" style="background-image: url(/img/LandingPage.webp);">
+<section class="p-7 slide-section1 custom-bg" style="background-image: url(/img/LandingPage.webp);">
   
   <!-- H1 Begins Here------------------------------- -->
   <div class="container">
@@ -51,11 +51,6 @@
       </div>
   </div>
   <!-- H1 Ends Here------------------------------- -->
-
-
-
-
-
 
 
 
