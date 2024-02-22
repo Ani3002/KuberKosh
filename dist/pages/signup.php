@@ -2,135 +2,62 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>KuberKosh</title>
-    <script src="js/bundle.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KuberKosh</title>
+  <script src="js/bundle.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <section class="p-7 slide-section2" style="background-image: url(/img/AuthenticationBackground.webp);">
-    <!-- <section class="p-7 slide-section2" style=""> -->
-        
-    
-    <!-- <div class="login_form_wrapper">
-			<div class="container">
-				<div class="row justify-content-center align-items-center">
-					<div class="col-md-8 col-md-offset-2">
-						<div class="card">
-							<div class="row ">
-								<div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-									<a href="#" class="btn btn-primary facebook"> <span>Login with Facebook</span> <i class="fa fa-facebook"></i> </a>
-								</div>
-								<div class="col-lg-6 col-md-6 col-xs-12 col-sm-6">
-									<a href="#" class="btn btn-primary google-plus"> Login  with Google <i class="fa fa-google-plus"></i> </a>
-								</div>
-							</div>
-							<h2>or</h2>
-							<div class="formsix-pos">
-								<div class="form-group i-email">
-									<input type="email" class="form-control" required="" id="email2" placeholder="Email Address *">
-								</div>
-							</div>
-							<div class="formsix-e">
-								<div class="form-group i-password">
-									<input type="password" class="form-control" required="" id="password2" placeholder="Password *">
-								</div>
-							</div>
-							<div class="login_remember_box">
-								<label class="control control--checkbox">Remember me
-									<input type="checkbox">
-									<span class="control__indicator"></span>
-								</label>
-								<a href="#" class="forget_password">
-									Forgot Password
-								</a>
-							</div>
-							<div class="login_btn_wrapper">
-								<a href="#" class="btn btn-primary login_btn"> Login </a>
-							</div>
-							<div class="login_message">
-								<p>Don&rsquo;t have an account ? <a href="#"> Sign up </a> </p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> -->
+	<section class="p-7 slide-section2" style="background-image: url(/img/AuthenticationBackground.webp);">
 
-    
-        <!-- <div class="container-fluid">
-        <div class="card mx-auto">
+		<!-- <div class="container"> -->
+        <!-- <div class="card mx-md-21 mx-lg-l40 auth-form"> -->
+        <div class="card mx-md-21 auth-form">
         <form class="mx-auto" action="">
             <div class = "mx-auto text-center">
-                <h4 class="text-center">Create an account</h4>
+                <h4 class=" auth-h1 text-center  mt-2 mb-1">Create an account</h4>
                     <div class="container-fluid">
                         <div class="row ">
                             <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
-                                <a href="#" class="btn btn-primary facebook"> <span>Login with Facebook</span> <i class="fa fa-facebook"></i> </a>
+                                <a href="#" class="auth-btn d-flex align-items-center gap-2">
+									<img src="/img/github.svg" alt="Login with" width="30" height="30">
+									<span>Github</span>
+								</a>
                             </div>
                             <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
-                                <a href="#" class="btn btn-primary google-plus"> Login  with Google <i class="fa fa-google-plus"></i> </a>
-                            </div>
+								<a href="#" class="auth-btn d-flex align-items-center gap-2">
+									<img src="/img/google.svg" alt="Login with" width="30" height="30">
+									<span>Google</span>
+								</a>                            
+							</div>
                         </div>
                     </div>
+                    <p class="mt-1 auth-or">Or</p>
             </div>
 
             <div class = "mx-auto">
-                    <div class="mb-1">
-                        <label for="exampleInputEmail1" class="form-label">Email address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-                        <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                    <div class=" mt-100 mb-1">
+                        <label for="InputEmail" class="form-label" >Email</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="anirbanrouth.dev@proton.me">
                     </div>
                     <div class="mb-1">
-                        <label for="exampleInputPassword1" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1">
+                        <label for="InputPassword" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter your password here">
                     </div>
             </div>
 
-            <div action="">
-                    <button type="submit" class="btn btn-primary">Create Account</button>
+            <div class= " mt-1 mx-auto text-center" action="">
+                    <button type="submit" class="auth-submit-btn bg-gradient" >Create Account</button>
+                    <p class="mt-1 auth-p"> Already have an account? <a href="" class="auth-p-link">Log In</a></p>
             </div>
         </form>
         </div>
-        </div> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </section>
-
-
+	</section>
 </body>
-
 </html>
