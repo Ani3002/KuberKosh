@@ -23,7 +23,7 @@ $teal:    #20c997;
 $cyan:    #0dcaf0;
 
 //Theme Colors
-$primary:       #5F6F52;
+$primary:       #18C8FF;
 $secondary:     $gray-600;
 $success:       $green;
 $info:          $cyan;
@@ -68,9 +68,11 @@ $input-btn-padding-y-sm:      .65rem;
 $input-btn-padding-x-sm:      1rem;
 $btn-border-radius-sm: 0.625rem;
 
-$btn-border-radius:.48rem;
-$btn-border-radius-sm:.58rem;
-$btn-border-radius-lg:.58rem;
+$btn-border-radius:.65rem;
+$btn-border-radius-sm:.65rem;
+$btn-border-radius-lg:.65rem;
+
+$gradient: linear-gradient(225deg, rgba(#18C8FF, 14), rgba(#933FFE, 85));
 
 //Misc
 $enable-negative-margins: true;
@@ -80,15 +82,27 @@ $enable-shadows: true;
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem;
 $spacers: (
-  0: 0,
-  1: $spacer * .25,
-  2: $spacer * .5,
-  3: $spacer,
-  4: $spacer * 1.5,
-  5: $spacer * 3,
+  100: $spacer * .1,
+  500: $spacer * .5,
+  250: $spacer * .25,
+  0: $spacer * 0,
+  1: $spacer * 1,
+  2: $spacer * 2,
+  3: $spacer * 3,
+  4: $spacer * 4,
+  5: $spacer * 5,
   6: $spacer * 6,
-  7: $spacer * 10
+  7: $spacer * 7,
+  8: $spacer * 8,
+  13: $spacer * 13,
+  14: $spacer * 14,
+  15: $spacer * 15,
+  17: $spacer * 17,
+  19: $spacer * 19,
+  21: $spacer * 21,
+  l40: $spacer * 40,
 );
+
 
 //Radius Settings
 $border-radius-lg:1.875rem;
