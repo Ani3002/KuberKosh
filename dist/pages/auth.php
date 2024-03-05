@@ -21,7 +21,26 @@
         <div class="card mx-md-21 auth-form">
         <form class="mx-auto" action="">
             <div class = "mx-auto text-center">
+                
+                
+                <!--  -->            
+                <?php
+                if(isset($_GET['signup'])){
+                ?>
                 <h4 class=" auth-h1 text-center  mt-2 mb-1">Create an account</h4>
+                <?php
+                }
+                elseif(isset($_GET['login'])){
+                ?>
+                <h4 class=" auth-h1 text-center  mt-2 mb-1">Welcome Back</h4>
+                <?php
+                }
+                ?>
+
+
+
+
+                <!-- <h4 class=" auth-h1 text-center  mt-2 mb-1">Create an account</h4> -->
                     <div class="container-fluid">
                         <div class="row ">
                             <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
@@ -53,8 +72,30 @@
             </div>
 
             <div class= " mt-1 mx-auto text-center" action="">
+
+
+
+                    <!--  -->            
+                    <?php
+                    if(isset($_GET['signup'])){
+                    ?>
                     <button type="submit" class="auth-submit-btn bg-gradient" >Create Account</button>
-                    <p class="mt-1 auth-p"> Already have an account? <a href="" class="auth-p-link">Log In</a></p>
+                    <p class="mt-1 auth-p"> Already have an account? <a href="index.php?login" class="auth-p-link">Log In</a></p>
+                    <?php
+                    }
+                    elseif(isset($_GET['login'])){
+                    ?>
+                    <button type="submit" class="auth-submit-btn bg-gradient" >Log In</button>
+                    <p class="mt-1 auth-p"> Don't have an account? <a href="index.php?signup" class="auth-p-link">Sign Up</a></p>
+                    <?php
+                    }
+                    ?>
+
+
+
+
+                    <!-- <button type="submit" class="auth-submit-btn bg-gradient" >Create Account</button> -->
+                    <!-- <p class="mt-1 auth-p"> Already have an account? <a href="" class="auth-p-link">Log In</a></p> -->
             </div>
         </form>
         </div>

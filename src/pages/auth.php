@@ -23,6 +23,7 @@
             <div class = "mx-auto text-center">
                 
                 
+                <!--  -->            
                 <?php
                 if(isset($_GET['signup'])){
                 ?>
@@ -71,8 +72,30 @@
             </div>
 
             <div class= " mt-1 mx-auto text-center" action="">
+
+
+
+                    <!--  -->            
+                    <?php
+                    if(isset($_GET['signup'])){
+                    ?>
                     <button type="submit" class="auth-submit-btn bg-gradient" >Create Account</button>
-                    <p class="mt-1 auth-p"> Already have an account? <a href="" class="auth-p-link">Log In</a></p>
+                    <p class="mt-1 auth-p"> Already have an account? <a href="index.php?login" class="auth-p-link">Log In</a></p>
+                    <?php
+                    }
+                    elseif(isset($_GET['login'])){
+                    ?>
+                    <button type="submit" class="auth-submit-btn bg-gradient" >Log In</button>
+                    <p class="mt-1 auth-p"> Don't have an account? <a href="index.php?signup" class="auth-p-link">Sign Up</a></p>
+                    <?php
+                    }
+                    ?>
+
+
+
+
+                    <!-- <button type="submit" class="auth-submit-btn bg-gradient" >Create Account</button> -->
+                    <!-- <p class="mt-1 auth-p"> Already have an account? <a href="" class="auth-p-link">Log In</a></p> -->
             </div>
         </form>
         </div>

@@ -15,7 +15,7 @@
 <!-- Nav_Bar Begins Here --------------------------- -->
   <nav class="navbar navbar-expand-lg bg-transparent">
     <div class="container">
-      <a class="navbar-brand" href="#">
+      <a class="navbar-brand" href="index.php?landing">
         <img src="img/Logo.svg" alt="kuberkosh logo" width="50px" hight="50px">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -27,8 +27,8 @@
           <a class="nav-link active text-light font-weight-600" aria-current="page" href="#">Features</a>
           <a class="nav-link active mx-3 text-light font-weight-600" aria-current="page" href="#">Support</a>
         </div>
-        <a class="btn btn-primary bg-transparent mx-3 text-primary border-primary font-weight-600" aria-disabled="true">Sign In</a>
-        <a href="/pages/signup.php" class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a>
+        <a href="index.php?login" class="btn btn-primary bg-transparent mx-3 text-primary border-primary font-weight-600" aria-disabled="true">Sign In</a>
+        <a href="index.php?signup" class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a>
       </div>
     </div>
 </nav>

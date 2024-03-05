@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Feb 11, 2024 at 02:22 PM
--- Server version: 11.2.2-MariaDB-1:11.2.2+maria~ubu2204
+-- Generation Time: Mar 05, 2024 at 10:20 AM
+-- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -28,22 +28,18 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `users` (
-  `userId` int(8) NOT NULL,
-  `fullName` char(30) NOT NULL,
-  `dob` date NOT NULL,
-  `email` char(30) NOT NULL,
-  `walletCreationTime` timestamp NOT NULL DEFAULT current_timestamp(),
-  `totpKey` char(100) NOT NULL,
-  `pin` int(6) NOT NULL,
-  `password` char(60) NOT NULL
+  `id` int(11) NOT NULL,
+  `oauth_provider` enum('google','github') NOT NULL DEFAULT 'google',
+  `oauth_uid` varchar(50) NOT NULL,
+  `first_name` varchar(25) NOT NULL,
+  `last_name` varchar(25) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `gender` varchar(11) DEFAULT NULL,
+  `locale` varchar(10) DEFAULT NULL,
+  `picture` varchar(255) DEFAULT NULL,
+  `created` datetime NOT NULL,
+  `modified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`userId`, `fullName`, `dob`, `email`, `walletCreationTime`, `totpKey`, `pin`, `password`) VALUES
-(1, 'John Snow', '0283-01-01', 'johnsnow@proton.me', '2024-02-11 14:19:52', 'idontknowwhatthefuckisit', 123456, 'iloveyouygritte');
 
 --
 -- Indexes for dumped tables
@@ -53,7 +49,7 @@ INSERT INTO `users` (`userId`, `fullName`, `dob`, `email`, `walletCreationTime`,
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`userId`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -63,7 +59,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
