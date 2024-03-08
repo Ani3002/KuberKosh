@@ -5,7 +5,8 @@ session_start();
 // for including pages in index.php
 function viewHTML($page, $page_title = "")
 {
-    include "pages/$page.html";
+    echo "Including: $page.php";
+    // include "pages/$page.html";
 }
 
 function viewPage($page, $page_title = "")
