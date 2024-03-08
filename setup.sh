@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# Define user information for GPG Key
+user_name="yourName"                 # Change this to your actual Name
+user_email="your.email@example.com"  # Change this to your actual email
+
+# If you do not want to set up the GPG key comment out or remone line no 67 to 84.
+
+
 ### Installing softwares from parrot repo
 sudo apt-get install gdebi nodejs npm
 
@@ -53,4 +61,24 @@ sudo apt-get update
 ls
 echo "Installing docker with `` gdebi cli `` "
 
-sudo gdebi "$file_name".deb
+sudo gdebi "$file_name"
+
+
+# Generate GPG key in batch mode
+gpg --batch --gen-key <<EOF
+Key-Type: RSA
+Key-Length: 3072
+Name-Real: $user_name
+Name-Email: $user_email
+Expire-Date: 0
+%no-protection
+%commit
+EOF
+
+# Extract the key ID from the output
+key_id=$(gpg --list-secret-keys --keyid-format LONG | awk '/sec/{print $2}' | cut -d'/' -f2)
+
+# Print the key ID
+echo "GPG Key ID: $key_id"
+
+pass init $key_id
