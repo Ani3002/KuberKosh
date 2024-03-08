@@ -4,7 +4,7 @@ require_once('php/functions.php');
 
 if((isset($_GET['home']))){ 
     //for home page
-viewPage('home');
+        viewPage('home');
 }elseif(isset($_GET['login'])){
     // for login page
         viewPage('auth');
@@ -17,4 +17,7 @@ viewPage('home');
     // for dashboard page
         viewPage('dash');
     
+}
+elseif(isset($GET['logout'])){
+    viewPage('logout'); 
 }
