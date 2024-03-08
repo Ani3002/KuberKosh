@@ -7,7 +7,6 @@ function viewHTML($page, $page_title = "")
 {
     echo "Including: $page.php";
     // include "pages/$page.html";
-    require_once "pages/signup.php";
 }
 
 function viewPage($page, $page_title = "")
