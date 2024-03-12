@@ -56,15 +56,6 @@
 								</a>
                             </div>
                             <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
-
-                                <?php
-
-                                    //echo '<div align="center">'.$login_button . '</div>';
-                                
-                                ?>
-
-
-
 								<a href="<?php echo $google_client->createAuthUrl(); ?>" class="auth-btn d-flex align-items-center gap-2">
 									<img src="/img/google.svg" alt="Login with" width="30" height="30">
 									<span>Google</span>
