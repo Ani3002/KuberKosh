@@ -17,9 +17,9 @@ if((isset($_GET['home']))){
     // for dashboard page
         viewPage('dash');
     
-}elseif(isset($_GET['dash1'])){
+}elseif(isset($_GET['database'])){
     // for dashboard page
-        viewPage('dash1');
+        viewPage('database');
 }
 elseif(isset($_GET['logout'])){
     // for dashboard page
