@@ -1,6 +1,7 @@
 <?php
 
     include "php/google-auth.php"
+    
 ?>
 <html>
  <head>
@@ -22,12 +23,18 @@
    <?php
 
     echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';
+    echo '<h3><b>validation_result :</b> '.$_SESSION['validation_result'].'</h3>';
     echo '<img src="'.$_SESSION['profile_picture'].'" class="img-responsive img-circle img-thumbnail" />';
     echo '<h3><b>Name : </b>'.$_SESSION["first_name"].' '.$_SESSION['last_name']. '</h3>';
     echo '<h3><b>Email :</b> '.$_SESSION['email_address'].'</h3>';
+    echo '<h3><b>oauth_uid :</b> '.$_SESSION['oauth_uid'].'</h3>';
+    echo '<h3><b>gender :</b> '.$_SESSION['gender'].'</h3>';
+    echo '<h3><b>locale :</b> '.$_SESSION['locale'].'</h3>';
+    echo '<h3><b>phone :</b> '.$_SESSION['phone'].'</h3>';
+    //echo '<h3><b>Email :</b> '.$_SESSION['email_address'].'</h3>';
     echo '<h3><a href="index.php?logout">Logout</h3></div>';
+    ?>
 
-   ?>
    </div>
   </div>
  </body>
