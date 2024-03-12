@@ -96,6 +96,40 @@ function checkDuplicateMobile($mobile){
     return $return_data['row'];
 }
 
+// Register new users by adding them to the database.
+function addUser($databaseConnection, $newUser) {
+    // Insert new user into the 'users' table
+    $sql = "INSERT INTO users (oauth_provider, oauth_uid, first_name, last_name, email, gender, locale, picture, created, modified) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    $stmt = $databaseConnection->prepare($sql);
+
+    // Bind parameters
+    $stmt->bind_param(
+        'ssssssssss',
+        $newUser['oauth_provider'],
+        $newUser['oauth_uid'],
+        $newUser['first_name'],
+        $newUser['last_name'],
+        $newUser['email'],
+        $newUser['gender'],
+        $newUser['locale'],
+        $newUser['picture'],
+        $newUser['created'],
+        $newUser['modified']
+    );
+
+    // Execute the statement
+    $stmt->execute();
+    // if ($stmt->execute()) {
+    //     echo "New user added successfully!";
+    // } else {
+    //     echo "Error: " . $stmt->error;
+    // }
+
+    // Close the statement
+    $stmt->close();
+}
 
 
 

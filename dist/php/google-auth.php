@@ -62,24 +62,42 @@ if(isset($_GET["code"]))
 
 
         $email = $user_data["email_address"] ?? "";
+        // Check whether email id exists in database.
+        // If email exists proceed with login process or 2FA
         if (checkDuplicateEmail($email)) 
         {
           echo 'email does exist';
           $_SESSION["msg"] = "Email Id Is Already Registered !";
           $_SESSION["field"] = "email";
-          echo $_SESSION["status"];
 
         }
+
+        // Check whether email id does not exists in database.
+        // If email id does not exist add user to database
         elseif (!checkDuplicateEmail($email)) 
         {
           echo 'email does not exist';
           $_SESSION["msg"] = "Email is not Registered !";
           $_SESSION["field"] = "email";
-          echo $_SESSION["status"];
-
-
           
 
+          // Add user to database
+          // Assuming $databaseConnection is your database connection object
+          $newUser = array(
+            'oauth_provider' => 'google',
+            'oauth_uid' => $data['id'],
+            'first_name' => $data['given_name'],
+            'last_name' => $data['family_name'],
+            'email' => $data['email'],
+            'gender' => $data['gender'],
+            'locale' => $data['locale'],
+            'picture' => $data['picture'],
+            'created' => date('Y-m-d H:i:s'),
+            'modified' => date('Y-m-d H:i:s')
+          );
+
+          // Call the addUser function
+          addUser($databaseConnection, $newUser);
         }
     } 
     else 
