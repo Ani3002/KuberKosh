@@ -6,6 +6,7 @@ require_once 'functions.php';
 
 
 
+
 // Creating client request to google
 $google_client = new Google_Client();
 $google_client->setClientId($ClientId);
