@@ -3,8 +3,7 @@
 require_once 'gOAuth/vendor/autoload.php';
 require_once 'functions.php';
 
-$ClientId='515588955769-sfksdgdcc565sjofiu9gc80k0f506tff.apps.googleusercontent.com';
-$ClientSecret='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';
+
 
 
 // Creating client request to google
