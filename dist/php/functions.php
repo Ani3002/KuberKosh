@@ -131,7 +131,19 @@ function addUser($databaseConnection, $newUser) {
     $stmt->close();
 }
 
-
+function getUserId($oauth_uid){
+    global $databaseConnection;
+    $query = "SELECT user_id FROM users WHERE oauth_uid = '$oauth_uid'";
+    $run = mysqli_query($databaseConnection, $query);
+    $return_data = mysqli_fetch_assoc($run);
+    
+    // Check if a user with the provided OAuth UID exists
+    if ($return_data) {
+        return $return_data['user_id'];
+    } else {
+        return false;
+    }
+}
 
 
 
