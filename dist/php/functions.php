@@ -150,4 +150,87 @@ function getUserId($oauth_uid){
 
 
 
+
+
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+
+// Function to retrieve banks data
+function getBanksData($db) {
+    $banks = array();
+
+    $query = "SELECT regBank_id, bank_name FROM registeredBanks";
+    $result = $db->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $banks[] = array("regBank_id" => $row['regBank_id'], "val" => $row['bank_name']);
+    }
+
+    return $banks;
+}
+
+// Function to retrieve branches data
+function getBranchesData($db) {
+    $branches = array();
+
+    $query = "SELECT regBank_id, brunch_id, brunchLocation FROM bank_brunches";
+    $result = $db->query($query);
+
+    while ($row = $result->fetch_assoc()) {
+        $branches[$row['regBank_id']][] = array("regBank_id" => $row['regBank_id'], "val" => $row['brunchLocation']);
+    }
+
+    return $branches;
+}
+
+
+
+function getIFSC($db, $bankName, $location) {
+    $query = "SELECT bb.ifsc 
+              FROM bank_brunches bb
+              JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
+              WHERE rb.bank_name = '$bankName' AND bb.brunchLocation = '$location'";
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['ifsc'];
+    } else {
+        return ""; // If no IFSC found, return empty string
+    }
+}
+
+function getBankName($db, $regBankId) {
+    $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBankId'";
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['bank_name'];
+    } else {
+        return ""; // If no bank found, return empty string
+    }
+}
+
+function getDefaultAccountNumber($db, $userId) {
+    $query = "SELECT default_account FROM Bank WHERE user_id = '$userId'";
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['default_account'];
+    } else {
+        return ""; // Return empty string if default account not found
+    }
+}
+
+function getBankDetails($db, $userId) {
+    $query = "SELECT * FROM Bank WHERE user_id = '$userId'";
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row; // Return all columns as an associative array
+    } else {
+        return array(); // Return an empty array if no data found
+    }
+}
+
+
+
 ?>

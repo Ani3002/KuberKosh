@@ -2,34 +2,6 @@
 include_once 'php/database.php'; // Include the database.php file
 include "php/google-auth.php";
 
-// Function to retrieve banks data
-function getBanksData($db) {
-    $banks = array();
-
-    $query = "SELECT regBank_id, bank_name FROM registeredBanks";
-    $result = $db->query($query);
-
-    while ($row = $result->fetch_assoc()) {
-        $banks[] = array("regBank_id" => $row['regBank_id'], "val" => $row['bank_name']);
-    }
-
-    return $banks;
-}
-
-// Function to retrieve branches data
-function getBranchesData($db) {
-    $branches = array();
-
-    $query = "SELECT regBank_id, brunch_id, brunchLocation FROM bank_brunches";
-    $result = $db->query($query);
-
-    while ($row = $result->fetch_assoc()) {
-        $branches[$row['regBank_id']][] = array("regBank_id" => $row['regBank_id'], "val" => $row['brunchLocation']);
-    }
-
-    return $branches;
-}
-
 // Establish database connection
 global $databaseConnection;
 
@@ -43,25 +15,15 @@ $branches = getBranchesData($databaseConnection);
 $jsonBanks = json_encode($banks);
 $jsonBranches = json_encode($branches);
 
-
-// Function to retrieve IFSC code based on bank name and location
-function getIFSC($db, $bankName, $location) {
-    $query = "SELECT ifsc FROM bank_brunches WHERE brunchLocation = '$location'";
-    $result = $db->query($query);
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        return $row['ifsc'];
-    } else {
-        return ""; // If no IFSC found, return empty string
-    }
-}
-
-
 // Check if the bank branch form is submitted
-if (isset($_POST['submitBankBranch'])) {
+if (isset($_POST['submitBankSettings'])) {
     // Get the selected bank and branch from the form
-    $selectedBank = $_POST['bank'];
+    // $selectedBank = $_POST['bank'];
+    $selectedBank = getBankName($databaseConnection, $_POST['bank']);
     $selectedBranch = $_POST['branch'];
+
+    $enteredAcountNumber = $_POST['acno'];
+
 
     // Get the IFSC code based on the selected bank and branch
     $ifsc = getIFSC($databaseConnection, $selectedBank, $selectedBranch);
@@ -69,13 +31,28 @@ if (isset($_POST['submitBankBranch'])) {
     // Update the Bank table with the retrieved IFSC code
     $userId = $_SESSION['user_id']; // Works only if a user session exists
 
-    $sql_updateIFSC = "UPDATE Bank SET bank1_IFSC = '$ifsc' WHERE user_id = '$userId'";
+    $sql_updateIFSC = "UPDATE Bank SET bank1_IFSC = '$ifsc', bank1_acno = '$enteredAcountNumber', bank1_name = '$selectedBank' WHERE user_id = '$userId'";
     if (mysqli_query($databaseConnection, $sql_updateIFSC)) {
-        echo '<script>alert("IFSC code updated successfully    user_id:")</script>';
+        echo '<script>alert("IFSC code updated successfully")</script>';
         echo "updated IFSC: " . $userId;
     } else {
         echo "Error updating IFSC: " . mysqli_error($databaseConnection);
     }
+
+
+    $defaultAccount = getDefaultAccountNumber($databaseConnection, $userId);
+
+    // If default account is empty, set bank1_acno as default
+    if (empty($defaultAccount)) {
+
+    // Update the Bank table with the entered account number as the default account
+    $sql_updateDefaultAccount = "UPDATE Bank SET default_account = '$enteredAcountNumber' WHERE user_id = '$userId'";
+    if (mysqli_query($databaseConnection, $sql_updateDefaultAccount)) {
+        echo '<script>alert("Default account updated successfully")</script>';
+    } else {
+        echo "Error updating default account: " . mysqli_error($databaseConnection);
+    }
+}    
 }
 ?>
 
@@ -261,10 +238,17 @@ if (isset($_POST['submitBankBranch'])) {
         </div>
 
         <div id="bankSettings" class="tabcontent">
-            <h3>Register your Bank</h3>
-            <p>Select your Bank name and Bank Branch</p>
+            <h3>Linked Accounts</h3>
+
+            <div>
+                
+            </div>
+
+            <h3>Link New Bank to KuberKosh</h3>
+            
             <form method="post" action="">
-                <div>
+                <div id="selectIFSC">
+                <p>Select your Bank name and Bank Branch:</p>
                     <select id='bankSelect' name="bank">
                     </select>
 
@@ -272,7 +256,11 @@ if (isset($_POST['submitBankBranch'])) {
                     </select>
                     <input type="text" name="ifsc" id="ifscInput" placeholder="Enter IFSC Manually">
                 </div>
-                <input type="submit" name="submitBankBranch" value="Submit">
+                <div id="selectACNO">
+                <p>Enter your bank account number:</p>
+                    <input type="text" name="acno" id="acnoInput" placeholder="Enter Bank Account Number">
+                </div>
+                <input type="submit" name="submitBankSettings" value="Submit">
             </form>
         </div>
 
@@ -305,7 +293,7 @@ if (isset($_POST['submitBankBranch'])) {
         function showSettingsDetails(evt, settingsName) 
         {
             if (settingsName === "bankSettings") {
-                loadBanksBranches();
+                loadBanks();
             }
             // Declare all variables
             var i, tabcontent, tablinks;
@@ -328,14 +316,14 @@ if (isset($_POST['submitBankBranch'])) {
             evt.currentTarget.className += " active";
         }
         
-        function loadBanksBranches() {
+        function loadBanks() {
             var select = document.getElementById("bankSelect");
             select.onchange = updateBranches;
 
             // Add default "Select Bank" option
             select.options[0] = new Option("Select Bank", "");
-            select.options[0].disabled = true;
-            select.options[0].selected = true;
+            // select.options[0].disabled = true;
+            // select.options[0].selected = true;
 
             for (var i = 0; i < banks.length; i++) {
                 select.options[i + 1] = new Option(banks[i].val, banks[i].regBank_id);
@@ -352,8 +340,8 @@ if (isset($_POST['submitBankBranch'])) {
 
             // Add default "Select Location" option
             branchSelect.options[0] = new Option("Select Location", "");
-            branchSelect.options[0].disabled = true;
-            branchSelect.options[0].selected = true;
+            // branchSelect.options[0].disabled = true;
+            // branchSelect.options[0].selected = true;
 
             for (var i = 0; i < branches[bankid].length; i++) {
                 branchSelect.options[i + 1] = new Option(branches[bankid][i].val, branches[bankid][i].branch_id);
