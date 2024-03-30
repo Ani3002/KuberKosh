@@ -32,13 +32,13 @@ function validateUser($user_data)
     $first_name = $user_data["first_name"] ?? "";
     $last_name = $user_data["last_name"] ?? "";
     $email = $user_data["email_address"] ?? "";
-    
+
     $return_data = [
         "status" => true,
         "msg" => "all fields are perfect",
     ];
 
-    
+
     if (!$oauth_uid) {
         $return_data["status"] = false;
         $return_data["msg"] = "oauth_uid is blank";
@@ -75,29 +75,32 @@ function validateUser($user_data)
     //     $return_data["field"] = "mobile";
     // }
 
-        return $return_data;
+    return $return_data;
 }
 
 //for checking email id is already registered or not
-function checkDuplicateEmail($email){
+function checkDuplicateEmail($email)
+{
     global $databaseConnection;
-    $query="SELECT COUNT(*) as row FROM users WHERE email='$email'";
-    $run = mysqli_query($databaseConnection,$query);
+    $query = "SELECT COUNT(*) as row FROM users WHERE email='$email'";
+    $run = mysqli_query($databaseConnection, $query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
 }
 
 //for checking email id is already registered or not
-function checkDuplicateMobile($mobile){
+function checkDuplicateMobile($mobile)
+{
     global $databaseConnection;
-    $query="SELECT COUNT(*) as row FROM users WHERE mobile='$mobile'";
-    $run = mysqli_query($databaseConnection,$query);
+    $query = "SELECT COUNT(*) as row FROM users WHERE mobile='$mobile'";
+    $run = mysqli_query($databaseConnection, $query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
 }
 
 // Register new users by adding them to the database.
-function addUser($databaseConnection, $newUser) {
+function addUser($databaseConnection, $newUser)
+{
     // Insert new user into the 'users' table
     $sql = "INSERT INTO users (oauth_provider, oauth_uid, first_name, last_name, email, gender, locale, picture, created, modified) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -131,12 +134,13 @@ function addUser($databaseConnection, $newUser) {
     $stmt->close();
 }
 
-function getUserId($oauth_uid){
+function getUserId($oauth_uid)
+{
     global $databaseConnection;
     $query = "SELECT user_id FROM users WHERE oauth_uid = '$oauth_uid'";
     $run = mysqli_query($databaseConnection, $query);
     $return_data = mysqli_fetch_assoc($run);
-    
+
     // Check if a user with the provided OAuth UID exists
     if ($return_data) {
         return $return_data['user_id'];
@@ -154,8 +158,9 @@ function getUserId($oauth_uid){
 
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
 
-// Function to retrieve banks data
-function getBanksData($db) {
+// Function to retrieve bank_name and regBank_id from table registeredBanks
+function getRegisteredBanksIdAndName($db)
+{
     $banks = array();
 
     $query = "SELECT regBank_id, bank_name FROM registeredBanks";
@@ -168,8 +173,9 @@ function getBanksData($db) {
     return $banks;
 }
 
-// Function to retrieve branches data
-function getBranchesData($db) {
+// Function to retrieve branches data from table bank_brunches
+function getBranchesIdLocationIfscAndFKregBankId($db)
+{
     $branches = array();
 
     $query = "SELECT regBank_id, brunch_id, brunchLocation FROM bank_brunches";
@@ -183,8 +189,9 @@ function getBranchesData($db) {
 }
 
 
-
-function getIFSC($db, $bankName, $location) {
+// Function to retrieve IFSC with the Bank name and the Location
+function getIFSC($db, $bankName, $location)
+{
     $query = "SELECT bb.ifsc 
               FROM bank_brunches bb
               JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
@@ -198,8 +205,10 @@ function getIFSC($db, $bankName, $location) {
     }
 }
 
-function getBankName($db, $regBankId) {
-    $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBankId'";
+// Function to retrieve BankName with the regBank_id
+function getBankName($db, $regBank_id)
+{
+    $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBank_id'";
     $result = $db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -209,7 +218,9 @@ function getBankName($db, $regBankId) {
     }
 }
 
-function getDefaultAccountNumber($db, $userId) {
+// Function to retrieve Default Account Number with the userId
+function getDefaultAccountNumber($db, $userId)
+{
     $query = "SELECT default_account FROM Bank WHERE user_id = '$userId'";
     $result = $db->query($query);
     if ($result && $result->num_rows > 0) {
@@ -220,7 +231,8 @@ function getDefaultAccountNumber($db, $userId) {
     }
 }
 
-function getBankDetails($db, $userId) {
+function getBankDetails($db, $userId)
+{
     $query = "SELECT * FROM Bank WHERE user_id = '$userId'";
     $result = $db->query($query);
     if ($result && $result->num_rows > 0) {
@@ -231,6 +243,17 @@ function getBankDetails($db, $userId) {
     }
 }
 
-
+// Function to fetches bankUserId using the userId from the bank table
+function getBankUserId($db, $userId)
+{
+    $query = "SELECT bank_user_id FROM Bank WHERE user_id ='$userId'";
+    $result = $db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['bank_user_id'];
+    } else {
+        return "";
+    }
+}
 
 ?>
