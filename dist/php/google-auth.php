@@ -1,6 +1,6 @@
 <?php
 
-require_once 'gOAuth/vendor/autoload.php';
+include 'gOAuth/vendor/autoload.php';
 require_once 'functions.php';
 
 $ClientId='515588955769-sfksdgdcc565sjofiu9gc80k0f506tff.apps.googleusercontent.com';
@@ -45,6 +45,7 @@ if(isset($_GET["code"]))
 
     $validation_result = validateUser($user_data);
 
+    // If validation_result status===true
     if ($validation_result["status"]) 
     {
         // The data is valid, proceed with your application logic
@@ -83,7 +84,6 @@ if(isset($_GET["code"]))
           
 
           // Add user to database
-          // Assuming $databaseConnection is your database connection object
           $newUser = array(
             'oauth_provider' => 'google',
             'oauth_uid' => $data['id'],
@@ -101,6 +101,7 @@ if(isset($_GET["code"]))
           addUser($databaseConnection, $newUser);
         }
     } 
+    // If validation_result status===false
     else 
     {
         // The data is invalid, handle the error

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Apr 08, 2024 at 02:47 AM
+-- Generation Time: Apr 08, 2024 at 02:48 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -24,53 +24,56 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Bank`
+-- Table structure for table `bank_accounts`
 --
 
-CREATE TABLE `Bank` (
+CREATE TABLE `bank_accounts` (
+  `bank_account_id` int(11) NOT NULL,
   `bank_user_id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `default_bank_account_id` int(11) DEFAULT NULL
+  `account_number` varchar(30) NOT NULL,
+  `ifsc_code` varchar(11) NOT NULL,
+  `bank_name` varchar(30) NOT NULL,
+  `account_balance` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Bank`
+-- Dumping data for table `bank_accounts`
 --
 
-INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_bank_account_id`) VALUES
-(4, 7, 20),
-(8, 9, NULL);
+INSERT INTO `bank_accounts` (`bank_account_id`, `bank_user_id`, `account_number`, `ifsc_code`, `bank_name`, `account_balance`) VALUES
+(20, 4, '53222', 'GDB0WF42845', 'Iron Bank', 0),
+(21, 4, '8768978', 'GDB0WF42845', 'Bank of Tyrell', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `Bank`
+-- Indexes for table `bank_accounts`
 --
-ALTER TABLE `Bank`
-  ADD PRIMARY KEY (`bank_user_id`),
-  ADD KEY `addForeignKey` (`user_id`);
+ALTER TABLE `bank_accounts`
+  ADD PRIMARY KEY (`bank_account_id`),
+  ADD KEY `fk` (`bank_user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `Bank`
+-- AUTO_INCREMENT for table `bank_accounts`
 --
-ALTER TABLE `Bank`
-  MODIFY `bank_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `bank_accounts`
+  MODIFY `bank_account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `Bank`
+-- Constraints for table `bank_accounts`
 --
-ALTER TABLE `Bank`
-  ADD CONSTRAINT `addForeignKey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `bank_accounts`
+  ADD CONSTRAINT `fk` FOREIGN KEY (`bank_user_id`) REFERENCES `Bank` (`bank_user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

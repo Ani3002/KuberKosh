@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once "database.php";
-require_once "google-auth.php";
+// require_once "google-auth.php";
 
 // require_once "../../db/kuberkosh_db.sql";
 
@@ -159,12 +159,12 @@ function getUserId($oauth_uid)
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
 
 // Function to retrieve bank_name and regBank_id from table registeredBanks
-function getRegisteredBanksIdAndName($db)
+function getRegisteredBanksIdAndName($databaseConnection)
 {
     $banks = array();
 
     $query = "SELECT regBank_id, bank_name FROM registeredBanks";
-    $result = $db->query($query);
+    $result = $databaseConnection->query($query);
 
     while ($row = $result->fetch_assoc()) {
         $banks[] = array("regBank_id" => $row['regBank_id'], "val" => $row['bank_name']);
@@ -174,12 +174,12 @@ function getRegisteredBanksIdAndName($db)
 }
 
 // Function to retrieve branches data from table bank_brunches
-function getBranchesIdLocationIfscAndFKregBankId($db)
+function getBranchesIdLocationIfscAndFKregBankId($databaseConnection)
 {
     $branches = array();
 
     $query = "SELECT regBank_id, brunch_id, brunchLocation FROM bank_brunches";
-    $result = $db->query($query);
+    $result = $databaseConnection->query($query);
 
     while ($row = $result->fetch_assoc()) {
         $branches[$row['regBank_id']][] = array("regBank_id" => $row['regBank_id'], "val" => $row['brunchLocation']);
@@ -190,13 +190,16 @@ function getBranchesIdLocationIfscAndFKregBankId($db)
 
 
 // Function to retrieve IFSC with the Bank name and the Location
-function getIFSC($db, $bankName, $location)
+function getIFSC($databaseConnection, $bankName, $location)
 {
+    // $query = "SELECT bb.ifsc 
+    //           FROM bank_brunches bb
+    //           JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
+    //           WHERE rb.bank_name = '$bankName' AND bb.brunchLocation = '$location'";
     $query = "SELECT bb.ifsc 
-              FROM bank_brunches bb
-              JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
-              WHERE rb.bank_name = '$bankName' AND bb.brunchLocation = '$location'";
-    $result = $db->query($query);
+                FROM bank_brunches bb
+                WHERE bb.brunch_id = '1' AND bb.brunchLocation = 'Winterfell'";
+    $result = $databaseConnection->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['ifsc'];
@@ -206,10 +209,10 @@ function getIFSC($db, $bankName, $location)
 }
 
 // Function to retrieve BankName with the regBank_id
-function getBankName($db, $regBank_id)
+function getBankName($databaseConnection, $regBank_id)
 {
     $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBank_id'";
-    $result = $db->query($query);
+    $result = $databaseConnection->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['bank_name'];
@@ -219,22 +222,61 @@ function getBankName($db, $regBank_id)
 }
 
 // Function to retrieve Default Account Number with the userId
-function getDefaultAccountNumber($db, $userId)
+function getDefaultBankAccountId($databaseConnection, $userId)
 {
-    $query = "SELECT default_account FROM Bank WHERE user_id = '$userId'";
-    $result = $db->query($query);
+    $query = "SELECT default_bank_account_id FROM Bank WHERE user_id = '$userId'";
+    $result = $databaseConnection->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        return $row['default_account'];
+        return $row['default_bank_account_id'];
     } else {
         return ""; // Return empty string if default account not found
     }
 }
 
-function getBankDetails($db, $userId)
+function getBankAccountId($databaseConnection, $bankUserId)
 {
-    $query = "SELECT * FROM Bank WHERE user_id = '$userId'";
-    $result = $db->query($query);
+    $query = "SELECT bank_account_id FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
+    $result = $databaseConnection->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['bank_account_id']; // Return only the bank_account_id // Return all columns as an associative array
+    } else {
+        // return array(); // Return an empty array if no data found
+        return "fgf";
+    }
+}
+
+// Update Default account ID
+function updateDefaultBankAccountId($databaseConnection, $bankAccountId, $userId){
+    $sql_updateDefaultBankAccountId = "UPDATE Bank SET default_bank_account_id = $bankAccountId WHERE user_id = $userId";
+        if (mysqli_query($databaseConnection, $sql_updateDefaultBankAccountId)) {
+            echo '<script>alert("Default account updated successfully")</script>';
+        } else {
+            echo "Error updating default account: " . mysqli_error($databaseConnection);
+        }
+}
+
+// Function to fetch bank account IDs for a given bank user ID
+function getBankAccountDetails($databaseConnection, $bankUserId)
+{
+    $query = "SELECT * FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
+    $result = $databaseConnection->query($query);
+    $accounts = array();
+    if ($result && $result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $accounts[] = $row;
+        }
+    }
+    return $accounts;
+}
+
+
+ // Function to fetch walletDetails using the user_id fron the wallet table
+function getWalletDetails($databaseConnection, $userId)
+{
+    $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
+    $result = $databaseConnection->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row; // Return all columns as an associative array
@@ -243,11 +285,12 @@ function getBankDetails($db, $userId)
     }
 }
 
+
 // Function to fetches bankUserId using the userId from the bank table
-function getBankUserId($db, $userId)
+function getBankUserId($databaseConnection, $userId)
 {
     $query = "SELECT bank_user_id FROM Bank WHERE user_id ='$userId'";
-    $result = $db->query($query);
+    $result = $databaseConnection->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['bank_user_id'];
@@ -255,5 +298,56 @@ function getBankUserId($db, $userId)
         return "";
     }
 }
+
+
+function insertWalletAddress($databaseConnection, $userId, $walletAddress) {
+    // Escape the inputs to prevent SQL injection
+    $userId = $databaseConnection->real_escape_string($userId);
+    $walletAddress = $databaseConnection->real_escape_string($walletAddress);
+
+    // Construct the SQL query
+    $query = "INSERT INTO wallet (user_id, wallet_address) VALUES ('$userId', '$walletAddress')";
+
+    // Execute the query
+    $result = $databaseConnection->query($query);
+
+    if ($result) {
+        // Insertion successful
+        return true;
+    } else {
+        // Insertion failed
+        // Handle errors accordingly
+        // For simplicity, let's just return false here
+        return false;
+    }
+}
+
+
+
+
+
+// Function to check if the wallet address is valid
+// function isValidWalletAddress($databaseConnection, $walletAddress) {
+//     // Escape the wallet address to prevent SQL injection
+//     $walletAddress = $databaseConnection->real_escape_string($walletAddress);
+
+//     // Query to check if the wallet address already exists in the database
+//     $query = "SELECT COUNT(*) AS count FROM wallet WHERE wallet_address = '$walletAddress'";
+//     $result = $databaseConnection->query($query);
+
+//     // Check if the query was successful
+//     if ($result) {
+//         $row = $result->fetch_assoc();
+//         $count = $row['count'];
+
+//         // If count is 0, the wallet address is available
+//         return $count == 0;
+//     } else {
+//         // Handle query error
+//         // For simplicity, return false here
+//         return false;
+//     }
+// }
+
 
 ?>

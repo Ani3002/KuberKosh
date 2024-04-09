@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Mar 24, 2024 at 12:53 PM
+-- Generation Time: Apr 08, 2024 at 02:48 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -31,8 +31,16 @@ CREATE TABLE `wallet` (
   `wallet_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `wallet_address` varchar(50) NOT NULL,
-  `wallet_pin` int(6) NOT NULL
+  `wallet_pin` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `wallet`
+--
+
+INSERT INTO `wallet` (`wallet_id`, `user_id`, `wallet_address`, `wallet_pin`) VALUES
+(1, 9, 'routhanirban1@kkosh', NULL),
+(2, 7, 'routhanirban9655@kkosh', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a');
 
 --
 -- Indexes for dumped tables
@@ -53,7 +61,7 @@ ALTER TABLE `wallet`
 -- AUTO_INCREMENT for table `wallet`
 --
 ALTER TABLE `wallet`
-  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
