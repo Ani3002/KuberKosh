@@ -32,6 +32,8 @@
     echo '<h3><b>oauth_uid :</b> '.$_SESSION['oauth_uid'].'</h3>';
     echo '<h3><b>gender :</b> '.$_SESSION['gender'].'</h3>';
     echo '<h3><b>locale :</b> '.$_SESSION['locale'].'</h3>';
+    echo '<h3><b>user_id :</b> '.$_SESSION['user_id'].'</h3>';
+
     // echo '<h3><b>phone :</b> '.$_SESSION['phone'].'</h3>';
     //echo '<h3><b>Email :</b> '.$_SESSION['email_address'].'</h3>';
     echo '<h3><a href="index.php?logout">Logout</h3></div>';

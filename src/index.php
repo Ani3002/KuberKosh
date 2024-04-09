@@ -25,3 +25,11 @@ elseif(isset($_GET['logout'])){
     // for dashboard page
         viewPage('logout');
 }
+elseif(isset($_GET['settings'])){
+    // for send money page
+        viewPage('settings');
+}
+elseif(isset($_GET['send'])){
+    // for send money page
+        viewPage('sendMoney');
+}
