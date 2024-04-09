@@ -25,3 +25,8 @@ credentials.txt
 src.zip
 node_modules
 Link to bootstrap
+
+
+.gitignore
+
+src.zip
