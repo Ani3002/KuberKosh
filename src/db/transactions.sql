@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Apr 08, 2024 at 02:47 AM
+-- Generation Time: Apr 08, 2024 at 02:48 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -24,53 +24,21 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Bank`
+-- Table structure for table `transactions`
 --
 
-CREATE TABLE `Bank` (
-  `bank_user_id` int(11) NOT NULL,
+CREATE TABLE `transactions` (
+  `tr_id` varchar(20) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `default_bank_account_id` int(11) DEFAULT NULL
+  `wallet_address` varchar(50) NOT NULL,
+  `to_wallet_id` int(11) NOT NULL,
+  `from_wallet_id` int(11) NOT NULL,
+  `amount` int(6) NOT NULL,
+  `to_bank_account_id` int(11) NOT NULL,
+  `from_bank_account_id` int(11) NOT NULL,
+  `remark` varchar(60) NOT NULL,
+  `purpose` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `Bank`
---
-
-INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_bank_account_id`) VALUES
-(4, 7, 20),
-(8, 9, NULL);
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `Bank`
---
-ALTER TABLE `Bank`
-  ADD PRIMARY KEY (`bank_user_id`),
-  ADD KEY `addForeignKey` (`user_id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `Bank`
---
-ALTER TABLE `Bank`
-  MODIFY `bank_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `Bank`
---
-ALTER TABLE `Bank`
-  ADD CONSTRAINT `addForeignKey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

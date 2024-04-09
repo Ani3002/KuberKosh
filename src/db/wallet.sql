@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Apr 08, 2024 at 02:47 AM
+-- Generation Time: Apr 08, 2024 at 02:48 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -24,53 +24,54 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Bank`
+-- Table structure for table `wallet`
 --
 
-CREATE TABLE `Bank` (
-  `bank_user_id` int(11) NOT NULL,
+CREATE TABLE `wallet` (
+  `wallet_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `default_bank_account_id` int(11) DEFAULT NULL
+  `wallet_address` varchar(50) NOT NULL,
+  `wallet_pin` varchar(64) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `Bank`
+-- Dumping data for table `wallet`
 --
 
-INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_bank_account_id`) VALUES
-(4, 7, 20),
-(8, 9, NULL);
+INSERT INTO `wallet` (`wallet_id`, `user_id`, `wallet_address`, `wallet_pin`) VALUES
+(1, 9, 'routhanirban1@kkosh', NULL),
+(2, 7, 'routhanirban9655@kkosh', 'bcb15f821479b4d5772bd0ca866c00ad5f926e3580720659cc80d39c9d09802a');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `Bank`
+-- Indexes for table `wallet`
 --
-ALTER TABLE `Bank`
-  ADD PRIMARY KEY (`bank_user_id`),
-  ADD KEY `addForeignKey` (`user_id`);
+ALTER TABLE `wallet`
+  ADD PRIMARY KEY (`wallet_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `Bank`
+-- AUTO_INCREMENT for table `wallet`
 --
-ALTER TABLE `Bank`
-  MODIFY `bank_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+ALTER TABLE `wallet`
+  MODIFY `wallet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `Bank`
+-- Constraints for table `wallet`
 --
-ALTER TABLE `Bank`
-  ADD CONSTRAINT `addForeignKey` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
+ALTER TABLE `wallet`
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: Apr 08, 2024 at 02:47 AM
+-- Generation Time: Mar 13, 2024 at 07:57 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -30,16 +30,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `Bank` (
   `bank_user_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `default_bank_account_id` int(11) DEFAULT NULL
+  `default_account` varchar(11) NOT NULL,
+  `bank1_IFSC` varchar(11) DEFAULT NULL,
+  `bank1_accno` int(15) DEFAULT NULL,
+  `bank1_name` varchar(30) DEFAULT NULL,
+  `bank1_accbal` int(15) NOT NULL DEFAULT 50000,
+  `bank2_IFSC` varchar(11) DEFAULT NULL,
+  `bank2_accno` int(15) DEFAULT NULL,
+  `bank2_name` varchar(30) DEFAULT NULL,
+  `bank2_accbal` int(15) NOT NULL DEFAULT 50000
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `Bank`
 --
 
-INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_bank_account_id`) VALUES
-(4, 7, 20),
-(8, 9, NULL);
+INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_account`, `bank1_IFSC`, `bank1_accno`, `bank1_name`, `bank1_accbal`, `bank2_IFSC`, `bank2_accno`, `bank2_name`, `bank2_accbal`) VALUES
+(1, 7, '123456789', 'CBIN0R40012', 123456789, 'UBKGB', 50000, NULL, NULL, NULL, 50000);
 
 --
 -- Indexes for dumped tables
@@ -60,7 +67,7 @@ ALTER TABLE `Bank`
 -- AUTO_INCREMENT for table `Bank`
 --
 ALTER TABLE `Bank`
-  MODIFY `bank_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `bank_user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
