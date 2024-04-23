@@ -31,5 +31,26 @@ elseif(isset($_GET['settings'])){
 }
 elseif(isset($_GET['send'])){
     // for send money page
-        viewPage('sendMoney');
+        viewPage('sendMoneyPart1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('sendMoneyPart2');
+}
+elseif(isset($_GET['send-verify'])){
+    // for send money page
+        viewPage('sendMoneyVerify1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('sendMoneyVerify2');
+}
+elseif(isset($_GET['send-confirm'])){
+    // for send money page
+        viewPage('sendMoneyConfirmation1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('sendMoneyConfirmation2');
+}
+elseif(isset($_GET['test'])){
+    // for send money page
+        viewPage('test');
 }
