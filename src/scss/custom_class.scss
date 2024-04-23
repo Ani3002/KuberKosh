@@ -1,9 +1,29 @@
 body{
 
-    //Universal
-    //Universal
-    //Universal
-    //Universal
+
+
+    //  test
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+
     font-family: 'Inter', sans-serif;
 
     .font-weight-600{
@@ -22,17 +42,68 @@ body{
         color: rgb(182, 177, 177);
     }
 
+    .align-to-center{
+        align-items: center;
+    }
+
+    .position-absolute{
+        position: absolute;
+    }
+    .card{
+        color: #FFF;
+        border-radius: 1rem;
+        // opacity: .6;
+        background: #1c1c1c99;
+        backdrop-filter: blur(10px);
+        
+        width: 40rem;
+        height: 30.5rem;
+        flex-shrink: 0;
+    }
+    .bg-img{
+        height:100vh;
+        width:100vw;
+        object-fit: cover;
+        /* filter: brightness(0.8); */
+        position: absolute;
+    }
+
+    .navbardiv{
+        position: absolute;
+        min-height: 100vh;
+        /* width: 100%;
+        overflow: hidden;
+        transition: all 0.35s ease-in-out; */
+    }
+    #verified_name{
+        color: #4ECB71;
+        text-align: center;
+        font-family: Inter;
+        font-size: 1rem;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+
+    }
+    #verified_wallet-address{
+        color: var(--background-mode, #FFF);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+    }
 
 
 
-    
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
 
-
-
-    //Landing page
-    //Landing page
-    //Landing page
-    //Landing page
 
 
     nav
@@ -85,11 +156,23 @@ body{
 
 
 
-    //Auth page
-    //Auth page
-    //Auth page
-    //Auth page
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
 
+
+
+
+    .bg-img{
+        height:100vh;
+        width:100vw;
+        object-fit: cover;
+        // filter: brightness(0.8);
+        // position: absolute;
+    }
     .auth-form{
         // background-color: rgba(72, 72, 72, 0.7);
         border-radius: 1.25rem;
@@ -249,4 +332,533 @@ body{
 
 
 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    // ::after,
+    // ::before {
+    //     box-sizing: border-box;
+    //     margin: 0;
+    //     padding: 0;
+    // }
+
+
+
+
+    .sidebar-attribute {
+        text-decoration: none;
+    }
+
+    // li {
+    //     list-style: none;
+    // }
+
+    // h1 {
+    //     font-weight: 600;
+    //     font-size: 1.5rem;
+    // }
+
+
+
+
+    // body {
+    //     font-family: 'Poppins', sans-serif;
+    // }
+
+    .wrapper {
+        display: flex;
+    }
+
+    .main {
+        min-height: 100vh;
+        width: 100%;
+        overflow: hidden;
+        transition: all 0.35s ease-in-out;
+        background-color: #fafbfe;
+    }
+
+    #sidebar {
+        width: 70px;
+        min-width: 70px;
+        z-index: 1000;
+        transition: all .25s ease-in-out;
+        // background-color: #0e2238;
+        background-color: #ff000000;
+        display: flex;
+        flex-direction: column;
+    }
+
+    #sidebar.expand {
+        width: 260px;
+        min-width: 260px;
+    }
+
+    .sidebar .toggle-btn {
+        background-color: transparent;
+        cursor: pointer;
+        border: 0;
+        padding: 1rem 1.5rem;
+    }
+
+    .sidebar .toggle-btn i {
+        font-size: 1.5rem;
+        color: #ffffff;
+    }
+
+    .sidebar-logo {
+        margin: auto 0;
+    }
+
+    .sidebar-logo a {
+        color: #FFF;
+        font-size: 1.15rem;
+        font-weight: 600;
+    }
+
+    #sidebar:not(.expand) .sidebar-logo,
+    #sidebar:not(.expand) a.sidebar-link span {
+        display: none;
+    }
+
+    .sidebar-nav {
+        padding: 2rem 0;
+        flex: 1 1 auto;
+    }
+
+    a.sidebar-link {
+        padding: .625rem 1.625rem;
+        color: #FFF;
+        display: block;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        border-left: 3px solid transparent;
+    }
+
+    .sidebar-link i {
+        font-size: 1.1rem;
+        margin-right: .75rem;
+    }
+
+    a.sidebar-link:hover {
+        background-color: rgba(255, 255, 255, 0.187);
+        border-left: 3px solid #3b7ddd;
+    }
+
+    
+    .sidebar-item {
+        position: relative;
+    }    #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+        position: absolute;
+        top: 0;
+        left: 70px;
+        // background-color: #0e2238;
+        background-color: #0eff02;
+        padding: 0;
+        min-width: 15rem;
+        display: none;
+    }
+
+    #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+        display: block;
+        max-height: 15em;
+        width: 100%;
+        opacity: 1;
+    }
+
+    #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+        border: solid;
+        border-width: 0 .075rem .075rem 0;
+        content: "";
+        display: inline-block;
+        padding: 2px;
+        position: absolute;
+        right: 1.5rem;
+        top: 1.4rem;
+        transform: rotate(-135deg);
+        transition: all .2s ease-out;
+    }
+
+    #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+        transform: rotate(45deg);
+        transition: all .2s ease-out;
+    }
+
+
+
+
+
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+
+
+    .btn-language{
+        padding-top: .8%;
+        // align-items: center;
+    }
+
+    .notification-icon{
+        padding-top: .5%;
+        padding-left: 3%;
+        padding-right: 3%;
+        align-items: center;
+    }
+
+    .user-name{
+        padding-top: 0%;
+        margin-top: 0.8%;
+        margin-right: 1%;
+        color: #ffffff;
+    }
+
+    .container{
+        padding-right: 0%;
+        margin-right: 15px;
+    }
+
+    .collapse{
+        margin-right: 30.734;
+        // width; 
+    }
+
+    .receiver-profile-pic{
+        margin-top: 2.5%;
+    }
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+
+
+
+      /* Actual code example */
+      
+      $primary-color: #b11adc;
+      $animation-duration: 0.4s;
+      
+      @mixin label-inactive() {
+        font-size: 1.2rem;
+        transform: translateY(0);
+      }
+      
+      @mixin label-active() {
+        font-size: 0.75rem;
+        transform: translateY(-14px);
+      }
+      
+      .form-field__label {
+        @include label-active();
+        // display: block;
+        left: 0;
+        margin: 0;
+        padding: 18px 12px 0;
+        position: absolute;
+        top: 0;
+        transition: all $animation-duration;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+
+        color: rgba(255, 255, 255, 0.35);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-transform: capitalize;
+      }
+    .form-field__label2 {
+        @include label-active();
+        // display: block;
+        left: 0;
+        margin: 0;
+        padding: 12px 12px 0;
+        position: absolute;
+        top: 0;
+        transition: all $animation-duration;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        flex-shrink: 0;
+
+        color: rgba(255, 255, 255, 0.35);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+        text-transform: capitalize;
+      }
+
+
+      .form-field__control {
+        // background: #a068d4;
+        // border-radius: 8px 8px 8px 8px;
+        overflow: hidden;
+        position: relative;
+        width: 500px;
+
+        border-radius: 0.625rem;
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        background: rgba(255, 255, 255, 0.05);
+
+      }
+      .form-field__input,
+      .form-field__textarea {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        // border-bottom: 1px solid #999;
+        // color: #ffffff;
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 24px;
+        outline: 0;
+        padding: 0 12px 10px 12px;
+        width: 100%;
+
+
+
+        color: var(--background-mode, #FFF);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+      }
+      .form-field__input2,
+      .form-field__textarea {
+        appearance: none;
+        background: transparent;
+        border: 0;
+        // border-bottom: 1px solid #999;
+        // color: #ffffff;
+        display: block;
+        font-size: 1.2rem;
+        margin-top: 18px;
+        outline: 0;
+        padding: 0 12px 10px 12px;
+        width: 100%;
+
+
+
+        color: var(--background-mode, #FFF);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;
+
+      }
+
+
+    //   #money_sending_address_div{
+    //     padding-bottom: 15px;
+    //     border: 1px solid rgba(255, 255, 255, 0.10); 
+    //   }
+
+      #money_send_amount_div{
+        padding-top: 20px;
+      }
+
+      #money_send_currency_span{
+        color: var(--background-mode, #FFF);
+        font-family: Inter;
+        font-size: 1.25rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        text-transform: capitalize;
+
+        border-right-color: #ffffff00;
+        border-radius: 10px 0 0 10px;
+        border: 1px solid rgba(255, 255, 255, 0.10); 
+        background: rgba(255, 255, 255, 0.05);
+      }
+      #inr_logo{
+        padding: 0 3px 0 0;
+      }
+      #money_send_amount_input{
+        border-left: #ffffff00;
+        border-radius: 0 10px  10px 0;
+        border: 1px solid rgba(255, 255, 255, 0.10); 
+        background: rgba(255, 255, 255, 0.05);
+
+      }
+      #dropdown_purpose_div{
+        padding: 0px 0 20px 0;
+      }
+      #dropdown_purpose_button_a{
+        height: 40px;
+        width: 500px;
+        // margin: 0 0 3px 11px;
+        // padding: 0 0 0 0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.10); 
+      }
+      #dropdown_purpose_button_ul{
+        // height: 40px;
+        color: #ffffff;
+        width: 500px;
+        // margin: 0 0 3px 11px;
+        // padding: 0 0 0 0;
+        background: rgb(182, 182, 182);
+        border: 1px solid rgba(255, 255, 255, 0.10); 
+      }
+      #money_send_btn{
+        margin: 20px 200px 0 200px;
+        width: 100px;
+      }
+      #money_send_address_verify_span{
+        background: #ffffff00;
+        border-color: #ffffff00;
+        padding: 0 0 0 0;
+        height: 40px;
+        margin: -8.5% 0 0 87%;
+      }
+
+
+
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+
+
+
+
+    .goodluckdubugingit65446453{
+      width: 225px; height:40px; margin: -25px 10px 0 10px;
+    }
+
+    .goodluckdubugingit65546542{
+        width: 225px; height:40px; margin: -25px  0 0 10px;
+    }
+
+    .idkwhattonameit34645{
+        margin: 15px 174px 0 174px;
+        width: 154px;
+    }
+    .forgot-pin{
+        margin: -10px 0 0 0;
+        padding: auto;
+        font-size: 10px;
+        color: #29b5ff;
+        text-decoration: none;
+    
+    }
+    .enter-pin-text{
+    
+        font-size: 10px;
+    }
+    /* style.css */
+    #pin-input-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 50px;
+        padding: 10px 0 0 0;
+        /* min-height: 100vh; */
+    }
+    
+    .input {
+        color: #fff;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: #ffffff00;
+        border-bottom: 2px solid rgba(41,181,255);
+        margin: 0 5px;
+        text-align: center;
+        font-size: 26px;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+    
+    .input:focus {
+        border-bottom: 2px solid rgba(10,187,146);
+        outline: none;
+    }
+    
+    
+    
+    .input:nth-child(1) {
+        cursor: pointer;
+        pointer-events: all;
+    }
+    
+
+
+
+
+    // Confirmation Card 
+
+    .trnx_confirm_amnt{
+        
+        padding: 25px 0 0 0px;
+        color: rgba(255, 255, 255, 0.80);
+        font-family: Inter;
+        font-size: 2rem;
+        font-style: normal;
+        font-weight: 600;
+        line-height: normal;
+        text-transform: capitalize;
+    }
+    #dwnld_receipt_btn_div{
+        border-top-width: 150px;
+        margin-top: 150px;
+    }
+    #share_icon{
+        position: absolute;
+        margin: 15px 174px 0 174px;
+        // width: 184px;
+        width: 40px;
+        top: 396px;
+        left: 250px;
+    }
 }
