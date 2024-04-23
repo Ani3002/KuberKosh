@@ -1,13 +1,15 @@
-// Body already started in sendMoneyPart1.php
-// Background Image Added
-// Collapsable Side Bar will be inserted here through index.php
+ <!-- Body already started in sendMoneyPart1.php -->
+ <!-- Background Image Added -->
+ <!-- Collapsable Side Bar will be inserted here through index.php -->
 
 
 <div class="card align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%;">
-  <img src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
-  
-  <h5 class="" id="verified_name">Name</h5>
-  <h5 class="" id="verified_wallet-address">walletaddress@kkosh</h5>
+  <!-- <img src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px"> -->
+  <?php
+    echo '<img src="' . $_SESSION['profile_picture'] . '" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px" />';
+    echo '<h5 class="" id="verified_name">' . $_SESSION["first_name"] . ' ' . $_SESSION['last_name'] . '</h5>';
+    echo '<h5 class="" id="verified_wallet-address"> walletaddress@kkosh </h5>'//. $reseiversAddress['receivers_address']. '</h5>';
+  ?>
 
   <form action="" class = "card-form align-to-center" style="margin-top: 8px;">
 

@@ -16,9 +16,15 @@
           <img src="/img/bell.webp" alt="notification icon" width = "30px" height = "30px">
         </div>
       </div>
-          <h5 class="user-name font-weight-600 align-to-center">name5</h5>
-          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle">
-      </div>
+          <!-- <h5 class="user-name font-weight-600 align-to-center">name5</h5>
+          <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle"> -->
+
+          <?php
+                echo '<h5 class="user-name font-weight-600 align-to-center">' . $_SESSION["first_name"]. '</h5>';
+
+                echo '<img src="' . $_SESSION['profile_picture'] . '" width="40" height="40" class="rounded-circle" />';
+          ?>
+       </div>
     </div>
 </nav>
 <!-- Nav_Bar Ends Here --------------------------- -->

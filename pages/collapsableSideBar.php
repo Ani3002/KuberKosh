@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="http://localhost/index.php?send" class="sidebar-attribute sidebar-link">
+                    <a href="http://192.168.43.228/index.php?send" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/sendLogo.svg" alt="Send Money Icon" width="25px" hight="25px"> </i>
                         <span>Send Money</span>
                     </a>
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://192.168.43.228/index.php?settings" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/settingsLogo.svg" alt="Settings Icon" width="25px" hight="25px"> </i>
                         <span>Settings</span>
                     </a>

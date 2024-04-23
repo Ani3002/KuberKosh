@@ -1,6 +1,6 @@
-// Body already started in sendMoneyPart1.php
-// Background Image Added
-// Collapsable Side Bar will be inserted here through index.php
+ <!-- Body already started in sendMoneyPart1.php -->
+ <!-- Background Image Added -->
+ <!-- Collapsable Side Bar will be inserted here through index.php -->
 
 
 <div class="card align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%;">
