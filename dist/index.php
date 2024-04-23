@@ -25,3 +25,25 @@ elseif(isset($_GET['logout'])){
     // for dashboard page
         viewPage('logout');
 }
+elseif(isset($_GET['settings'])){
+    // for send money page
+        viewPage('settings');
+}
+elseif(isset($_GET['send'])){
+    // for send money page
+        viewPage('sendMoneyPart1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('sendMoneyPart2');
+}
+elseif(isset($_GET['send-verify'])){
+    // for send money page
+        viewPage('sendMoneyVerify1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('sendMoneyVerify2');
+}
+elseif(isset($_GET['test'])){
+    // for send money page
+        viewPage('test');
+}
