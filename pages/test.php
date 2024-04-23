@@ -1,12 +1,2 @@
-<div class="tfaep471PinInput">
-  <div id="otpinput88parent" data-protonpass-form="">
-    <div class="otpinput88item"><input type="password" autocomplete="new-password"
-        class="otpinput88 backgroundPrimary otpinput88confidential" maxlength="1" pattern="\d*" value="" style=""></div>
-    <div class="otpinput88item"><input type="password" autocomplete="new-password"
-        class="otpinput88 backgroundPrimary otpinput88confidential" maxlength="1" pattern="\d*" value="" style=""></div>
-    <div class="otpinput88item"><input type="password" autocomplete="new-password"
-        class="otpinput88 backgroundPrimary otpinput88confidential" maxlength="1" pattern="\d*" value=""></div>
-    <div class="otpinput88item"><input type="password" autocomplete="new-password"
-        class="otpinput88 backgroundPrimary otpinput88confidential" maxlength="1" pattern="\d*" value=""></div>
-  </div>
-</div>
+<dotlottie-player src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json"
+    background="transparent" speed="1" style="width: 300px; height: 300px;" autoplay></dotlottie-player>

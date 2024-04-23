@@ -838,12 +838,9 @@ body{
 
     // Confirmation Card 
 
-    .dwnld_receipt_btn{
-        margin: 15px 174px 0 174px;
-        width: 184px;
-    }
     .trnx_confirm_amnt{
-        padding: 25px;
+        
+        padding: 25px 0 0 0px;
         color: rgba(255, 255, 255, 0.80);
         font-family: Inter;
         font-size: 2rem;
@@ -851,5 +848,17 @@ body{
         font-weight: 600;
         line-height: normal;
         text-transform: capitalize;
+    }
+    #dwnld_receipt_btn_div{
+        border-top-width: 150px;
+        margin-top: 150px;
+    }
+    #share_icon{
+        position: absolute;
+        margin: 15px 174px 0 174px;
+        // width: 184px;
+        width: 40px;
+        top: 396px;
+        left: 250px;
     }
 }
