@@ -1,25 +1,11 @@
-<?php
 
-    include "php/google-auth.php"
-    
-?>
-<html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Login with Google in PHP</title>
-  <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'/>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" />
-  
- </head>
- <body>
-  <div class="container">
+
+<div class="container" style="backdrop-filter: blur(10px); width: 1000px; height: 500px; left: 100px;">
    <br />   
 
-   <h5>Session ID: <?php echo session_id(); ?></h5>
+   <h5 style="color: #fff;">Session ID: <?php echo session_id(); ?></h5>
    
-   <div class="panel panel-default">
+   <div class="panel panel-default" style="color: #fff;">
    <?php
     echo '<h1> you are logged in </h1>';
     echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';

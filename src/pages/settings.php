@@ -3,34 +3,34 @@ include_once 'php/database.php'; // Include the database.php file
 include "php/google-auth.php";
 
 // Establish database connection
-global $databaseConnection;
+global $connect_kuberkosh_db;
 
 $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 // Retrieve banks data
-$banks = getRegisteredBanksIdAndName($databaseConnection);
+$banks = getRegisteredBanksIdAndName($connect_kuberkosh_db);
 
 // Retrieve branches data
-$branches = getBranchesIdLocationIfscAndFKregBankId($databaseConnection);
+$branches = getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db);
 
 // Fetch Wallet details
-$walletDetails = getWalletDetails($databaseConnection, $userId);
+$walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
 
 // Fetch bank_user_id from Bank Table
-$bankUserId = getBankUserId( $databaseConnection, $userId);
+$bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);
 if (empty($bankUserId)) {
     $setBank_user_id = "INSERT INTO Bank (user_id) VALUES ($userId)";
-    $stmt = $databaseConnection->prepare($setBank_user_id);
+    $stmt = $connect_kuberkosh_db->prepare($setBank_user_id);
     $stmt->execute();
 
-    $bankUserId = getBankUserId( $databaseConnection, $userId);
+    $bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);
 }
 
 // Fetch bank account id for the specified bank User ID
-$bankAccountId = getBankAccountId($databaseConnection, $bankUserId);
+$bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
 
 //TMP TMP TMP TMP TMP TMP TMP TMP TMP TMP 
-$bankAccountDetails = getBankAccountDetails($databaseConnection, $bankUserId);
+$bankAccountDetails = getBankAccountDetails($connect_kuberkosh_db, $bankUserId);
 
 
 
@@ -77,28 +77,28 @@ if (isset($_POST['submitBankSettings'])) {
 
 
     // Get the IFSC code based on the selected bank and branch
-    $ifsc = getIFSC($databaseConnection, $selectedBankId, $selectedBranch);
+    $ifsc = getIFSC($connect_kuberkosh_db, $selectedBankId, $selectedBranch);
 
-    $bankName = getBankName($databaseConnection, $selectedBankId);
+    $bankName = getBankName($connect_kuberkosh_db, $selectedBankId);
     echo '<script>alert("IFSC code:'. $bankName .'")</script>';
 
     // Update the Bank table with the retrieved IFSC code
     $sql_updateIFSC = "INSERT INTO bank_accounts (bank_user_id, account_number, ifsc_code, bank_name, account_balance) VALUES ('$bankUserId', '$enteredAccountNumber', '$ifsc', '$bankName','0')";
-    if (mysqli_query($databaseConnection, $sql_updateIFSC)) {
+    if (mysqli_query($connect_kuberkosh_db, $sql_updateIFSC)) {
         echo '<script>alert("IFSC code updated successfully")</script>';
         echo "updated IFSC: " . $userId;
     } else {
-        echo "Error updating IFSC: " . mysqli_error($databaseConnection);
+        echo "Error updating IFSC: " . mysqli_error($connect_kuberkosh_db);
     }
 
     // If default account is empty, set the first bank account as default
-    $defaultBankAccountId = getDefaultBankAccountId($databaseConnection, $userId);
+    $defaultBankAccountId = getDefaultBankAccountId($connect_kuberkosh_db, $userId);
     if (empty($defaultBankAccountId)) {
         // Update the Bank table with the entered account number as the default account
         
-        $bankAccountId = getBankAccountId($databaseConnection, $bankUserId);
+        $bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
         // echo '<script>alert("bankAccountId 2nd time: ' . $bankAccountId . '");</script>';                   //Debugging
-        updateDefaultBankAccountId($databaseConnection, $bankAccountId, $userId);
+        updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId);
     }
 }
 
@@ -121,7 +121,7 @@ if (!empty($walletDetails['wallet_address'])) {
     $walletAddress = $parts[0] . '@kkosh'; // Replace everything after @ with "kkosh"
     
     // Function to insert this new wallet address into the database
-    insertWalletAddress($databaseConnection, $userId, $walletAddress);
+    insertWalletAddress($connect_kuberkosh_db, $userId, $walletAddress);
 
     // Constructing a new array containing the wallet details
     $newWalletDetails = array(

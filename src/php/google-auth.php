@@ -98,7 +98,7 @@ if(isset($_GET["code"]))
           );
 
           // Call the addUser function
-          addUser($databaseConnection, $newUser);
+          addUser($connect_kuberkosh_db, $newUser);
         }
     } 
     // If validation_result status===false

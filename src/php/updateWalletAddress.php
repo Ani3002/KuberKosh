@@ -4,7 +4,7 @@ require_once 'database.php'; // Include the database.php file
 
 
 // Establish database connection
-global $databaseConnection;
+global $connect_kuberkosh_db;
 
 // Check if the request is a POST request
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -16,7 +16,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Perform server-side validation or additional checks if needed
     
     // Update the wallet address in the database
-    if (updateWalletAddress($databaseConnection, $inputNewWalletAddress, $userId)) {
+    if (updateWalletAddress($connect_kuberkosh_db, $inputNewWalletAddress, $userId)) {
         // Wallet address updated successfully
         $response = array('success' => true);
     } else {

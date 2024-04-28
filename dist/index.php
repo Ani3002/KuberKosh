@@ -16,7 +16,9 @@ if((isset($_GET['home']))){
 }elseif(isset($_GET['dash'])){
     // for dashboard page
         viewPage('dash');
-    
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('dash2');
 }elseif(isset($_GET['database'])){
     // for dashboard page
         viewPage('database');
@@ -35,6 +37,7 @@ elseif(isset($_GET['send'])){
         viewPage('collapsableSideBar');
         viewPage('navBar');
         viewPage('sendMoneyPart2');
+        viewPage('sendMoneyScript');
 }
 elseif(isset($_GET['send-verify'])){
     // for send money page

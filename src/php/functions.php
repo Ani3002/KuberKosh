@@ -81,9 +81,9 @@ function validateUser($user_data)
 //for checking email id is already registered or not
 function checkDuplicateEmail($email)
 {
-    global $databaseConnection;
+    global $connect_kuberkosh_db;
     $query = "SELECT COUNT(*) as row FROM users WHERE email='$email'";
-    $run = mysqli_query($databaseConnection, $query);
+    $run = mysqli_query($connect_kuberkosh_db, $query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
 }
@@ -91,21 +91,21 @@ function checkDuplicateEmail($email)
 //for checking email id is already registered or not
 function checkDuplicateMobile($mobile)
 {
-    global $databaseConnection;
+    global $connect_kuberkosh_db;
     $query = "SELECT COUNT(*) as row FROM users WHERE mobile='$mobile'";
-    $run = mysqli_query($databaseConnection, $query);
+    $run = mysqli_query($connect_kuberkosh_db, $query);
     $return_data = mysqli_fetch_assoc($run);
     return $return_data['row'];
 }
 
 // Register new users by adding them to the database.
-function addUser($databaseConnection, $newUser)
+function addUser($connect_kuberkosh_db, $newUser)
 {
     // Insert new user into the 'users' table
     $sql = "INSERT INTO users (oauth_provider, oauth_uid, first_name, last_name, email, gender, locale, picture, created, modified) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-    $stmt = $databaseConnection->prepare($sql);
+    $stmt = $connect_kuberkosh_db->prepare($sql);
 
     // Bind parameters
     $stmt->bind_param(
@@ -136,9 +136,9 @@ function addUser($databaseConnection, $newUser)
 
 function getUserId($oauth_uid)
 {
-    global $databaseConnection;
+    global $connect_kuberkosh_db;
     $query = "SELECT user_id FROM users WHERE oauth_uid = '$oauth_uid'";
-    $run = mysqli_query($databaseConnection, $query);
+    $run = mysqli_query($connect_kuberkosh_db, $query);
     $return_data = mysqli_fetch_assoc($run);
 
     // Check if a user with the provided OAuth UID exists
@@ -159,12 +159,12 @@ function getUserId($oauth_uid)
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
 
 // Function to retrieve bank_name and regBank_id from table registeredBanks
-function getRegisteredBanksIdAndName($databaseConnection)
+function getRegisteredBanksIdAndName($connect_kuberkosh_db)
 {
     $banks = array();
 
     $query = "SELECT regBank_id, bank_name FROM registeredBanks";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
 
     while ($row = $result->fetch_assoc()) {
         $banks[] = array("regBank_id" => $row['regBank_id'], "val" => $row['bank_name']);
@@ -174,12 +174,12 @@ function getRegisteredBanksIdAndName($databaseConnection)
 }
 
 // Function to retrieve branches data from table bank_brunches
-function getBranchesIdLocationIfscAndFKregBankId($databaseConnection)
+function getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db)
 {
     $branches = array();
 
     $query = "SELECT regBank_id, brunch_id, brunchLocation FROM bank_brunches";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
 
     while ($row = $result->fetch_assoc()) {
         $branches[$row['regBank_id']][] = array("regBank_id" => $row['regBank_id'], "val" => $row['brunchLocation']);
@@ -190,7 +190,7 @@ function getBranchesIdLocationIfscAndFKregBankId($databaseConnection)
 
 
 // Function to retrieve IFSC with the Bank name and the Location
-function getIFSC($databaseConnection, $bankName, $location)
+function getIFSC($connect_kuberkosh_db, $bankName, $location)
 {
     // $query = "SELECT bb.ifsc 
     //           FROM bank_brunches bb
@@ -199,7 +199,7 @@ function getIFSC($databaseConnection, $bankName, $location)
     $query = "SELECT bb.ifsc 
                 FROM bank_brunches bb
                 WHERE bb.brunch_id = '1' AND bb.brunchLocation = 'Winterfell'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['ifsc'];
@@ -209,10 +209,10 @@ function getIFSC($databaseConnection, $bankName, $location)
 }
 
 // Function to retrieve BankName with the regBank_id
-function getBankName($databaseConnection, $regBank_id)
+function getBankName($connect_kuberkosh_db, $regBank_id)
 {
     $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBank_id'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['bank_name'];
@@ -222,10 +222,10 @@ function getBankName($databaseConnection, $regBank_id)
 }
 
 // Function to retrieve Default Account Number with the userId
-function getDefaultBankAccountId($databaseConnection, $userId)
+function getDefaultBankAccountId($connect_kuberkosh_db, $userId)
 {
     $query = "SELECT default_bank_account_id FROM Bank WHERE user_id = '$userId'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['default_bank_account_id'];
@@ -234,10 +234,10 @@ function getDefaultBankAccountId($databaseConnection, $userId)
     }
 }
 
-function getBankAccountId($databaseConnection, $bankUserId)
+function getBankAccountId($connect_kuberkosh_db, $bankUserId)
 {
     $query = "SELECT bank_account_id FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['bank_account_id']; // Return only the bank_account_id // Return all columns as an associative array
@@ -248,20 +248,20 @@ function getBankAccountId($databaseConnection, $bankUserId)
 }
 
 // Update Default account ID
-function updateDefaultBankAccountId($databaseConnection, $bankAccountId, $userId){
+function updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId){
     $sql_updateDefaultBankAccountId = "UPDATE Bank SET default_bank_account_id = $bankAccountId WHERE user_id = $userId";
-        if (mysqli_query($databaseConnection, $sql_updateDefaultBankAccountId)) {
+        if (mysqli_query($connect_kuberkosh_db, $sql_updateDefaultBankAccountId)) {
             echo '<script>alert("Default account updated successfully")</script>';
         } else {
-            echo "Error updating default account: " . mysqli_error($databaseConnection);
+            echo "Error updating default account: " . mysqli_error($connect_kuberkosh_db);
         }
 }
 
 // Function to fetch bank account IDs for a given bank user ID
-function getBankAccountDetails($databaseConnection, $bankUserId)
+function getBankAccountDetails($connect_kuberkosh_db, $bankUserId)
 {
     $query = "SELECT * FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     $accounts = array();
     if ($result && $result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
@@ -273,10 +273,10 @@ function getBankAccountDetails($databaseConnection, $bankUserId)
 
 
  // Function to fetch walletDetails using the user_id fron the wallet table
-function getWalletDetails($databaseConnection, $userId)
+function getWalletDetails($connect_kuberkosh_db, $userId)
 {
     $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row; // Return all columns as an associative array
@@ -287,10 +287,10 @@ function getWalletDetails($databaseConnection, $userId)
 
 
 // Function to fetches bankUserId using the userId from the bank table
-function getBankUserId($databaseConnection, $userId)
+function getBankUserId($connect_kuberkosh_db, $userId)
 {
     $query = "SELECT bank_user_id FROM Bank WHERE user_id ='$userId'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['bank_user_id'];
@@ -300,16 +300,16 @@ function getBankUserId($databaseConnection, $userId)
 }
 
 
-function insertWalletAddress($databaseConnection, $userId, $walletAddress) {
+function insertWalletAddress($connect_kuberkosh_db, $userId, $walletAddress) {
     // Escape the inputs to prevent SQL injection
-    $userId = $databaseConnection->real_escape_string($userId);
-    $walletAddress = $databaseConnection->real_escape_string($walletAddress);
+    $userId = $connect_kuberkosh_db->real_escape_string($userId);
+    $walletAddress = $connect_kuberkosh_db->real_escape_string($walletAddress);
 
     // Construct the SQL query
     $query = "INSERT INTO wallet (user_id, wallet_address) VALUES ('$userId', '$walletAddress')";
 
     // Execute the query
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
 
     if ($result) {
         // Insertion successful
@@ -327,13 +327,13 @@ function insertWalletAddress($databaseConnection, $userId, $walletAddress) {
 
 
 // Function to check if the wallet address is valid
-// function isValidWalletAddress($databaseConnection, $walletAddress) {
+// function isValidWalletAddress($connect_kuberkosh_db, $walletAddress) {
 //     // Escape the wallet address to prevent SQL injection
-//     $walletAddress = $databaseConnection->real_escape_string($walletAddress);
+//     $walletAddress = $connect_kuberkosh_db->real_escape_string($walletAddress);
 
 //     // Query to check if the wallet address already exists in the database
 //     $query = "SELECT COUNT(*) AS count FROM wallet WHERE wallet_address = '$walletAddress'";
-//     $result = $databaseConnection->query($query);
+//     $result = $connect_kuberkosh_db->query($query);
 
 //     // Check if the query was successful
 //     if ($result) {
