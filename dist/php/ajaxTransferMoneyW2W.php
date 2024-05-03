@@ -13,10 +13,24 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     // Get amountToVerify from the request
     $requestData = json_decode(file_get_contents("php://input"), true);
     $amountToSend = $requestData['amountToSend'];
-
     $walletAddress = $requestData['walletAddress'];
+    $hashedPINEnteredByUser = $requestData['hashedPINEnteredByUser'];
+    $userId = $_SESSION['user_id'];
 
-    $response = transferMoneyW2W($walletAddress, $amountToSend, $connect_kuberkosh_db, $connect_wallet_transactions_db);
+    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletPINHash = ($walletDetails['wallet_pin']);
+
+    // Check if the hashed PIN entered by the user matches the hashed PIN stored in the database
+    if ($hashedPINEnteredByUser === $walletPINHash) {
+        // Hashes match, proceed with the transfer
+        $response = transferMoneyW2W($walletAddress, $amountToSend, $connect_kuberkosh_db, $connect_wallet_transactions_db);
+    } else {
+        // Hashes don't match, return an error response
+        $response = array('error' => 'Invalid PIN');
+    }
+
+
+    // $response = transferMoneyW2W($walletAddress, $amountToSend, $connect_kuberkosh_db, $connect_wallet_transactions_db);
 
     // $response = array ('success' => true, 'trnxId' => 'trnxId');
     

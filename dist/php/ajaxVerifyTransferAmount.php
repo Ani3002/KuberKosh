@@ -20,6 +20,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     {
         $response = array ('error' => 'Error: Enter an Amount to Send');
     }
+    else if (!ctype_digit($amountToSend))
+    {
+        $response = array ('error' => 'Error: Enter a valid integer amount');
+    }
     else
     {
         // do a function call to fetch the wallet balance of user
@@ -28,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
 
         if ($walletBalance > $amountToSend)
         {
-            $response = array ('valid' => true, 'walletBalance' => $walletBalance);
+            $response = array ('valid' => true, 'walletBalance' => $walletBalance, 'amountToSend' => $amountToSend);
         }
         else
         {

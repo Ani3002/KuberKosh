@@ -19,14 +19,14 @@
         <img id = "inr_logo" src="/img/inr.webp" alt="" width="35px" height="35px">
         INR
       </span>
-      <input type="number" class="form-control text-light font-weight-600" id = "money_send_amount_input" aria-label="Sizing example input" value="500" aria-describedby="inputGroup-sizing-sm" style = "height: 40px;" disabled>
+      <input inputmode="numeric" class="form-control text-light font-weight-600" id = "money_send_amount_input" aria-label="Sizing example input" value="500" aria-describedby="inputGroup-sizing-sm" style = "height: 40px;" disabled>
     </div>
 
     <div class="row">
         <!-- Purpose dropdown -->
         <div class="col-xs-6 form-field__control goodluckdubugingit65446453" id="money_sending_remarks_div">
-            <input style="width: 200px;" id="money_sending_remarks" type="text" class="form-field__input2" value="Travel" style="padding-bottom: 4px; padding-top: 4px; margin-top: 15px;" disabled>
-            <label style="width: 200px;" for="money_sending_remarks" class="form-field__label2" style="padding-top: 15px; padding-bottom: 0px;">Purpose</label>
+            <input style="width: 200px;" id="money_sending_purpose" type="text" class="form-field__input2" value="Travel" style="padding-bottom: 4px; padding-top: 4px; margin-top: 15px;" disabled>
+            <label style="width: 200px;" for="money_sending_purpose" class="form-field__label2" style="padding-top: 15px; padding-bottom: 0px;">Purpose</label>
         </div>
 
         <!-- Remarks -->

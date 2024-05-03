@@ -30,8 +30,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         // Check if the name is found
         if (!empty($name)) {
             $profilePicLink = (fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress));
-
             $response = array('name' => $name, 'profilePicLink' => $profilePicLink);
+            // $response = array('name' => $name, 'walletAddress' => $walletAddress, 'profilePicLink' => $profilePicLink);
         } else {
             $response = array('error' => 'Error: Wallet Address Not Found');
         }
