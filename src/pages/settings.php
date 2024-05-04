@@ -551,20 +551,20 @@ if (!empty($walletDetails['wallet_address'])) {
             event.preventDefault(); // Prevent form submission
 
             // Get new wallet address from input
-            var inputNewWalletAddress = newWalletAddressInput.value.trim();
+            var walletAddress = newWalletAddressInput.value.trim();
 
             // Client-side validation
-            if (!inputNewWalletAddress) {
+            if (!walletAddress) {
                 alert('Please enter a new wallet address');
                 return;
             }
 
             // Server-side validation via AJAX
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/checkWalletAddress.php'); 
+            xhr.open('POST', 'php/ajaxCheckWalletAddress.php'); 
             xhr.setRequestHeader('Content-Type', 'application/json');
             
-            var dataToSend = JSON.stringify({ inputNewWalletAddress: inputNewWalletAddress });
+            var dataToSend = JSON.stringify({ walletAddress: walletAddress });
             alert('Data being sent to server: ' + dataToSend); // Debugging: Log data being sent to server
             xhr.send(dataToSend);
             
@@ -575,7 +575,7 @@ if (!empty($walletDetails['wallet_address'])) {
                     alert('Response from server: ' + JSON.stringify(response)); // Debugging: Log response from server
                     if (response.valid) {
                         // Valid wallet address, proceed to update database
-                        updateWalletAddress(inputNewWalletAddress, userId);
+                        updateWalletAddress(walletAddress, userId);
                         alert('updated');
                     } else {
                         alert('The provided wallet address is not available or already exists in the database');
@@ -592,7 +592,7 @@ if (!empty($walletDetails['wallet_address'])) {
         function updateWalletAddress(inputNewWalletAddress, userId) {
             // AJAX request to update wallet address in the database
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/php/updateWalletAddress.php');     // i have no idea why response is 404 id /php/ is not added.
+            xhr.open('POST', '/php/ajaxUpdateWalletAddress.php');     // i have no idea why response is 404 if /php/ is not added.
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {

@@ -1,11 +1,11 @@
 
 
-<div class="container">  <!-- style="backdrop-filter: blur(10px); width: 1000px; height: 500px; left: 100px;"> -->
+<div class="container" style="backdrop-filter: blur(10px); width: 1000px; height: 500px; left: 100px;">
    <br />   
 
-   <h5>Session ID: <?php echo session_id(); ?></h5>
+   <h5 style="color: #fff;">Session ID: <?php echo session_id(); ?></h5>
    
-   <div class="panel panel-default">
+   <div class="panel panel-default" style="color: #fff;">
    <?php
     echo '<h1> you are logged in </h1>';
     echo '<div class="panel-heading">Welcome User</div><div class="panel-body">';

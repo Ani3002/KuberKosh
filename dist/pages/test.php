@@ -1,47 +1,146 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Receipt</title>
+</head>
+<body>
+    <label for="transactionId">Transaction ID:</label>
+    <input type="text" id="transactionId" name="transactionId"><br><br>
+    
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount"><br><br>
+    
+    <button id="downloadBtn">Download Receipt</button>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+        
+
+        var downloadBtn = document.getElementById('downloadBtn');
+downloadBtn.addEventListener('click', function()
+        {
+                // Get transaction ID and amount from input fields
+                var transactionId = $('#transactionId').val();
+                var amount = $('#amount').val();
+                
+                // Make sure transaction ID and amount are not empty
+                if (transactionId.trim() === '' || amount.trim() === '') {
+                    alert('Please enter transaction ID and amount.');
+                    return;
+                }
+
+                $.ajax({
+                    url: 'php/ajaxReceiptGenerator.php',
+                    method: 'POST',
+                    data: { // Pass transaction ID and amount in the POST request
+                        transactionId: transactionId,
+                        amount: amount
+                    },
+                    xhrFields: {
+                        responseType: 'blob' // Set the response type to blob
+                    },
+                    success: function(response){
+                        // Create a blob URL from the response data
+                        var blob = new Blob([response], { type: 'application/pdf' });
+                        var url = window.URL.createObjectURL(blob);
+
+                        // Create a temporary link element
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'transaction_receipt.pdf';
+
+                        // Append the link to the body and trigger the download
+                        document.body.appendChild(a);
+                        a.click();
+
+                        // Cleanup
+                        window.URL.revokeObjectURL(url);
+                        $(a).remove();
+                    },
+                    error: function(xhr, status, error){
+                        console.error('Error downloading receipt:', error);
+                    }
+                });
+        });
+    </script>
+</body>
+</html> -->
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHG Search</title>
+    <title>Download Receipt</title>
 </head>
 <body>
-    <h1>Search SHGs</h1>
+    <label for="transactionId">Transaction ID:</label>
+    <input type="text" id="transactionId" name="transactionId"><br><br>
+    
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount"><br><br>
+    
+    <button id="downloadBtn">Download Receipt</button>
 
-    <!-- Form for Duare Sarkar search -->
-    <form action="" method="GET">
-        <label for="query_duare">Enter SHG Name or ID (Duare Sarkar):</label><br>
-        <input type="text" id="query_duare" name="query_duare">
-        <button type="submit">Search</button>
-        <input type="hidden" name="search_type" value="duare_sarkar">
-    </form>
+    <script>
+        var downloadBtn = document.getElementById('downloadBtn');
+        downloadBtn.addEventListener('click', function() {
+            // Get transaction ID and amount from input fields
+            var transactionId = document.getElementById('transactionId').value;
+            var amount = document.getElementById('amount').value;
+            
+            // Make sure transaction ID and amount are not empty
+            if (transactionId.trim() === '' || amount.trim() === '') {
+                alert('Please enter transaction ID and amount.');
+                return;
+            }
 
-    <!-- PHP code for Duare Sarkar search -->
-    <?php
-    if (isset($_GET['query_duare']) && isset($_GET['search_type']) && $_GET['search_type'] === 'duare_sarkar') {
-        // Duare Sarkar search logic
-        $query_duare = $_GET['query_duare'];
-        // Perform search and display results
-        echo "<p>Duare Sarkar search results for: $query_duare</p>";
-    }
-    ?>
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            
+            // Configure the AJAX request
+            xhr.open('POST', 'php/ajaxReceiptGenerator.php', true);
+            xhr.responseType = 'blob'; // Set the response type to blob
+            
+            // Define the success callback function
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Create a blob URL from the response data
+                    var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                    var url = window.URL.createObjectURL(blob);
 
-    <!-- Form for SHG NRLM search -->
-    <form action="" method="GET">
-        <label for="query_shg_nrlm">Enter SHG Name or ID (SHG NRLM):</label><br>
-        <input type="text" id="query_shg_nrlm" name="query_shg_nrlm">
-        <button type="submit">Search</button>
-        <input type="hidden" name="search_type" value="shg_nrlm">
-    </form>
+                    // Create a temporary link element
+                    var a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'transaction_receipt.pdf';
 
-    <!-- PHP code for SHG NRLM search -->
-    <?php
-    if (isset($_GET['query_shg_nrlm']) && isset($_GET['search_type']) && $_GET['search_type'] === 'shg_nrlm') {
-        // SHG NRLM search logic
-        $query_shg_nrlm = $_GET['query_shg_nrlm'];
-        // Perform search and display results
-        echo "<p>SHG NRLM search results for: $query_shg_nrlm</p>";
-    }
-    ?>
+                    // Append the link to the body and trigger the download
+                    document.body.appendChild(a);
+                    a.click();
+
+                    // Cleanup
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                } else {
+                    console.error('Error downloading receipt:', xhr.status);
+                }
+            };
+
+            // Define the error callback function
+            xhr.onerror = function() {
+                console.error('Error downloading receipt:', xhr.statusText);
+            };
+
+            // Send the AJAX request with the transaction ID and amount as data
+            var formData = new FormData();
+            formData.append('transactionId', transactionId);
+            formData.append('amount', amount);
+            xhr.send(formData);
+        });
+    </script>
 </body>
 </html>
+

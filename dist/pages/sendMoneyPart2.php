@@ -252,6 +252,12 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
   
   <h5 id="trnx_confirm_amnt"> </h5>
 
+  <h5 id="trnx_Id"  style="color: var(--background-mode, #FFF);
+        font-family: Inter;
+        font-size: 0.9375rem;
+        font-style: normal;
+        font-weight: 500;
+        line-height: normal;"> </h5>
 
     <!-- <dotlottie-player id="success_animation" src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json" background="transparent" speed="1" style="width: 300px; height: 300px; position: absolute; margin-top: 160px;" autoplay="false"></dotlottie-player> -->
 
@@ -259,13 +265,12 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
     <!-- <dotlottie-player  id = "success_animation" src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json" background="transparent" speed="1" style="width: 300px; height: 300px; position: absolute; margin-top: 160px;" ></dotlottie-player> -->
     </div>
 
-    <h3 id = "trnxMessage" style="width: 500px; height: 300px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3>
+    <h3 id = "trnxMessage" style="width: 500px; height: 30px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3>
 
     <div id="dwnld_receipt_btn_div">
-        <button style="margin: 15px 174px 0 174px;width: 184px;" href="#" class="btn btn-primary bg-gradient  dwnld_receipt_btn text-light font-weight-300" id="dwnld_receipt_btn">Download Receipt</button>
+      <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="margin: 30px 174px 0 174px; width: 184px;">Download Receipt</button>
     </div>
-
-    <a href="http://localhost/index.php?share"><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon"></a>        
+    <a id= "shareBtn" href=""><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon"></a>        
 </div>
 
 
@@ -327,6 +332,8 @@ function replaceDivWithConfirmationDiv() {
   var money_send_amount_input = document.getElementById('money_send_amount_input');
 
   var money_sending_remarks = document.getElementById('money_sending_remarks');
+
+  var inputPurpose = document.getElementById('dropdown_purpose_button_a');
 
   var selected_purpose = document.getElementById('selected_purpose');
 
@@ -465,7 +472,9 @@ function replaceDivWithConfirmationDiv() {
           //alert('Name: ' + response.name + ' ' + response.walletAddress);               // Debugging: Log data being sent to server
 
           receiverWalletAddress = response.walletAddress;
+          receiverProfilePic1 = response.profilePicLink;
           receiverProfilePic.src = response.profilePicLink;
+          verified_name1 = response.name;
           verified_name.textContent = response.name;
           verified_name.style.color = '#4ECB71'; // Change the color to green
 
@@ -494,9 +503,17 @@ function replaceDivWithConfirmationDiv() {
                 alert ('moving to next page');
                 // purpose = selected_purpose.value;
                 senderRemarks = money_sending_remarks.value.trim();
+                var trnxPurpose = inputPurpose.value;
                 
 
                 replaceDivWithVerificationDiv();
+
+                receiverProfilePic = document.getElementById('receiverProfilePic');
+                receiverProfilePic.src = receiverProfilePic1;
+
+                verified_name =document.getElementById('verified_name');
+                verified_name.textContent = verified_name1;
+                verified_name.style.color = '#4ECB71'; // Change the color to green
 
                 verifiedWalletAddress = document.getElementById('verified_wallet-address');
                 verifiedWalletAddress.textContent = receiverWalletAddress;
@@ -508,8 +525,7 @@ function replaceDivWithConfirmationDiv() {
                 money_sending_remarks.value = senderRemarks;
 
                 money_sending_purpose = document.getElementById('money_sending_purpose');
-                money_sending_purpose.value = "purpose";
-
+                money_sending_purpose.value = trnxPurpose;
 
                 money_send_btn = document.getElementById('money_send_btn');
                 money_send_btn.addEventListener('click', function() 
@@ -640,7 +656,7 @@ function replaceDivWithConfirmationDiv() {
                   xhrTransferMoneyW2W.open('POST', 'php/ajaxTransferMoneyW2W.php'); 
                   xhrTransferMoneyW2W.setRequestHeader('Content-Type', 'application/json');
                   
-                  var dataToSend = JSON.stringify({ amountToSend: amountToSend, walletAddress: walletAddress, hashedPINEnteredByUser: hashedString});
+                  var dataToSend = JSON.stringify({ amountToSend: amountToSend, walletAddress: walletAddress, hashedPINEnteredByUser: hashedString, trnxPurpose: trnxPurpose, senderRemarks: senderRemarks});
                   alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
                   xhrTransferMoneyW2W.send(dataToSend);
                   
@@ -652,7 +668,7 @@ function replaceDivWithConfirmationDiv() {
                       
                       var response = JSON.parse(xhrTransferMoneyW2W.responseText);
                       
-                      alert('Response from serverrrrrrrrrrrrrr' + JSON.stringify(response)); // Debugging: Log response from server
+                      alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
                       
                       if (!response.hasOwnProperty('error')  && response.success) 
                       {
@@ -664,13 +680,16 @@ function replaceDivWithConfirmationDiv() {
                         alert(response);
 
                         receiverProfilePic=document.getElementById('receiverProfilePic');
-                        receiverProfilePic.src = response.profilePic;
+                        receiverProfilePic.src = response.receiverProfilePic;
 
                         verifiedWalletAddress = document.getElementById('verified_wallet-address');
                         verifiedWalletAddress.textContent = response.receiverWalletAddress;
 
                         trnx_confirm_amnt = document.getElementById('trnx_confirm_amnt');
                         trnx_confirm_amnt.textContent = ('INR: ' + response.amountToSend);
+
+                        trnx_Id = document.getElementById('trnx_Id');
+                        trnx_Id.textContent = ('Transaction Id: ' + response.trnxId.substring(0, 19));
 
 
                         trnxMessage = document.getElementById('trnxMessage');
@@ -681,6 +700,93 @@ function replaceDivWithConfirmationDiv() {
                         verified_name = document.getElementById('verified_name');
                         verified_name.textContent = response.receiverName;
                         verified_name.style.color = '#4ECB71'; // Change the color to green
+
+                        dwnldRec = document.getElementById('dwnld_receipt_btn');
+                        dwnldRec =document.getElementById('downloadBtn');
+
+                        var downloadBtn = document.getElementById('downloadBtn');
+                        downloadBtn.addEventListener('click', function() {
+                            // Get transaction ID and amount from input fields
+                            var transactionId = response.trnxId;
+                            var amount = response.amountToSend;
+                            
+                            // Make sure transaction ID and amount are not empty
+                            if (transactionId.trim() === '' || amount.trim() === '') {
+                                alert('Please enter transaction ID and amount.');
+                                return;
+                            }
+
+                            // Create a new XMLHttpRequest object
+                            var xhr = new XMLHttpRequest();
+                            
+                            // Configure the AJAX request
+                            xhr.open('POST', 'php/ajaxReceiptGenerator.php', true);
+                            xhr.responseType = 'blob'; // Set the response type to blob
+                            
+                            // Define the success callback function
+                            xhr.onload = function() {
+                                if (xhr.status === 200) {
+                                    // Create a blob URL from the response data
+                                    var blob = new Blob([xhr.response], { type: 'application/pdf' });
+                                    var url = window.URL.createObjectURL(blob);
+
+                                    // Create a temporary link element
+                                    var a = document.createElement('a');
+                                    a.href = url;
+                                    a.download = 'transaction_receipt.pdf';
+
+                                    // Append the link to the body and trigger the download
+                                    document.body.appendChild(a);
+                                    a.click();
+
+                                    // Cleanup
+                                    window.URL.revokeObjectURL(url);
+                                    document.body.removeChild(a);
+                                } else {
+                                    console.error('Error downloading receipt:', xhr.status);
+                                }
+                            };
+
+                            // Define the error callback function
+                            xhr.onerror = function() {
+                                console.error('Error downloading receipt:', xhr.statusText);
+                            };
+
+                            // Send the AJAX request with the transaction ID and amount as data
+                            var formData = new FormData();
+                            formData.append('transactionId', transactionId);
+                            formData.append('amount', amount);
+                            xhr.send(formData);
+                        });
+
+
+                        var shareBtn = document.getElementById('shareBtn');
+
+                        // Share button event listener
+                        shareBtn.addEventListener('click', function() {
+                            // Check if Web Share API is supported
+                            if (navigator.share) {
+                                navigator.share({
+                                    title: 'Transaction Receipt',
+                                    text: 'Here is your transaction receipt.',
+                                    files: [blob], // Pass the blob file to share
+                                }).then(() => {
+                                    console.log('Receipt shared successfully.');
+                                }).catch((error) => {
+                                    console.error('Error sharing receipt:', error);
+                                });
+                            } else {
+                                // Web Share API not supported, provide alternative method
+                                alert('Web Share API is not supported in this browser.');
+                            }
+                        });
+
+
+
+
+
+
+
 
                         
 

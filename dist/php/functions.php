@@ -524,7 +524,7 @@ function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
-function transferMoneyW2W($walletAddress, $amountToSend, $connect_kuberkosh_db, $connect_wallet_transactions_db){
+function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPurpose, $connect_kuberkosh_db, $connect_wallet_transactions_db){
     $senderUserId = $_SESSION['user_id'];
     $receiverUserId = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
@@ -553,24 +553,24 @@ function transferMoneyW2W($walletAddress, $amountToSend, $connect_kuberkosh_db, 
     $trnxId = hash("sha3-256", $trnxId);
 
 
-    $senderParticulars = "W2W/DR/{$receiverName}/{$receiverWalletAddress}/{$receiverWalletId}/{$currentDateTime}";
-    $receiveParticulars = "W2W/CR/{$senderName}/{$senderWalletAddress}/{$senderWalletId}/{$currentDateTime}";
+    $senderParticulars = "W2W/DR/{$receiverName}/{$receiverWalletAddress}/{$receiverWalletId}/{$currentDateTime}/{$trnxPurpose}/{$senderRemarks}";
+    $receiveParticulars = "W2W/CR/{$senderName}/{$senderWalletAddress}/{$senderWalletId}/{$currentDateTime}/{$trnxPurpose}/{$senderRemarks}";
 
     // Prepare sender query
-    $senderQuery = "INSERT INTO `$senderWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`) 
-    VALUES (?, ?, ?, ?, NULL, ?)";
+    $senderQuery = "INSERT INTO `$senderWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`, `trnxPurpose`) 
+    VALUES (?, ?, ?, ?, NULL, ?, ?)";
 
     // Prepare receiver query
-    $receiverQuery = "INSERT INTO `$receiverWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`) 
-    VALUES (?, ?, ?, NULL, ?, ?)";
+    $receiverQuery = "INSERT INTO `$receiverWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`, `trnxPurpose`) 
+    VALUES (?, ?, ?, NULL, ?, ?, ?)";
 
     // Bind parameters for sender query
     $senderStmt = $connect_wallet_transactions_db->prepare($senderQuery);
-    $senderStmt->bind_param("ssssi", $currentDate, $senderParticulars, $trnxId, $amountToSend, $senderEndBalanceAfterTrnx);
+    $senderStmt->bind_param("ssssis", $currentDate, $senderParticulars, $trnxId, $amountToSend, $senderEndBalanceAfterTrnx, $trnxPurpose);
 
     // Bind parameters for receiver query
     $receiverStmt = $connect_wallet_transactions_db->prepare($receiverQuery);
-    $receiverStmt->bind_param("ssssi", $currentDate, $receiveParticulars, $trnxId, $amountToSend, $receiverEndBalanceAfterTrnx);
+    $receiverStmt->bind_param("ssssis", $currentDate, $receiveParticulars, $trnxId, $amountToSend, $receiverEndBalanceAfterTrnx, $trnxPurpose);
 
     // Execute stmt query
     $senderSuccess = $senderStmt->execute();
@@ -682,10 +682,41 @@ function fetchLastTrnxId($wallet_id, $connect_wallet_transactions_db)
     }
 }
 
+function getTrnxDetails($connect_wallet_transactions_db, $wallet_id, $transactionId, $amount)
+{
+    // Sanitize the wallet ID to prevent SQL injection
+    $wallet_id = $connect_wallet_transactions_db->real_escape_string($wallet_id);
 
-// Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. 
-// Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. 
-// Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. Function to verifyWalletPIN. 
+    // Prepare SQL statement with the dynamic table name
+    $query = "SELECT * FROM `$wallet_id` WHERE `Trnx_id` = ? AND (`debit` = ? OR `credit` = ?)";
+
+    // Prepare and bind parameters
+    $stmt = $connect_wallet_transactions_db->prepare($query);
+    $stmt->bind_param("iii", $transactionId, $amount, $amount);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Get result
+    $result = $stmt->get_result();
+
+    // Check if any rows were returned
+    if ($result->num_rows > 0) {
+        // Fetch associative array of the first row
+        $row = $result->fetch_assoc();
+        // Free result set
+        $result->free_result();
+        // Close statement
+        $stmt->close();
+        // Return the fetched row
+        return $row;
+    } else {
+        // No matching row found, return null
+        return null;
+    }
+}
+
+
 
 
 

@@ -25,7 +25,9 @@ function site_url($path)
     return $site_url . $path;
 }
 
-//for validating signup/login form
+// For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.
+// For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.
+// For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.For validating signup/login form.
 function validateUser($user_data)
 {
     $oauth_uid = $user_data["oauth_uid"] ?? "";
@@ -78,8 +80,10 @@ function validateUser($user_data)
     return $return_data;
 }
 
-//for checking email id is already registered or not
-function checkDuplicateEmail($email)
+// For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.
+// For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.
+// For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.
+function doesEmailExist($email)
 {
     global $connect_kuberkosh_db;
     $query = "SELECT COUNT(*) as row FROM users WHERE email='$email'";
@@ -88,8 +92,10 @@ function checkDuplicateEmail($email)
     return $return_data['row'];
 }
 
-//for checking email id is already registered or not
-function checkDuplicateMobile($mobile)
+// For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. 
+// For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. 
+// For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db. For Checking whether Mobile Exists in db.
+function doesMobileExist($mobile)
 {
     global $connect_kuberkosh_db;
     $query = "SELECT COUNT(*) as row FROM users WHERE mobile='$mobile'";
@@ -98,7 +104,9 @@ function checkDuplicateMobile($mobile)
     return $return_data['row'];
 }
 
-// Register new users by adding them to the database.
+// Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. 
+// Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. 
+// Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. Register new users by adding them to the database. 
 function addUser($connect_kuberkosh_db, $newUser)
 {
     // Insert new user into the 'users' table
@@ -134,6 +142,9 @@ function addUser($connect_kuberkosh_db, $newUser)
     $stmt->close();
 }
 
+// Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. 
+// Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. 
+// Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. Function to Fetch UserID with oauth_uid. 
 function getUserId($oauth_uid)
 {
     global $connect_kuberkosh_db;
@@ -153,12 +164,24 @@ function getUserId($oauth_uid)
 
 
 
-
-
-
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
+// BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
 
-// Function to retrieve bank_name and regBank_id from table registeredBanks
+
+
+
+// Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. 
+// Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. 
+// Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. Function to retrieve bank_name and regBank_id from table registeredBanks. 
 function getRegisteredBanksIdAndName($connect_kuberkosh_db)
 {
     $banks = array();
@@ -173,7 +196,9 @@ function getRegisteredBanksIdAndName($connect_kuberkosh_db)
     return $banks;
 }
 
-// Function to retrieve branches data from table bank_brunches
+// Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. 
+// Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. 
+// Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. Function to retrieve branches data from table bank_brunches. 
 function getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db)
 {
     $branches = array();
@@ -189,7 +214,9 @@ function getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db)
 }
 
 
-// Function to retrieve IFSC with the Bank name and the Location
+// Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
+// Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
+// Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
 function getIFSC($connect_kuberkosh_db, $bankName, $location)
 {
     // $query = "SELECT bb.ifsc 
@@ -208,7 +235,9 @@ function getIFSC($connect_kuberkosh_db, $bankName, $location)
     }
 }
 
-// Function to retrieve BankName with the regBank_id
+// Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. 
+// Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. 
+// Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. Function to retrieve BankName with the regBank_id. 
 function getBankName($connect_kuberkosh_db, $regBank_id)
 {
     $query = "SELECT bank_name FROM registeredBanks WHERE regBank_id = '$regBank_id'";
@@ -221,7 +250,9 @@ function getBankName($connect_kuberkosh_db, $regBank_id)
     }
 }
 
-// Function to retrieve Default Account Number with the userId
+// Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. 
+// Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. 
+// Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. Function to retrieve Default Account Number with the userId. 
 function getDefaultBankAccountId($connect_kuberkosh_db, $userId)
 {
     $query = "SELECT default_bank_account_id FROM Bank WHERE user_id = '$userId'";
@@ -234,6 +265,9 @@ function getDefaultBankAccountId($connect_kuberkosh_db, $userId)
     }
 }
 
+// Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. 
+// Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. 
+// Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. 
 function getBankAccountId($connect_kuberkosh_db, $bankUserId)
 {
     $query = "SELECT bank_account_id FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
@@ -247,7 +281,9 @@ function getBankAccountId($connect_kuberkosh_db, $bankUserId)
     }
 }
 
-// Update Default account ID
+// Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. 
+// Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. 
+// Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. Update Default account ID. 
 function updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId){
     $sql_updateDefaultBankAccountId = "UPDATE Bank SET default_bank_account_id = $bankAccountId WHERE user_id = $userId";
         if (mysqli_query($connect_kuberkosh_db, $sql_updateDefaultBankAccountId)) {
@@ -257,7 +293,9 @@ function updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $user
         }
 }
 
-// Function to fetch bank account IDs for a given bank user ID
+// Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. 
+// Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. 
+// Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. Function to fetch bank account Details for a given bank user ID. 
 function getBankAccountDetails($connect_kuberkosh_db, $bankUserId)
 {
     $query = "SELECT * FROM bank_accounts WHERE bank_user_id = '$bankUserId'";
@@ -272,21 +310,9 @@ function getBankAccountDetails($connect_kuberkosh_db, $bankUserId)
 }
 
 
- // Function to fetch walletDetails using the user_id fron the wallet table
-function getWalletDetails($connect_kuberkosh_db, $userId)
-{
-    $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
-    $result = $connect_kuberkosh_db->query($query);
-    if ($result && $result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        return $row; // Return all columns as an associative array
-    } else {
-        return array(); // Return an empty array if no data found
-    }
-}
-
-
-// Function to fetches bankUserId using the userId from the bank table
+// Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. 
+// Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. 
+// Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. Function to fetches bankUserId using the userId. 
 function getBankUserId($connect_kuberkosh_db, $userId)
 {
     $query = "SELECT bank_user_id FROM Bank WHERE user_id ='$userId'";
@@ -300,6 +326,63 @@ function getBankUserId($connect_kuberkosh_db, $userId)
 }
 
 
+
+
+
+
+
+
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+// WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET WALLET 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
+ // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
+ // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
+ function getWalletDetails($connect_kuberkosh_db, $userId)
+ {
+     $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
+     $result = $connect_kuberkosh_db->query($query);
+     if ($result && $result->num_rows > 0) {
+         $row = $result->fetch_assoc();
+         return $row; // Return all columns as an associative array
+     } else {
+         return array(); // Return an empty array if no data found
+     }
+ }
+
+
+
+// Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. 
+// Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. 
+// Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. 
 function insertWalletAddress($connect_kuberkosh_db, $userId, $walletAddress) {
     // Escape the inputs to prevent SQL injection
     $userId = $connect_kuberkosh_db->real_escape_string($userId);
@@ -323,31 +406,320 @@ function insertWalletAddress($connect_kuberkosh_db, $userId, $walletAddress) {
 }
 
 
+// Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. 
+// Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. 
+// Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. Function to check whether the wallet address already exists in the database and is valid. 
+function doesExistWalletAddres($connect_kuberkosh_db, $walletAddress) {
+    // Escape the wallet address to prevent SQL injection
+    $walletAddress = $connect_kuberkosh_db->real_escape_string($walletAddress);
+
+    // Query to check if the wallet address already exists in the database
+    $query = "SELECT COUNT(*) AS count FROM wallet WHERE wallet_address = '$walletAddress'";
+    $result = $connect_kuberkosh_db->query($query);
+
+
+    if(empty($walletAddress)){
+        return false;
+    }
+    // Check if the query was successful
+    if ($result) {
+        $row = $result->fetch_assoc();
+        $count = $row['count'];
+        
+        // If count is 0, the wallet address is available
+        if ($count == 0) {
+            return false;
+        }
+        else{
+            return true;
+        }
+        
+    } else {
+        // Handle query error
+        // For now, lets return false here
+        return false;
+    }
+}
+
+// Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. 
+// Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. 
+// Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. Function to fetch UserId from walletAddress. 
+function fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress){
+
+    $query = "SELECT user_id FROM wallet WHERE wallet_address = '$walletAddress'";
+
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $user_id = $result->fetch_assoc();
+        return $user_id['user_id'];
+    } else {
+        return "";
+}}
+
+// Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. 
+// Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. 
+// Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. Function to fetch Name via walletAddress. 
+function fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress){
+    $user_id = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+
+    $query = "SELECT first_name, last_name FROM users WHERE user_id = '$user_id'";
+
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        // Fetch the first and last names from the result
+        $row = $result->fetch_assoc();
+        $first_name = isset($row['first_name']) ? $row['first_name'] : ''; 
+        $last_name = isset($row['last_name']) ? $row['last_name'] : '';
+
+        $full_name = $first_name . ' ' . $last_name;
+
+        return $full_name;
+    } else {
+        return "";
+    }
+}
+
+// Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
+// Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
+// Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
+function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress){
+    $user_id = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+
+    $query = "SELECT picture FROM users WHERE user_id = '$user_id'";
+
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        // Fetch the first and last names from the result
+        $row = $result->fetch_assoc();
+        $profilePicLink = isset($row['picture']) ? $row['picture'] : ''; 
+
+        return $profilePicLink;
+    } else {
+        return 0 ;
+    }
+}
+
+// Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
+// Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
+// Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
+function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId){
+    
+    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+
+    $wallet_id = $walletDetails['wallet_id'];
+
+    $query = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
+
+    $result = $connect_wallet_transactions_db->query($query);
+    
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $end_balance = $row['end_balance'];
+        return $end_balance;
+    } else {
+        return null;
+    }
+}
+
+// Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
+// Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
+// Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
+function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPurpose, $connect_kuberkosh_db, $connect_wallet_transactions_db){
+    $senderUserId = $_SESSION['user_id'];
+    $receiverUserId = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+
+    $senderWalletAddress = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
+    $receiverWalletAddress = $walletAddress;
+
+    $senderWalletId = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
+    $receiverWalletId = getWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
+
+    $receiverProfilePic = fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+
+    $senderName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+    $receiverName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+
+    $senderEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $senderUserId);
+    $receiverEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $receiverUserId);
+
+    $senderEndBalanceAfterTrnx = $senderEndBalanceBeforeTrnx - $amountToSend;
+    $receiverEndBalanceAfterTrnx = $receiverEndBalanceBeforeTrnx + $amountToSend;
+
+    $currentDate = date('Y-m-d');
+    $currentDateTime = date('YmdHis');
+
+
+    $trnxId = $senderUserId . $receiverUserId . $senderWalletId . $receiverWalletId . $senderName . $receiverName . $senderEndBalanceBeforeTrnx . $receiverEndBalanceAfterTrnx . $senderEndBalanceAfterTrnx . $receiverEndBalanceAfterTrnx . $currentDateTime;
+    $trnxId = hash("sha3-256", $trnxId);
+
+
+    $senderParticulars = "W2W/DR/{$receiverName}/{$receiverWalletAddress}/{$receiverWalletId}/{$currentDateTime}/{$trnxPurpose}/{$senderRemarks}";
+    $receiveParticulars = "W2W/CR/{$senderName}/{$senderWalletAddress}/{$senderWalletId}/{$currentDateTime}/{$trnxPurpose}/{$senderRemarks}";
+
+    // Prepare sender query
+    $senderQuery = "INSERT INTO `$senderWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`, `trnxPurpose`) 
+    VALUES (?, ?, ?, ?, NULL, ?, ?)";
+
+    // Prepare receiver query
+    $receiverQuery = "INSERT INTO `$receiverWalletId` (`Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`, `trnxPurpose`) 
+    VALUES (?, ?, ?, NULL, ?, ?, ?)";
+
+    // Bind parameters for sender query
+    $senderStmt = $connect_wallet_transactions_db->prepare($senderQuery);
+    $senderStmt->bind_param("ssssis", $currentDate, $senderParticulars, $trnxId, $amountToSend, $senderEndBalanceAfterTrnx, $trnxPurpose);
+
+    // Bind parameters for receiver query
+    $receiverStmt = $connect_wallet_transactions_db->prepare($receiverQuery);
+    $receiverStmt->bind_param("ssssis", $currentDate, $receiveParticulars, $trnxId, $amountToSend, $receiverEndBalanceAfterTrnx, $trnxPurpose);
+
+    // Execute stmt query
+    $senderSuccess = $senderStmt->execute();
+    $receiverSuccess = $receiverStmt->execute();
+
+    $status = '';
+    $senderError = '';
+    $receiverError = '';
+
+    if ($senderSuccess && $receiverSuccess) {
+        // Both queries executed successfully
+        $senderStmt->close();
+        $receiverStmt->close();
+
+        $senderLastTrnxId = fetchLastTrnxId($senderWalletId, $connect_wallet_transactions_db);
+        $receiverLastTrnxId = fetchLastTrnxId($receiverWalletId, $connect_wallet_transactions_db);
+
+        if ($senderLastTrnxId == $receiverLastTrnxId)
+        {
+            $response = array ('success' => true, 'trnxId' => $trnxId, 'amountToSend' => $amountToSend, 'receiverWalletAddress' => $receiverWalletAddress, 'receiverName' => $receiverName, 'receiverProfilePic' => $receiverProfilePic, 'trnxMessage' => 'Transaction Successful');
+            $status = 'Success';
+
+            // Get user's IP address
+            $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+            // Insert transaction log into the database
+            $insertLogQuery = "INSERT INTO `transaction_logs` (`user_id`, `sender_wallet_id`, `receiver_wallet_id`, `transaction_id`, `amount`, `status`, `sender_error`, `receiver_error`, `ip_address`)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $insertLogStmt = $connect_kuberkosh_db->prepare($insertLogQuery);
+            $insertLogStmt->bind_param("iiissssss", $senderUserId, $senderWalletId, $receiverWalletId, $trnxId, $amountToSend, $status, $senderError, $receiverError, $userIP);
+            $insertLogStmt->execute();
+            $insertLogStmt->close();
+
+
+            return $response;
+        }
+        else
+        {
+            $response = array ('success' => false, 'error' => 'Transaction Error');
+            $status = 'Failed';
+
+
+            // Get user's IP address
+            $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
+
+            // Insert transaction log into the database
+            $insertLogQuery = "INSERT INTO `transaction_logs` (`user_id`, `sender_wallet_id`, `receiver_wallet_id`, `transaction_id`, `amount`, `status`, `sender_error`, `receiver_error`, `ip_address`)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            $insertLogStmt = $connect_kuberkosh_db->prepare($insertLogQuery);
+            $insertLogStmt->bind_param("iiissssss", $senderUserId, $senderWalletId, $receiverWalletId, $trnxId, $amountToSend, $status, $senderError, $receiverError, $userIP);
+            $insertLogStmt->execute();
+            $insertLogStmt->close();
+
+
+            return $response;
+        }
+
+    } else {
+        // Query execution failed for either sender or receiver
+        $senderError = $senderStmt->error;
+        $receiverError = $receiverStmt->error;
+
+        // Log errors or handle them as needed
+        // For simplicity, let's concatenate the errors
+        $error = "Sender Error: $senderError, Receiver Error: $receiverError";
+
+        $response = array ('success' => false, 'error' => $error);
+        $status = 'Failed';
 
 
 
-// Function to check if the wallet address is valid
-// function isValidWalletAddress($connect_kuberkosh_db, $walletAddress) {
-//     // Escape the wallet address to prevent SQL injection
-//     $walletAddress = $connect_kuberkosh_db->real_escape_string($walletAddress);
 
-//     // Query to check if the wallet address already exists in the database
-//     $query = "SELECT COUNT(*) AS count FROM wallet WHERE wallet_address = '$walletAddress'";
-//     $result = $connect_kuberkosh_db->query($query);
 
-//     // Check if the query was successful
-//     if ($result) {
-//         $row = $result->fetch_assoc();
-//         $count = $row['count'];
+        // Get user's IP address
+        $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
 
-//         // If count is 0, the wallet address is available
-//         return $count == 0;
-//     } else {
-//         // Handle query error
-//         // For simplicity, return false here
-//         return false;
-//     }
-// }
+        // Insert transaction log into the database
+        $insertLogQuery = "INSERT INTO `transaction_logs` (`user_id`, `sender_wallet_id`, `receiver_wallet_id`, `transaction_id`, `amount`, `status`, `sender_error`, `receiver_error`, `ip_address`)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertLogStmt = $connect_kuberkosh_db->prepare($insertLogQuery);
+        $insertLogStmt->bind_param("iiissssss", $senderUserId, $senderWalletId, $receiverWalletId, $trnxId, $amountToSend, $status, $senderError, $receiverError, $userIP);
+        $insertLogStmt->execute();
+        $insertLogStmt->close();
+
+
+
+
+        return $response;
+    }
+
+}
+
+
+// Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. 
+// Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. 
+// Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. Function to fetchLastTranxId. 
+function fetchLastTrnxId($wallet_id, $connect_wallet_transactions_db)
+{
+    $query = "SELECT Trnx_id FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
+
+    $result = $connect_wallet_transactions_db->query($query);
+    
+    if ($result && $result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        $lastTrnxId = $row['Trnx_id'];
+        return $lastTrnxId;
+    } else {
+        return null;
+    }
+}
+
+function getTrnxDetails($connect_wallet_transactions_db, $wallet_id, $transactionId, $amount)
+{
+    // Sanitize the wallet ID to prevent SQL injection
+    $wallet_id = $connect_wallet_transactions_db->real_escape_string($wallet_id);
+
+    // Prepare SQL statement with the dynamic table name
+    $query = "SELECT * FROM `$wallet_id` WHERE `Trnx_id` = ? AND (`debit` = ? OR `credit` = ?)";
+
+    // Prepare and bind parameters
+    $stmt = $connect_wallet_transactions_db->prepare($query);
+    $stmt->bind_param("iii", $transactionId, $amount, $amount);
+
+    // Execute the statement
+    $stmt->execute();
+
+    // Get result
+    $result = $stmt->get_result();
+
+    // Check if any rows were returned
+    if ($result->num_rows > 0) {
+        // Fetch associative array of the first row
+        $row = $result->fetch_assoc();
+        // Free result set
+        $result->free_result();
+        // Close statement
+        $stmt->close();
+        // Return the fetched row
+        return $row;
+    } else {
+        // No matching row found, return null
+        return null;
+    }
+}
+
+
+
+
+
 
 
 ?>
