@@ -26,7 +26,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
         <label for="receiver_address" class="form-field__label" style="padding-top: 15px; padding-bottom: 0px;">Receiver's  address (Kuber Kosh Address)</label>
         <span class="input-group-text" id="money_send_address_verify_span"> 
           <button  class = "btn" id= "verifyWalletAddressButton" width="35px" hight="35px"> 
-            <img id = "inr_logo" src="/img/verifyWalletAddress1.svg" alt="" width="35px" height="35px">
+            <img id = "wallet_verify" src="/img/verifyWalletAddress1.svg" alt="" width="50px" height="50px">
           </button>
         </span>
     </div>
@@ -337,6 +337,8 @@ function replaceDivWithConfirmationDiv() {
 
   var selected_purpose = document.getElementById('selected_purpose');
 
+  var wallet_verify = document.getElementById('wallet_verify');
+
   var money_send_amount;
 
   var amountToSend;
@@ -373,6 +375,7 @@ function replaceDivWithConfirmationDiv() {
         {
           //alert('Name: ' + response.name);                          // Debugging: Log response from server
 
+          wallet_verify.src = "/img/verifyWalletAddress2.svg";
           receiverProfilePic.src = response.profilePicLink;
           verified_name.textContent = response.name;
           verified_name.style.color = '#4ECB71'; // Change the color to green
@@ -507,6 +510,9 @@ function replaceDivWithConfirmationDiv() {
                 
 
                 replaceDivWithVerificationDiv();
+
+
+                document.getElementById('pin-input1').focus();
 
                 receiverProfilePic = document.getElementById('receiverProfilePic');
                 receiverProfilePic.src = receiverProfilePic1;

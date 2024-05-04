@@ -29,7 +29,7 @@
 
     <div id="dwnld_receipt_btn_div" style = "display: flex; align-items: center;">
       <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="width: 184px; ">Download Receipt</button>
-      <a id= "shareBtn" href=""><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon" style = "margin-top: 0px"></a>        
+      <a id= "shareBtn" href=""><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon"></a>        
     </div>
     
 
