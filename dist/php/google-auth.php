@@ -3,6 +3,9 @@
 include 'gOAuth/vendor/autoload.php';
 require_once 'functions.php';
 
+
+global $connect_kuberkosh_db;
+
 $ClientId='515588955769-sfksdgdcc565sjofiu9gc80k0f506tff.apps.googleusercontent.com';
 $ClientSecret='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';
 

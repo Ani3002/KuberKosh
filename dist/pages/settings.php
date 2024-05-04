@@ -312,14 +312,14 @@ if (!empty($walletDetails['wallet_address'])) {
     <!-- Side left page -->
     <div class="sidebar">
         <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Send Money</a></li>
+            <li><a href="http://localhost/index.php?dash">Dashboard</a></li>
+            <li><a href="http://localhost/index.php?send">Send Money</a></li>
             <li><a href="#">Receive Money</a></li>
             <li><a href="#">Add Money</a></li>
             <li><a href="#">Withdraw Money</a></li>
             <li><a href="#">Transactions</a></li>
             <li><a href="#">Profile</a></li>
-            <li><a href="#">Settings</a></li>
+            <li><a href="http://localhost/index.php?settings#">Settings</a></li>
         </ul>
     </div>
 

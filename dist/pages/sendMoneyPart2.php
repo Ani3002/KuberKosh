@@ -200,8 +200,9 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
       <!-- Send Button -->
       <div id="money_send_btn_div">
-      <button style="margin: 15px 174px 0 174px;width: 154px;" href="#" class="btn btn-primary bg-gradient  idkwhattonameit34645 text-light font-weight-300" id="money_send_btn">CONFIRM</button>
-      </div>
+      <button style="margin: 60px 174px 0 174px;width: 154px;" href="#" class="btn btn-primary bg-gradient  idkwhattonameit34645 text-light font-weight-300" id="money_send_btn">CONFIRM</button>
+
+    </div>
 
 
     </form>
@@ -268,7 +269,10 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
     <h3 id = "trnxMessage" style="width: 500px; height: 30px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3>
 
     <div id="dwnld_receipt_btn_div">
-      <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="margin: 30px 174px 0 174px; width: 184px;">Download Receipt</button>
+      <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="margin: 60px 174px 0 -90px; width: 184px;">Download Receipt</button>   
+      <!-- style="margin: 30px 174px 0 174px; width: 184px;" -->
+      <!-- <button href="#" class="btn btn-primary bg-gradient  text-light font-weight-300" id="money_send_btn">CONFIRM</button> -->
+
     </div>
     <a id= "shareBtn" href=""><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon"></a>        
 </div>
@@ -489,7 +493,7 @@ function replaceDivWithConfirmationDiv() {
           xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
           
           var dataToSend = JSON.stringify({ amountToSend: amountToSend });
-          //alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+          alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
           xhrValidateTransferAmount.send(dataToSend);
           
           xhrValidateTransferAmount.onload = function()
@@ -497,7 +501,7 @@ function replaceDivWithConfirmationDiv() {
             if (xhrValidateTransferAmount.status === 200) 
             {
               var response = JSON.parse(xhrValidateTransferAmount.responseText);
-              //alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+              alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
 
               // if (!response.hasOwnProperty('error') && response.valid && response.walletBalance >= amountToSend)
               if (!response.hasOwnProperty('error') && response.valid )

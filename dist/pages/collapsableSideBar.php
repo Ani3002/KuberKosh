@@ -11,7 +11,7 @@
             </div>
             <ul class="sidebar-nav p-0">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?dash" class="sidebar-attribute sidebar-link">
                         <!-- <i class="lni lni-user"></i> -->
                         <!-- <img src="img/google.svg" alt="profile logo" width="25px" hight="25px"> -->
                         <i> <img src="img/dashLogo.svg" alt="Dashboard Icon" width="25px" hight="25px"> </i>
@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="http://192.168.43.228/index.php?send" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?send" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/sendLogo.svg" alt="Send Money Icon" width="25px" hight="25px"> </i>
                         <span>Send Money</span>
                     </a>
@@ -74,7 +74,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="http://192.168.43.228/index.php?settings" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?settings" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/settingsLogo.svg" alt="Settings Icon" width="25px" hight="25px"> </i>
                         <span>Settings</span>
                     </a>

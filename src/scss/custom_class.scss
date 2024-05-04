@@ -542,6 +542,121 @@ body{
 
 
 
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+      }
+      
+      body {
+        background: #ffccbc;
+      }
+      
+      .action {
+        position: fixed;
+        // top: 20px;
+        right: 30px;
+      }
+      
+      .action .profile {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: pointer;
+      }
+      
+      .action .profile img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .action .menu {
+        position: absolute;
+        top: 120px;
+        right: -10px;
+        padding: 10px 20px;
+        background: rgba(0, 0, 0, 0.303);
+        width: 200px;
+        box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+        border-radius: 15px;
+        transition: 0.5s;
+        visibility: hidden;
+        opacity: 0;
+      }
+      
+      .action .menu.active {
+        top: 80px;
+        visibility: visible;
+        opacity: 1;
+      }
+      
+      .action .menu::before {
+        content: "";
+        position: absolute;
+        top: -5px;
+        right: 28px;
+        width: 20px;
+        height: 20px;
+        background: rgba(0, 0, 0, 0.303);
+        transform: rotate(45deg);
+      }
+
+      .action .menu h3 {
+        width: 100%;
+        text-align: center;
+        font-size: 18px;
+        padding: 20px 0;
+        font-weight: 500;
+        color: #ffffff;
+        line-height: 1.5em;
+      }
+      
+      .action .menu h3 span {
+        font-size: 14px;
+        color: #cecece;
+        font-weight: 300;
+      }
+      
+      .action .menu ul li {
+        list-style: none;
+        padding: 16px 0;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+        display: flex;
+        align-items: center;
+      }
+      
+      .action .menu ul li img {
+        max-width: 20px;
+        margin-right: 10px;
+        opacity: 0.5;
+        transition: 0.5s;
+      }
+      
+      .action .menu ul li:hover img {
+        opacity: 1;
+      }
+      
+      .action .menu ul li a {
+        display: inline-block;
+        text-decoration: none;
+        color: #ffffff;
+        font-weight: 500;
+        transition: 0.5s;
+      }
+      
+      .action .menu ul li:hover a {
+        color: #884afe;
+      }
+
+
+
+
 
 
 
@@ -778,16 +893,20 @@ body{
     }
 
     .goodluckdubugingit65546542{
-        width: 225px; height:40px; margin: -25px  0 0 10px;
+        width: 225px; height:40px; margin: -25px  0 0 40px;
     }
     .idkwhattonameit34645{
-        // position: absolute;
-        margin: 15px 174px 0 174px;
+        position: absolute;
+        margin: 60px 174px 0 -90px;
+        // margin: 120px -90px 0 174px;
+
+
         width: 154px;
         // width: 40px;
         // top: 390px;
         // left: 250px;
     }
+
     .forgot-pin{
         margin: -10px 0 0 0;
         padding: auto;
