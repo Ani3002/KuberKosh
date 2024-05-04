@@ -1,4 +1,3 @@
-version: "3"
 services:
   webserver:                            # It will run the php codes to serve the web page
     # image: php:apache                 # This will use the image directly from docker without any mod.

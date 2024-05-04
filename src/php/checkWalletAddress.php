@@ -4,7 +4,7 @@ require_once 'database.php';  // Include the database.php file
 
 
 // Establish database connection
-global $databaseConnection;
+global $connect_kuberkosh_db;
 
 // Check if the request is a POST request
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Perform server-side validation or additional checks if needed
     
     // Check whether the wallet address already exists in the database and is valid
-    if (doesExistWalletAddres($databaseConnection, $inputNewWalletAddress)) {
+    if (doesExistWalletAddres($connect_kuberkosh_db, $inputNewWalletAddress)) {
         // Wallet address is valid
         $response = array('valid' => true);
     } else {
@@ -33,13 +33,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 }
 
 // Function to check whether the wallet address already exists in the database and is valid
-function doesExistWalletAddres($databaseConnection, $inputNewWalletAddress) {
+function doesExistWalletAddres($connect_kuberkosh_db, $inputNewWalletAddress) {
     // Escape the wallet address to prevent SQL injection
-    $inputNewWalletAddress = $databaseConnection->real_escape_string($inputNewWalletAddress);
+    $inputNewWalletAddress = $connect_kuberkosh_db->real_escape_string($inputNewWalletAddress);
 
     // Query to check if the wallet address already exists in the database
     $query = "SELECT COUNT(*) AS count FROM wallet WHERE wallet_address = '$inputNewWalletAddress'";
-    $result = $databaseConnection->query($query);
+    $result = $connect_kuberkosh_db->query($query);
 
 
     if(empty($inputNewWalletAddress)){
