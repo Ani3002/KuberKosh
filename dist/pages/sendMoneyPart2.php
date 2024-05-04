@@ -497,13 +497,13 @@ function replaceDivWithConfirmationDiv() {
             if (xhrValidateTransferAmount.status === 200) 
             {
               var response = JSON.parse(xhrValidateTransferAmount.responseText);
-              alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+              //alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
 
               // if (!response.hasOwnProperty('error') && response.valid && response.walletBalance >= amountToSend)
               if (!response.hasOwnProperty('error') && response.valid )
               {
 
-                alert ('moving to next page');
+                //alert ('moving to next page');
                 // purpose = selected_purpose.value;
                 senderRemarks = money_sending_remarks.value.trim();
                 var trnxPurpose = inputPurpose.value;
@@ -663,27 +663,27 @@ function replaceDivWithConfirmationDiv() {
                   xhrTransferMoneyW2W.setRequestHeader('Content-Type', 'application/json');
                   
                   var dataToSend = JSON.stringify({ amountToSend: amountToSend, walletAddress: walletAddress, hashedPINEnteredByUser: hashedString, trnxPurpose: trnxPurpose, senderRemarks: senderRemarks});
-                  alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+                  //alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
                   xhrTransferMoneyW2W.send(dataToSend);
                   
                   xhrTransferMoneyW2W.onload = function()
                   {
                     if (xhrTransferMoneyW2W.status === 200) 
                     {
-                      alert('debug'+ xhrTransferMoneyW2W.status);       // Debugging: Log data being sent to server
+                      //alert('debug'+ xhrTransferMoneyW2W.status);       // Debugging: Log data being sent to server
                       
                       var response = JSON.parse(xhrTransferMoneyW2W.responseText);
                       
-                      alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+                      //alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
                       
                       if (!response.hasOwnProperty('error')  && response.success) 
                       {
                         
 
 
-                        alert('Success: Transaction Id = ' + response.trnxId);
+                        //alert('Success: Transaction Id = ' + response.trnxId);
                         replaceDivWithConfirmationDiv()
-                        alert(response);
+                        //alert(response);
 
                         receiverProfilePic=document.getElementById('receiverProfilePic');
                         receiverProfilePic.src = response.receiverProfilePic;
@@ -718,7 +718,7 @@ function replaceDivWithConfirmationDiv() {
                             
                             // Make sure transaction ID and amount are not empty
                             if (transactionId.trim() === '' || amount.trim() === '') {
-                                alert('Please enter transaction ID and amount.');
+                                //alert('Please enter transaction ID and amount.');
                                 return;
                             }
 
@@ -835,7 +835,7 @@ function replaceDivWithConfirmationDiv() {
               }
               else 
               {
-                alert('Unknown Error4324');
+                alert('Unknown Error');
               }
             } 
             else 
