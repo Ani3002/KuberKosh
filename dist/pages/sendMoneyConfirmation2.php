@@ -22,10 +22,10 @@
     <!-- <dotlottie-player id="success_animation" src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json" background="transparent" speed="1" style="width: 300px; height: 300px; position: absolute; margin-top: 160px;" autoplay="false"></dotlottie-player> -->
 
     <div id="testdiv" style="width: 300px; height: 300px; position: absolute; margin-top: 10px;">
-    <!-- <dotlottie-player  id = "success_animation" src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json" background="transparent" speed="1" style="width: 300px; height: 300px; position: absolute; margin-top: 160px;" ></dotlottie-player> -->
+    <dotlottie-player  id = "success_animation" src="https://lottie.host/cfb05086-a402-4113-b111-84766aa6af49/j58fgJqsSv.json" background="transparent" speed="1" style="width: 300px; height: 300px; position: absolute; margin-top: 160px;" autoplay></dotlottie-player>
     </div>
 
-    <h3 id = "trnxMessage" style="width: 500px; height: 30px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3>
+    <!-- <h3 id = "trnxMessage" style="width: 500px; height: 30px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3> -->
 
     <div id="dwnld_receipt_btn_div" style = "display: flex; align-items: center;">
       <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="width: 184px; ">Download Receipt</button>
@@ -38,7 +38,7 @@
 
 
 
-  <script>
+  <!-- <script>
         var downloadBtn = document.getElementById('downloadBtn');
         downloadBtn.addEventListener('click', function() {
             // Get transaction ID and amount from input fields
@@ -93,8 +93,8 @@
             formData.append('amount', amount);
             xhr.send(formData);
         });
-    </script>
-  <!-- <script>
+    </script> -->
+  <script>
 
     // Function to hide the testdiv when the page reloads
 // window.onload = function() {
@@ -121,4 +121,4 @@ function startAnimation() {
 }
 
 
-  </script> -->
+  </script>

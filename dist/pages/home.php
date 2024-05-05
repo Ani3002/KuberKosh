@@ -14,7 +14,10 @@
 
 <!-- Nav_Bar Begins Here --------------------------- -->
   <nav class="navbar navbar-expand-lg bg-transparent">
-    <div class="container">
+    <div class="container" style: ".center-container {
+      display: flex;
+      justify-content: center;
+    }">
       <a class="navbar-brand" href="index.php?landing">
         <img src="img/Logo.svg" alt="kuberkosh logo" width="50px" hight="50px">
       </a>
