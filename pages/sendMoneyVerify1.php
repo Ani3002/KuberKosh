@@ -1,14 +1,3 @@
-<?php
-include_once 'php/database.php'; // Include the database.php file
-include "php/google-auth.php";
-
-// Establish database connection
-global $databaseConnection;
-
-$userId = $_SESSION['user_id']; // Works only if a user session exists
-?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 

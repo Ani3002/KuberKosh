@@ -54,8 +54,8 @@ gulp.task('js', function() {
 
 // Watch for changes in src
 gulp.task('watch', function() {
-    // gulp.watch('src/**/*.html', gulp.series('html'));
-    // gulp.watch('src/**/*.php', gulp.series('php'));
+    gulp.watch('src/**/*.html', gulp.series('html'));
+    gulp.watch('src/**/*.php', gulp.series('php'));
     gulp.watch('src/css/*.css', gulp.series('css'));
     gulp.watch('src/js/**/*.js', gulp.series('js'));
     gulp.watch('src/img/*.jpg', gulp.series('webp'));
@@ -64,5 +64,4 @@ gulp.task('watch', function() {
     // Add other file types you want to watch
 });
 // Default task running all the above tasks
-// gulp.task('default', gulp.parallel('html', 'php', 'css', 'js', 'watch'));
-gulp.task('default', gulp.parallel('css', 'js', 'watch'));
+gulp.task('default', gulp.parallel('html', 'php', 'css', 'js', 'watch'));

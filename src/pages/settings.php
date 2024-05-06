@@ -3,34 +3,34 @@ include_once 'php/database.php'; // Include the database.php file
 include "php/google-auth.php";
 
 // Establish database connection
-global $connect_kuberkosh_db;
+global $databaseConnection;
 
 $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 // Retrieve banks data
-$banks = getRegisteredBanksIdAndName($connect_kuberkosh_db);
+$banks = getRegisteredBanksIdAndName($databaseConnection);
 
 // Retrieve branches data
-$branches = getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db);
+$branches = getBranchesIdLocationIfscAndFKregBankId($databaseConnection);
 
 // Fetch Wallet details
-$walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+$walletDetails = getWalletDetails($databaseConnection, $userId);
 
 // Fetch bank_user_id from Bank Table
-$bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);
+$bankUserId = getBankUserId( $databaseConnection, $userId);
 if (empty($bankUserId)) {
     $setBank_user_id = "INSERT INTO Bank (user_id) VALUES ($userId)";
-    $stmt = $connect_kuberkosh_db->prepare($setBank_user_id);
+    $stmt = $databaseConnection->prepare($setBank_user_id);
     $stmt->execute();
 
-    $bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);
+    $bankUserId = getBankUserId( $databaseConnection, $userId);
 }
 
 // Fetch bank account id for the specified bank User ID
-$bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
+$bankAccountId = getBankAccountId($databaseConnection, $bankUserId);
 
 //TMP TMP TMP TMP TMP TMP TMP TMP TMP TMP 
-$bankAccountDetails = getBankAccountDetails($connect_kuberkosh_db, $bankUserId);
+$bankAccountDetails = getBankAccountDetails($databaseConnection, $bankUserId);
 
 
 
@@ -77,28 +77,28 @@ if (isset($_POST['submitBankSettings'])) {
 
 
     // Get the IFSC code based on the selected bank and branch
-    $ifsc = getIFSC($connect_kuberkosh_db, $selectedBankId, $selectedBranch);
+    $ifsc = getIFSC($databaseConnection, $selectedBankId, $selectedBranch);
 
-    $bankName = getBankName($connect_kuberkosh_db, $selectedBankId);
+    $bankName = getBankName($databaseConnection, $selectedBankId);
     echo '<script>alert("IFSC code:'. $bankName .'")</script>';
 
     // Update the Bank table with the retrieved IFSC code
     $sql_updateIFSC = "INSERT INTO bank_accounts (bank_user_id, account_number, ifsc_code, bank_name, account_balance) VALUES ('$bankUserId', '$enteredAccountNumber', '$ifsc', '$bankName','0')";
-    if (mysqli_query($connect_kuberkosh_db, $sql_updateIFSC)) {
+    if (mysqli_query($databaseConnection, $sql_updateIFSC)) {
         echo '<script>alert("IFSC code updated successfully")</script>';
         echo "updated IFSC: " . $userId;
     } else {
-        echo "Error updating IFSC: " . mysqli_error($connect_kuberkosh_db);
+        echo "Error updating IFSC: " . mysqli_error($databaseConnection);
     }
 
     // If default account is empty, set the first bank account as default
-    $defaultBankAccountId = getDefaultBankAccountId($connect_kuberkosh_db, $userId);
+    $defaultBankAccountId = getDefaultBankAccountId($databaseConnection, $userId);
     if (empty($defaultBankAccountId)) {
         // Update the Bank table with the entered account number as the default account
         
-        $bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
+        $bankAccountId = getBankAccountId($databaseConnection, $bankUserId);
         // echo '<script>alert("bankAccountId 2nd time: ' . $bankAccountId . '");</script>';                   //Debugging
-        updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId);
+        updateDefaultBankAccountId($databaseConnection, $bankAccountId, $userId);
     }
 }
 
@@ -121,7 +121,7 @@ if (!empty($walletDetails['wallet_address'])) {
     $walletAddress = $parts[0] . '@kkosh'; // Replace everything after @ with "kkosh"
     
     // Function to insert this new wallet address into the database
-    insertWalletAddress($connect_kuberkosh_db, $userId, $walletAddress);
+    insertWalletAddress($databaseConnection, $userId, $walletAddress);
 
     // Constructing a new array containing the wallet details
     $newWalletDetails = array(
@@ -551,20 +551,20 @@ if (!empty($walletDetails['wallet_address'])) {
             event.preventDefault(); // Prevent form submission
 
             // Get new wallet address from input
-            var walletAddress = newWalletAddressInput.value.trim();
+            var inputNewWalletAddress = newWalletAddressInput.value.trim();
 
             // Client-side validation
-            if (!walletAddress) {
+            if (!inputNewWalletAddress) {
                 alert('Please enter a new wallet address');
                 return;
             }
 
             // Server-side validation via AJAX
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/ajaxCheckWalletAddress.php'); 
+            xhr.open('POST', 'php/checkWalletAddress.php'); 
             xhr.setRequestHeader('Content-Type', 'application/json');
             
-            var dataToSend = JSON.stringify({ walletAddress: walletAddress });
+            var dataToSend = JSON.stringify({ inputNewWalletAddress: inputNewWalletAddress });
             alert('Data being sent to server: ' + dataToSend); // Debugging: Log data being sent to server
             xhr.send(dataToSend);
             
@@ -575,7 +575,7 @@ if (!empty($walletDetails['wallet_address'])) {
                     alert('Response from server: ' + JSON.stringify(response)); // Debugging: Log response from server
                     if (response.valid) {
                         // Valid wallet address, proceed to update database
-                        updateWalletAddress(walletAddress, userId);
+                        updateWalletAddress(inputNewWalletAddress, userId);
                         alert('updated');
                     } else {
                         alert('The provided wallet address is not available or already exists in the database');
@@ -592,7 +592,7 @@ if (!empty($walletDetails['wallet_address'])) {
         function updateWalletAddress(inputNewWalletAddress, userId) {
             // AJAX request to update wallet address in the database
             var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/php/ajaxUpdateWalletAddress.php');     // i have no idea why response is 404 if /php/ is not added.
+            xhr.open('POST', '/php/updateWalletAddress.php');     // i have no idea why response is 404 id /php/ is not added.
             xhr.setRequestHeader('Content-Type', 'application/json');
             xhr.onload = function() {
                 if (xhr.status === 200) {

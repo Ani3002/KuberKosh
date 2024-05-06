@@ -3,7 +3,7 @@
 include 'database.php';
 include 'functions.php';
 
-global $connect_kuberkosh_db;
+global $databaseConnection;
 // Function to validate PIN format
 function validatePIN($pin) {
     // PIN must consist of exactly 6 digits
@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $requestData['userId'] ?? null;
 
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = getWalletDetails($databaseConnection, $userId);
 
     if(empty($walletDetails['wallet_pin']))
     {
@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         $currentPIN = hash('sha256', $currentPIN);
         $query = "SELECT * FROM wallet WHERE user_id = ? AND wallet_pin = ?";
-        $stmt = $connect_kuberkosh_db->prepare($query);
+        $stmt = $databaseConnection->prepare($query);
         $stmt->bind_param('is', $userId, $currentPIN);
         $stmt->execute();
         $result = $stmt->get_result();
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Update the wallet PIN in the database
     $query = "UPDATE wallet SET wallet_pin = ? WHERE user_id = ?";
-    $stmt = $connect_kuberkosh_db->prepare($query);
+    $stmt = $databaseConnection->prepare($query);
     $stmt->bind_param('si', $hashedPIN, $userId);
     if ($stmt->execute()) {
         echo json_encode(array('success' => true, 'message' => 'Wallet PIN updated successfully.'));
