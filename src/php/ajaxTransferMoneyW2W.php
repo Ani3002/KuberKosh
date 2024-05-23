@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     $trnxPurpose = $requestData['trnxPurpose'];
     $userId = $_SESSION['user_id'];
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
     $walletPINHash = ($walletDetails['wallet_pin']);
 
     // Check if the hashed PIN entered by the user matches the hashed PIN stored in the database

@@ -686,6 +686,13 @@ body{
 
 
 
+    #sendDiv{
+      margin-left: 30%; margin-top: 7%;
+    }
+
+    #send_money_form_1{
+      margin-top: 8px;
+    }
       /* Actual code example */
       
       $primary-color: #b11adc;
@@ -831,6 +838,7 @@ body{
 
         border-right-color: #ffffff00;
         border-radius: 10px 0 0 10px;
+        height: 45px;
         border: 1px solid rgba(255, 255, 255, 0.10); 
         background: rgba(255, 255, 255, 0.05);
       }
@@ -987,123 +995,93 @@ body{
 
 
 
-    // #assumedBody {
-    //   background-color: #141414; /* Match the background color of the image */
-    //   display: flex;
-    //   justify-content: center;
-    //   align-items: center;
-    //   height: 100vh;
-    //   margin: 0; /* Ensure no default margin */
-    // }
-    
+    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+
+    #input-group{
+      height: 45px;
+    }
     #requestDiv {
       margin-left: 30%; margin-top: 7%;
-      // width: 400%;
-      // background: #1f1f1f;
-      // border-radius: 10px;
-      // box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      // padding: 20px;
     }
     
-    // .card-form {
-    //   display: flex;
-    //   flex-direction: column;
-    //   align-items: center;
-    //   width: 100%;
-    // }
-    
-    // .input-group {
-    //   width: 100%;
-    //   margin-bottom: 20px;
-    // }
+    .card-form {
+      margin-top: 8px;
+
+    }
     
     // #money_send_currency_span {
-    //   height: 40px;
-    //   display: flex;
-    //   align-items: center;
-    //   background: transparent;
-    //   border: none;
+      
+
     // }
+
+    #money_send_amount_input{
+      height: 45px;
+    }
+
+    #dropdown_purpose_button_a {
+      height: 45px;
+      padding-bottom: 4px;
+      padding-top: 15px;
+      border-radius: 10px
+    }
     
-    // .form-control {
-    //   height: 40px;
-    //   background: #333;
-    //   border: none;
-    //   color: #fff;
-    //   font-weight: 600;
-    //   text-align: center;
-    // }
+    .form-field__label {
+      padding-top: 15px; padding-bottom: 0px;
+
+    }
     
-    // #dropdown_purpose_div {
-    //   width: 100%;
-    //   margin-bottom: 20px;
-    //   position: relative;
-    // }
+    #qr_code_div {
+      text-align: center;
+    }
     
-    // #dropdown_purpose_button_a {
-    //   width: 100%;
-    //   height: 45px;
-    //   background: #333;
-    //   color: #fff;
-    //   border: none;
-    //   border-radius: 10px;
-    //   padding: 10px;
-    //   font-size: 16px;
-    // }
+    #receiver_address{
+      padding-top: 4px;
+      margin-top: 15px;
+    }
+    #money_sending_address_div, 
+    #money_sending_remarks_div {
+      height: 45px;
+
+    }
     
-    // .form-field__label {
-    //   position: absolute;
-    //   top: -10px;
-    //   left: 10px;
-    //   background: #1f1f1f;
-    //   padding: 0 5px;
-    //   color: #aaa;
-    // }
+    #money_sending_remarks,
+    #money_sending_remarks {
+      padding-bottom: 4px;
+      padding-top: 4px;
+      margin-top: 15px;
+    }
     
-    // #qr_code_div {
-    //   margin: 20px 0;
-    //   text-align: center;
-    // }
-    
-    // #money_sending_address_div, 
-    // #money_sending_remarks_div {
-    //   width: 100%;
-    //   margin-bottom: 20px;
-    //   position: relative;
-    // }
-    
-    // #receiver_address,
-    // #money_sending_remarks {
-    //   width: 100%;
-    //   height: 45px;
-    //   background: #333;
-    //   color: #fff;
-    //   border: none;
-    //   padding: 10px;
-    //   border-radius: 10px;
-    //   font-size: 16px;
-    // }
-    
-    // #money_send_btn_div {
-    //   width: 100%;
-    //   text-align: center; /* Center the button */
-    // }
-    
-    // #money_send_btn {
-    //   width: 150px;
-    //   height: 45px;
-    //   background: linear-gradient(90deg, #ff8a00, #e52e71);
-    //   border: none;
-    //   color: #fff;
-    //   font-size: 16px;
-    //   font-weight: 300;
-    //   border-radius: 10px;
-    // }
+    #receiver_address_label{
+    padding-top: 15px; padding-bottom: 0px;
+    }
+
+    #link_share_btn_div {
+      width: 100%;
+      text-align: center; /* Center the button */
+    }
+
     
 
 
 
+    #bankSelect {
+        /* Styles for the collapsed dropdown */
+        height: 45px;
+        width: 500px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        color: #fff; /* Text color for the collapsed dropdown */
+    }
 
 
-
+    #bankSelect option {
+      /* Styles for the expanded dropdown options */
+      background-color: rgba(255, 255, 255, 0.05);
+      color: #000000; /* Text color for the expanded dropdown options */
+    }
 }

@@ -32,13 +32,13 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?add-money" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/addLogo.svg" alt="Add Money Icon" width="25px" hight="25px"> </i>
                         <span>Add Money</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?withdraw-money" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/withdrawLogo.svg" alt="Withdraw Icon" width="25px" hight="25px"> </i>
                         <span>Withdraw Money</span>
                     </a>

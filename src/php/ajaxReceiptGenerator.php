@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $userId = $_SESSION['user_id'];
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
     $senderWalletAddress = $walletDetails['wallet_address'];
     $wallet_id = $walletDetails['wallet_id'];
 

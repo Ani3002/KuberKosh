@@ -366,7 +366,7 @@ function getBankUserId($connect_kuberkosh_db, $userId)
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
- function getWalletDetails($connect_kuberkosh_db, $userId)
+ function fetchWalletDetails($connect_kuberkosh_db, $userId)
  {
      $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
      $result = $connect_kuberkosh_db->query($query);
@@ -504,7 +504,7 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId){
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 
     $wallet_id = $walletDetails['wallet_id'];
 
@@ -532,11 +532,11 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
     $senderUserId = $_SESSION['user_id'];
     $receiverUserId = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
-    $senderWalletAddress = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
+    $senderWalletAddress = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
     $receiverWalletAddress = $walletAddress;
 
-    $senderWalletId = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
-    $receiverWalletId = getWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
+    $senderWalletId = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
+    $receiverWalletId = fetchWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
 
     if (!tableExists($connect_wallet_transactions_db, $senderWalletId)) {
         createWalletTable($connect_wallet_transactions_db, $senderWalletId);

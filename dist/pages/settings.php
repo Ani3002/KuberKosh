@@ -14,7 +14,7 @@ $banks = getRegisteredBanksIdAndName($connect_kuberkosh_db);
 $branches = getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db);
 
 // Fetch Wallet details
-$walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+$walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 
 // Fetch bank_user_id from Bank Table
 $bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);
@@ -82,10 +82,10 @@ if (isset($_POST['submitBankSettings'])) {
     $bankName = getBankName($connect_kuberkosh_db, $selectedBankId);
     echo '<script>alert("IFSC code:'. $bankName .'")</script>';
 
-    // Update the Bank table with the retrieved IFSC code
+    // Update the bank_accounts table with the retrieved IFSC code
     $sql_updateIFSC = "INSERT INTO bank_accounts (bank_user_id, account_number, ifsc_code, bank_name, account_balance) VALUES ('$bankUserId', '$enteredAccountNumber', '$ifsc', '$bankName','0')";
     if (mysqli_query($connect_kuberkosh_db, $sql_updateIFSC)) {
-        echo '<script>alert("IFSC code updated successfully")</script>';
+        echo '';
         echo "updated IFSC: " . $userId;
     } else {
         echo "Error updating IFSC: " . mysqli_error($connect_kuberkosh_db);

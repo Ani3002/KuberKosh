@@ -217,15 +217,12 @@ function getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db)
 // Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
 // Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
 // Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. Function to retrieve IFSC with the Bank name and the Location. 
-function getIFSC($connect_kuberkosh_db, $bankName, $location)
+function getIFSC($connect_kuberkosh_db, $selectedBankId, $location)
 {
-    // $query = "SELECT bb.ifsc 
-    //           FROM bank_brunches bb
-    //           JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
-    //           WHERE rb.bank_name = '$bankName' AND bb.brunchLocation = '$location'";
     $query = "SELECT bb.ifsc 
-                FROM bank_brunches bb
-                WHERE bb.brunch_id = '1' AND bb.brunchLocation = 'Winterfell'";
+              FROM bank_brunches bb
+              JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
+              WHERE rb.regBank_id = '$selectedBankId' AND bb.brunchLocation = '$location'";
     $result = $connect_kuberkosh_db->query($query);
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
@@ -264,6 +261,20 @@ function getDefaultBankAccountId($connect_kuberkosh_db, $userId)
         return ""; // Return empty string if default account not found
     }
 }
+
+
+function fetchBankUserId($connect_kuberkosh_db, $userId)
+{
+    $query = "SELECT bank_user_id FROM Bank WHERE user_id = '$userId'";
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row['bank_user_id'];
+    } else {
+        return ""; // Return empty string if default account not found
+    }
+}
+
 
 // Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. 
 // Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. Function to fetch bankAccountId with the bankUserId. 
@@ -325,6 +336,85 @@ function getBankUserId($connect_kuberkosh_db, $userId)
     }
 }
 
+// Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  
+// Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  
+// Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  Function to fetch Bank Name and Location with IFSC code  
+function fetchBankNameLocation($connect_kuberkosh_db, $ifsc) {
+    // Prepare and execute SQL query to fetch data
+    $sql = "SELECT rb.bank_name, bb.brunchLocation
+            FROM bank_brunches bb
+            INNER JOIN registeredBanks rb ON bb.regBank_id = rb.regBank_id
+            WHERE bb.ifsc = :ifsc";
+
+    $stmt = $connect_kuberkosh_db->prepare($sql);
+    $stmt->bindParam(':ifsc', $ifsc, PDO::PARAM_STR);
+    $stmt->execute();
+
+    // Fetch the result
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Close the statement
+    $stmt->closeCursor();
+
+    return $result;
+}
+
+
+
+// Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  
+// Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  
+// Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  Function to fetch banks registered with the userId  
+function getUserBanks($connect_kuberkosh_db, $userId) {
+    $userBanks = [];
+
+    // SQL query to get bank details for the given userId
+    // $query = "
+    //     SELECT
+    //         bank_accounts.bank_name,
+    //         bank_brunches.brunchLocation
+    //     FROM
+    //         Bank
+    //     INNER JOIN
+    //         bank_accounts ON Bank.bank_user_id = bank_accounts.bank_user_id
+    //     INNER JOIN
+    //         bank_brunches ON bank_accounts.ifsc_code = bank_brunches.ifsc
+    //     WHERE
+    //         Bank.user_id = '$userId'
+    // ";
+    $query = "
+            SELECT
+                bank_accounts.bank_account_id,
+                bank_accounts.bank_name,
+                bank_brunches.brunchLocation
+            FROM
+                Bank
+            INNER JOIN
+                bank_accounts ON Bank.bank_user_id = bank_accounts.bank_user_id
+            INNER JOIN
+                bank_brunches ON bank_accounts.ifsc_code = bank_brunches.ifsc
+            WHERE
+                Bank.user_id = '$userId'
+        ";
+
+    // $result = $connect_kuberkosh_db->query($query);
+    // if ($result) {
+    //     while ($row = $result->fetch_assoc()) {
+    //         $userBanks[] = $row['bank_name'] . ', ' . $row['brunchLocation'];
+    //     }
+    // }
+
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result) {
+        while ($row = $result->fetch_assoc()) {
+            $userBanks[] = [
+                'bank_account_id' => $row['bank_account_id'],
+                'bank_info' => $row['bank_name'] . ', ' . $row['brunchLocation']
+            ];
+        }
+    }
+
+    return $userBanks;
+}
 
 
 
@@ -366,7 +456,7 @@ function getBankUserId($connect_kuberkosh_db, $userId)
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
  // Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. Function to fetch walletDetails using the user_id from the wallet table. 
- function getWalletDetails($connect_kuberkosh_db, $userId)
+ function fetchWalletDetails($connect_kuberkosh_db, $userId)
  {
      $query = "SELECT * FROM  wallet WHERE user_id = '$userId'";
      $result = $connect_kuberkosh_db->query($query);
@@ -378,6 +468,23 @@ function getBankUserId($connect_kuberkosh_db, $userId)
      }
  }
 
+// Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  
+// Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  
+// Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  Function to fetch Wallet Address  
+//  function fetchWalletAddress($connect_kuberkosh_db, $userId)
+// {
+//     $query = "SELECT wallet_address FROM wallet WHERE user_id = ?";
+//     $stmt = $connect_kuberkosh_db->prepare($query);
+//     $stmt->bind_param("i", $userId);
+//     $stmt->execute();
+//     $result = $stmt->get_result();
+//     if ($result && $result->num_rows > 0) {
+//         $row = $result->fetch_assoc();
+//         return $row['wallet_address'];
+//     } else {
+//         return '';
+//     }
+// }
 
 
 // Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. Function to Insert Wallet address in the wallet table. 
@@ -504,7 +611,7 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId){
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 
     $wallet_id = $walletDetails['wallet_id'];
 
@@ -532,11 +639,11 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
     $senderUserId = $_SESSION['user_id'];
     $receiverUserId = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
-    $senderWalletAddress = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
+    $senderWalletAddress = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
     $receiverWalletAddress = $walletAddress;
 
-    $senderWalletId = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
-    $receiverWalletId = getWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
+    $senderWalletId = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
+    $receiverWalletId = fetchWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
 
     if (!tableExists($connect_wallet_transactions_db, $senderWalletId)) {
         createWalletTable($connect_wallet_transactions_db, $senderWalletId);

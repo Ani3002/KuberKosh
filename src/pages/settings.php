@@ -14,7 +14,7 @@ $banks = getRegisteredBanksIdAndName($connect_kuberkosh_db);
 $branches = getBranchesIdLocationIfscAndFKregBankId($connect_kuberkosh_db);
 
 // Fetch Wallet details
-$walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+$walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 
 // Fetch bank_user_id from Bank Table
 $bankUserId = getBankUserId( $connect_kuberkosh_db, $userId);

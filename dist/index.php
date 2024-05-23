@@ -63,4 +63,17 @@ elseif(isset($_GET['request'])){
         viewPage('navBar');
         viewPage('requestMoney2');
 }
-
+elseif(isset($_GET['add-money'])){
+    // for send money page
+        viewPage('addMoney1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('addMoney2');
+}
+elseif(isset($_GET['withdraw-money'])){
+    // for send money page
+        viewPage('withdrawMoney1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('withdrawMoney2');
+}

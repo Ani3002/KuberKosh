@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $userId = $requestData['userId'] ?? null;
 
 
-    $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 
     if(empty($walletDetails['wallet_pin']))
     {
