@@ -503,10 +503,14 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId){
-    
+
     $walletDetails = getWalletDetails($connect_kuberkosh_db, $userId);
 
     $wallet_id = $walletDetails['wallet_id'];
+
+    if (!tableExists($connect_wallet_transactions_db, $wallet_id)) {
+        createWalletTable($connect_wallet_transactions_db, $wallet_id);
+    }
 
     $query = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
 
@@ -534,6 +538,14 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
     $senderWalletId = getWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
     $receiverWalletId = getWalletDetails($connect_kuberkosh_db, $receiverUserId)['wallet_id'];
 
+    if (!tableExists($connect_wallet_transactions_db, $senderWalletId)) {
+        createWalletTable($connect_wallet_transactions_db, $senderWalletId);
+    }
+
+    if (!tableExists($connect_wallet_transactions_db, $receiverWalletId)) {
+        createWalletTable($connect_wallet_transactions_db, $receiverWalletId);
+    }
+    
     $receiverProfilePic = fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
     $senderName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
@@ -682,6 +694,10 @@ function fetchLastTrnxId($wallet_id, $connect_wallet_transactions_db)
     }
 }
 
+
+// Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. 
+// Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. 
+// Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. Function to Fetch Transaction details based on Trnx_Id  Amount and wallet Id. 
 function getTrnxDetails($connect_wallet_transactions_db, $wallet_id, $transactionId, $amount)
 {
     // Sanitize the wallet ID to prevent SQL injection
@@ -717,9 +733,33 @@ function getTrnxDetails($connect_wallet_transactions_db, $wallet_id, $transactio
 }
 
 
+// Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
+// Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
+// Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
+function tableExists($connect_wallet_transactions_db, $tableName) {
+    $result = $connect_wallet_transactions_db->query("SHOW TABLES LIKE '$tableName'");
+    return $result && $result->num_rows > 0;
+}
 
 
+// Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. 
+// Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. 
+// Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. Function to create a table for wallet transactions if it does not exist. 
+function createWalletTable($connect_wallet_transactions_db, $tableName) {
+    // SQL query to create the table
+    $sql = "CREATE TABLE `$tableName` (
+              `trnx_no` int(15) NOT NULL AUTO_INCREMENT,
+              `Date` date NOT NULL,
+              `Particulars` varchar(300) NOT NULL,
+              `Trnx_id` varchar(100) NOT NULL,
+              `debit` int(11) DEFAULT NULL,
+              `credit` int(11) DEFAULT NULL,
+              `end_balance` int(11) NOT NULL,
+              `trnxPurpose` varchar(100) DEFAULT NULL,
+              PRIMARY KEY (`trnx_no`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
 
-
-
+    // Execute query
+    $connect_wallet_transactions_db->query($sql);
+}
 ?>

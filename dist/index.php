@@ -56,3 +56,11 @@ elseif(isset($_GET['test'])){
     // for send money page
         viewPage('test');
 }
+elseif(isset($_GET['request'])){
+    // for send money page
+        viewPage('requestMoney1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('requestMoney2');
+}
+

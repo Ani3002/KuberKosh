@@ -26,7 +26,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
         <label for="receiver_address" class="form-field__label" style="padding-top: 15px; padding-bottom: 0px;">Receiver's  address (Kuber Kosh Address)</label>
         <span class="input-group-text" id="money_send_address_verify_span"> 
           <button  class = "btn" id= "verifyWalletAddressButton" width="35px" hight="35px"> 
-            <img id = "inr_logo" src="/img/verifyWalletAddress1.svg" alt="" width="35px" height="35px">
+            <img id = "wallet_verify" src="/img/verifyWalletAddress1.svg" alt="" width="50px" height="50px">
           </button>
         </span>
     </div>
@@ -96,6 +96,26 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 </div>
 
 
+<script>
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Function to populate form fields
+    function populateForm() {
+      document.getElementById('receiver_address').value = getUrlParameter('receiver_address');
+      document.getElementById('money_send_amount_input').value = getUrlParameter('amount');
+      document.getElementById('money_sending_remarks').value = getUrlParameter('remarks');
+    }
+
+    // Populate form on page load
+    window.onload = populateForm;
+  </script>
+
 
 
 
@@ -110,8 +130,10 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 <div id = "sendVerifyDiv" class="card align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%; display: none;">
   <!-- <img src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px"> -->
+  <img id = "receiverProfilePic" src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
+  
   <?php
-    echo '<img src="' . $_SESSION['profile_picture'] . '" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px" />';
+    // echo '<img src="' . $_SESSION['profile_picture'] . '" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px" />';
     echo '<h5 class="" id="verified_name">' . $_SESSION["first_name"] . ' ' . $_SESSION['last_name'] . '</h5>';
     echo '<h5 class="" id="verified_wallet-address"> walletaddress@kkosh </h5>'//. $reseiversAddress['receivers_address']. '</h5>';
   ?>
@@ -200,8 +222,9 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
       <!-- Send Button -->
       <div id="money_send_btn_div">
-      <button style="margin: 15px 174px 0 174px;width: 154px;" href="#" class="btn btn-primary bg-gradient  idkwhattonameit34645 text-light font-weight-300" id="money_send_btn">CONFIRM</button>
-      </div>
+      <button style="margin: 60px 174px 0 174px;width: 154px;" href="#" class="btn btn-primary bg-gradient  idkwhattonameit34645 text-light font-weight-300" id="money_send_btn">CONFIRM</button>
+
+    </div>
 
 
     </form>
@@ -268,7 +291,10 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
     <h3 id = "trnxMessage" style="width: 500px; height: 30px; position: absolute; margin-left: 190px; margin-top: 280px;">Transaction Successful</h3>
 
     <div id="dwnld_receipt_btn_div">
-      <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="width: 184px;">Download Receipt</button>
+      <button type="button" id="downloadBtn" href="#"  class="btn btn-primary bg-gradient idkwhattonameit34645 text-light font-weight-300" style="margin: 60px 174px 0 -90px; width: 184px;">Download Receipt</button>   
+      <!-- style="margin: 30px 174px 0 174px; width: 184px;" -->
+      <!-- <button href="#" class="btn btn-primary bg-gradient  text-light font-weight-300" id="money_send_btn">CONFIRM</button> -->
+
     </div>
     <a id= "shareBtn" href=""><img src="/img/shareIcon.svg" alt="Share Icon" id="share_icon"></a>        
 </div>
@@ -337,6 +363,8 @@ function replaceDivWithConfirmationDiv() {
 
   var selected_purpose = document.getElementById('selected_purpose');
 
+  var wallet_verify = document.getElementById('wallet_verify');
+
   var money_send_amount;
 
   var amountToSend;
@@ -373,6 +401,7 @@ function replaceDivWithConfirmationDiv() {
         {
           //alert('Name: ' + response.name);                          // Debugging: Log response from server
 
+          wallet_verify.src = "/img/verifyWalletAddress2.svg";
           receiverProfilePic.src = response.profilePicLink;
           verified_name.textContent = response.name;
           verified_name.style.color = '#4ECB71'; // Change the color to green
@@ -486,7 +515,7 @@ function replaceDivWithConfirmationDiv() {
           xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
           
           var dataToSend = JSON.stringify({ amountToSend: amountToSend });
-          //alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+          alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
           xhrValidateTransferAmount.send(dataToSend);
           
           xhrValidateTransferAmount.onload = function()
@@ -500,13 +529,16 @@ function replaceDivWithConfirmationDiv() {
               if (!response.hasOwnProperty('error') && response.valid )
               {
 
-                alert ('moving to next page');
+                //alert ('moving to next page');
                 // purpose = selected_purpose.value;
                 senderRemarks = money_sending_remarks.value.trim();
                 var trnxPurpose = inputPurpose.value;
                 
 
                 replaceDivWithVerificationDiv();
+
+
+                document.getElementById('pin-input1').focus();
 
                 receiverProfilePic = document.getElementById('receiverProfilePic');
                 receiverProfilePic.src = receiverProfilePic1;
@@ -657,27 +689,24 @@ function replaceDivWithConfirmationDiv() {
                   xhrTransferMoneyW2W.setRequestHeader('Content-Type', 'application/json');
                   
                   var dataToSend = JSON.stringify({ amountToSend: amountToSend, walletAddress: walletAddress, hashedPINEnteredByUser: hashedString, trnxPurpose: trnxPurpose, senderRemarks: senderRemarks});
-                  alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+                  //alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
                   xhrTransferMoneyW2W.send(dataToSend);
                   
                   xhrTransferMoneyW2W.onload = function()
                   {
                     if (xhrTransferMoneyW2W.status === 200) 
                     {
-                      alert('debug'+ xhrTransferMoneyW2W.status);       // Debugging: Log data being sent to server
+                      //alert('debug'+ xhrTransferMoneyW2W.status);       // Debugging: Log data being sent to server
                       
                       var response = JSON.parse(xhrTransferMoneyW2W.responseText);
                       
-                      alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+                      //alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
                       
                       if (!response.hasOwnProperty('error')  && response.success) 
                       {
-                        
-
-
-                        alert('Success: Transaction Id = ' + response.trnxId);
+                        //alert('Success: Transaction Id = ' + response.trnxId);
                         replaceDivWithConfirmationDiv()
-                        alert(response);
+                        //alert(response);
 
                         receiverProfilePic=document.getElementById('receiverProfilePic');
                         receiverProfilePic.src = response.receiverProfilePic;
@@ -712,7 +741,7 @@ function replaceDivWithConfirmationDiv() {
                             
                             // Make sure transaction ID and amount are not empty
                             if (transactionId.trim() === '' || amount.trim() === '') {
-                                alert('Please enter transaction ID and amount.');
+                                //alert('Please enter transaction ID and amount.');
                                 return;
                             }
 
@@ -829,7 +858,7 @@ function replaceDivWithConfirmationDiv() {
               }
               else 
               {
-                alert('Unknown Error4324');
+                alert('Unknown Error');
               }
             } 
             else 

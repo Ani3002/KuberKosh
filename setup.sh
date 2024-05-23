@@ -82,3 +82,8 @@ key_id=$(gpg --list-secret-keys --keyid-format LONG | awk '/sec/{print $2}' | cu
 echo "GPG Key ID: $key_id"
 
 pass init $key_id
+
+
+
+
+npm install --save-dev gulp-sass sass

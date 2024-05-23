@@ -96,6 +96,26 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 </div>
 
 
+<script>
+    // Function to get URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      var results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Function to populate form fields
+    function populateForm() {
+      document.getElementById('receiver_address').value = getUrlParameter('receiver_address');
+      document.getElementById('money_send_amount_input').value = getUrlParameter('amount');
+      document.getElementById('money_sending_remarks').value = getUrlParameter('remarks');
+    }
+
+    // Populate form on page load
+    window.onload = populateForm;
+  </script>
+
 
 
 
@@ -684,9 +704,6 @@ function replaceDivWithConfirmationDiv() {
                       
                       if (!response.hasOwnProperty('error')  && response.success) 
                       {
-                        
-
-
                         //alert('Success: Transaction Id = ' + response.trnxId);
                         replaceDivWithConfirmationDiv()
                         //alert(response);
