@@ -49,21 +49,6 @@
                         <span>Transactions</span>
                     </a>
                 </li>
-                <!-- <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#auth" aria-expanded="false" aria-controls="auth">
-                        <i class="lni lni-protection"></i>
-                        <span>Auth</span>
-                    </a>
-                    <ul id="auth" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-attribute sidebar-link">Login</a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-attribute sidebar-link">Register</a>
-                        </li>
-                    </ul>
-                </li> -->
             </ul>
 
             <ul class = "sidebar-nav p-0">

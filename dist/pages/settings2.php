@@ -147,7 +147,8 @@ if (!empty($walletDetails['wallet_address'])) {
     <div class="content tab-card align-to-center">
 
         <div class="tab  position-relative">
-            <button class="tablinks" onclick="showSettingsDetails(event, 'userDetails')" id="defaultOpen">User
+            
+            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'userDetails')" id="defaultOpen">User
                 Detials</button>
             <button class="tablinks" onclick="showSettingsDetails(event, 'bankSettings')">Bank Settings</button>
             <button class="tablinks" onclick="showSettingsDetails(event, 'walletSettings')">Wallet Settings</button>

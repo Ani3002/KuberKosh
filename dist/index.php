@@ -29,7 +29,10 @@ elseif(isset($_GET['logout'])){
 }
 elseif(isset($_GET['settings'])){
     // for send money page
-        viewPage('settings');
+        viewPage('settings1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('settings2');
 }
 elseif(isset($_GET['send'])){
     // for send money page
@@ -54,7 +57,24 @@ elseif(isset($_GET['send-confirm'])){
 }
 elseif(isset($_GET['test'])){
     // for send money page
+        viewPage('settings1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
         viewPage('test');
+}
+elseif(isset($_GET['test1'])){
+    // for send money page
+        viewPage('settings1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('test1');
+}
+elseif(isset($_GET['test3'])){
+    // for send money page
+        // viewPage('settings1');
+        // viewPage('collapsableSideBar');
+        // viewPage('navBar');
+        viewPage('test3');
 }
 elseif(isset($_GET['request'])){
     // for send money page

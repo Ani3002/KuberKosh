@@ -869,4 +869,105 @@ function createWalletTable($connect_wallet_transactions_db, $tableName) {
     // Execute query
     $connect_wallet_transactions_db->query($sql);
 }
+
+
+
+
+
+
+
+
+
+
+
+// functions.php
+
+function addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_send_amount, $wallet_id) {
+    // Validate and sanitize the input
+    if (!empty($bankAccountId) && is_numeric($bankAccountId) && !empty($money_send_amount) && is_numeric($money_send_amount)) {
+        // Subtract money from the selected bank account
+        $amount = (int)$money_send_amount; // Convert to integer for safety
+        $query = "UPDATE bank_accounts SET account_balance = account_balance - $amount WHERE bank_account_id = $bankAccountId";
+        $result = $connect_kuberkosh_db->query($query);
+
+        // Check if the query was successful
+        if ($result) {
+            // Get the current balance from the wallet table
+            $balanceQuery = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
+            $balanceResult = $connect_wallet_transactions_db->query($balanceQuery);
+            
+            if ($balanceResult) {
+                $row = $balanceResult->fetch_assoc();
+                $current_balance = $row['end_balance'];
+                $new_balance = $current_balance + $amount;
+
+                // Insert the new transaction into the wallet table
+                $insertQuery = "INSERT INTO `$wallet_id` (`Date`, `Particulars`, `Trnx_id`, `credit`, `end_balance`, `trnxPurpose`)
+                                VALUES (NOW(), 'Bank Transfer', UUID(), $amount, $new_balance, 'Transfer from Bank')";
+                $insertResult = $connect_wallet_transactions_db->query($insertQuery);
+
+                if ($insertResult) {
+                    echo '<script>alert("Money added successfully!")</script>';
+                } else {
+                    echo '<script>alert("Error updating wallet balance.")</script>';
+                }
+            } else {
+                echo '<script>alert("Error retrieving current wallet balance.")</script>';
+            }
+        } else {
+            echo '<script>alert("Error updating bank account balance.")</script>';
+        }
+    } else {
+        echo '<script>alert("Invalid bank account ID or amount.")</script>';
+    }
+}
+
+
+
+
+function withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_withdraw_amount, $userId) {
+    // Fetch the wallet balance
+    $current_balance = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId);
+
+    // Validate and sanitize the input
+    if (!empty($bankAccountId) && is_numeric($bankAccountId) && !empty($money_withdraw_amount) && is_numeric($money_withdraw_amount)) {
+        $amount = (int)$money_withdraw_amount; // Convert to integer for safety
+
+        if ($current_balance !== null && $current_balance >= $amount) {
+            // Fetch wallet details
+            $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
+            $wallet_id = $walletDetails['wallet_id'];
+
+            // Subtract money from the wallet
+            $new_balance = $current_balance - $amount;
+
+            // Insert the new transaction into the wallet table
+            $insertQuery = "INSERT INTO `$wallet_id` (`Date`, `Particulars`, `Trnx_id`, `debit`, `end_balance`, `trnxPurpose`)
+                            VALUES (NOW(), 'Bank Transfer', UUID(), $amount, $new_balance, 'Transfer to Bank')";
+            $insertResult = $connect_wallet_transactions_db->query($insertQuery);
+
+            if ($insertResult) {
+                // Add money to the selected bank account
+                $query = "UPDATE bank_accounts SET account_balance = account_balance + $amount WHERE bank_account_id = $bankAccountId";
+                $result = $connect_kuberkosh_db->query($query);
+
+                // Check if the query was successful
+                if ($result) {
+                    echo '<script>alert("Money withdrawn successfully!")</script>';
+                } else {
+                    echo '<script>alert("Error updating bank account balance.")</script>';
+                }
+            } else {
+                echo '<script>alert("Error updating wallet balance.")</script>';
+            }
+        } else {
+            echo '<script>alert("Insufficient wallet balance.")</script>';
+        }
+    } else {
+        echo '<script>alert("Invalid bank account ID or amount.")</script>';
+    }
+}
+
+
+
 ?>

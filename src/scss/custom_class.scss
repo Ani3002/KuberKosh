@@ -46,10 +46,17 @@ body{
         align-items: center;
     }
 
+    .position-relative{
+      position: relative;
+    }
     .position-absolute{
         position: absolute;
     }
+    #assumedBody{
+      margin: auto;
+    }
     .card{
+        margin: auto;
         color: #FFF;
         border-radius: 1rem;
         // opacity: .6;
@@ -66,6 +73,7 @@ body{
         object-fit: cover;
         /* filter: brightness(0.8); */
         position: absolute;
+        z-index: -1; /* Background image should be behind everything */
     }
 
     .navbardiv{
@@ -395,7 +403,7 @@ body{
         display: flex;
         flex-direction: column;
     }
-
+    
     #sidebar.expand {
         width: 260px;
         min-width: 260px;
@@ -536,7 +544,9 @@ body{
         margin-top: 2.5%;
     }
     
-
+    #menu{
+      z-index: 1500;
+    }
 
 
 
@@ -553,12 +563,14 @@ body{
       }
       
       .action {
+        z-index: 1500;
         position: fixed;
         // top: 20px;
         right: 30px;
       }
       
       .action .profile {
+        z-index: 1500;
         position: relative;
         width: 40px;
         height: 40px;
@@ -568,6 +580,7 @@ body{
       }
       
       .action .profile img {
+        z-index: 1500;
         position: absolute;
         top: 0;
         left: 0;
@@ -577,6 +590,7 @@ body{
       }
       
       .action .menu {
+        z-index: 1500;
         position: absolute;
         top: 120px;
         right: -10px;
@@ -591,12 +605,14 @@ body{
       }
       
       .action .menu.active {
+        z-index: 1500;
         top: 80px;
         visibility: visible;
         opacity: 1;
       }
       
       .action .menu::before {
+        z-index: 1500;
         content: "";
         position: absolute;
         top: -5px;
@@ -608,6 +624,7 @@ body{
       }
 
       .action .menu h3 {
+        z-index: 1500;
         width: 100%;
         text-align: center;
         font-size: 18px;
@@ -618,12 +635,14 @@ body{
       }
       
       .action .menu h3 span {
+        z-index: 1500;
         font-size: 14px;
         color: #cecece;
         font-weight: 300;
       }
       
       .action .menu ul li {
+        z-index: 1500;
         list-style: none;
         padding: 16px 0;
         border-top: 1px solid rgba(0, 0, 0, 0.05);
@@ -632,6 +651,7 @@ body{
       }
       
       .action .menu ul li img {
+        z-index: 1500;
         max-width: 20px;
         margin-right: 10px;
         opacity: 0.5;
@@ -639,10 +659,12 @@ body{
       }
       
       .action .menu ul li:hover img {
+        z-index: 1500;
         opacity: 1;
       }
       
       .action .menu ul li a {
+        z-index: 1500;
         display: inline-block;
         text-decoration: none;
         color: #ffffff;
@@ -651,6 +673,7 @@ body{
       }
       
       .action .menu ul li:hover a {
+        z-index: 1500;
         color: #884afe;
       }
 
@@ -823,11 +846,12 @@ body{
     //     border: 1px solid rgba(255, 255, 255, 0.10); 
     //   }
 
-      #money_send_amount_div{
+      #money_send_amount_div,
+      #money_withdraw_amount_div{
         padding-top: 20px;
       }
-
-      #money_send_currency_span{
+      #money_send_currency_span,
+      #money_withdraw_currency_span{
         color: var(--background-mode, #FFF);
         font-family: Inter;
         font-size: 1.25rem;
@@ -845,7 +869,10 @@ body{
       #inr_logo{
         padding: 0 3px 0 0;
       }
-      #money_send_amount_input{
+      #money_send_amount_input,
+      #money_withdraw_amount_input{
+        height: 45px;
+
         border-left: #ffffff00;
         border-radius: 0 10px  10px 0;
         border: 1px solid rgba(255, 255, 255, 0.10); 
@@ -1004,23 +1031,60 @@ body{
     #input-group{
       height: 45px;
     }
-    #requestDiv {
-      margin-left: 30%; margin-top: 7%;
+    #requestDiv,#sendConfirmDiv,#sendVerifyDiv, #sendDiv {
+      // margin-left: 30%; margin-top: 7%;
+      margin-left: auto;
+      margin-right: auto;
+      margin-top: 100px;
+      // margin: auto;
+
     }
-    
+
+    .content{
+      margin: auto;
+      margin-left: 250px;
+      // margin-right: 50px;
+      margin-top: 100px;
+      // margin: auto;
+
+    }
+
     .card-form {
       margin-top: 8px;
 
     }
     
+    .tab-card{
+      position: absolute;
+      z-index: 1200;
+      /* Ensure the card is centered */
+      top: 50%;
+      left: 50%;
+      transform: translate(-62%, -65%);
+
+      color: #FFF;
+      border-radius: 1rem;
+      // opacity: .6;
+      background: #1c1c1c99;
+      backdrop-filter: blur(10px);
+      
+      width: 66rem;
+      height: 34.5rem;
+      flex-shrink: 0;
+  }
+
+    .tab{
+      width: 48rem;
+    }
+
+
+
     // #money_send_currency_span {
       
 
     // }
 
-    #money_send_amount_input{
-      height: 45px;
-    }
+
 
     #dropdown_purpose_button_a {
       height: 45px;
@@ -1048,7 +1112,6 @@ body{
 
     }
     
-    #money_sending_remarks,
     #money_sending_remarks {
       padding-bottom: 4px;
       padding-top: 4px;
@@ -1084,4 +1147,23 @@ body{
       background-color: rgba(255, 255, 255, 0.05);
       color: #000000; /* Text color for the expanded dropdown options */
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+
+    
 }
