@@ -9,7 +9,7 @@ $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_addr
 ?>
 
 <div id="assumedBody">
-        <div id="requestDiv" class="card align-to-center position-relative">
+        <div id="requestDiv" class="card card1 align-to-center position-relative">
             <form action="" class="card-form align-to-center">
 
                 <!-- INR Amount -->

@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addMoneyButton'])) {
 }
 ?>
 <div id="assumedBody">
-        <div id="requestDiv" class="card align-to-center position-relative">
+        <div id="requestDiv" class="card card1 align-to-center position-relative">
             <form action="" class="card-form align-to-center">
                 <div id="selectIFSC">
                     <select id="bankSelect" name="bank_account_id" class="mt-3 mb-2">

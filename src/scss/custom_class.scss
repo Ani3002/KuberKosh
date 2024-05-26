@@ -55,7 +55,7 @@ body{
     #assumedBody{
       margin: auto;
     }
-    .card{
+    .card1{
         margin: auto;
         color: #FFF;
         border-radius: 1rem;
@@ -530,9 +530,29 @@ body{
         color: #ffffff;
     }
 
+    .body-home{
+      margin-right: auto;
+      margin-left: auto;
+      margin-bottom: auto;
+    }
+    .nav-home{
+      margin-right: auto;
+        margin-left: auto;
+    }
     .container{
-        padding-right: 0%;
-        margin-right: 15px;
+
+        margin-right: auto;
+        margin-left: auto;
+        margin: auto;
+
+        // padding-right: 0%;
+        // margin-right: 15px;
+    }
+
+    .transactions_div_main{
+      margin-left: 15rem;
+      margin-right: 2rem;
+      // margin-right: 25rem;
     }
 
     .collapse{
@@ -595,13 +615,14 @@ body{
         top: 120px;
         right: -10px;
         padding: 10px 20px;
-        background: rgba(0, 0, 0, 0.303);
+        background: rgba(0, 0, 0, 0.598);
         width: 200px;
         box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
         border-radius: 15px;
         transition: 0.5s;
         visibility: hidden;
         opacity: 0;
+        backdrop-filter: blur(5px);
       }
       
       .action .menu.active {
@@ -1031,7 +1052,8 @@ body{
     #input-group{
       height: 45px;
     }
-    #requestDiv,#sendConfirmDiv,#sendVerifyDiv, #sendDiv {
+    
+    #requestDiv,#sendConfirmDiv,#sendVerifyDiv, #sendDiv, #profileDiv {
       // margin-left: 30%; margin-top: 7%;
       margin-left: auto;
       margin-right: auto;
@@ -1106,6 +1128,7 @@ body{
       padding-top: 4px;
       margin-top: 15px;
     }
+    #money_withdrawing_remarks_div,
     #money_sending_address_div, 
     #money_sending_remarks_div {
       height: 45px;

@@ -21,10 +21,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdrawMoneyButton']
 
 <body>
 <div id="assumedBody">
-        <div id="requestDiv" class="card align-to-center position-relative">
+        <div id="requestDiv" class="card card1 align-to-center position-relative">
             <form action="" class="card-form align-to-center">
+
+                <!-- INR Amount -->
+                <div class="input-group mt-2 mb-3" id="money_withdraw_amount_div">
+                    <span class="input-group-text" id="money_withdraw_currency_span">
+                        <img id="inr_logo" src="/img/inr.webp" alt="" width="35px" height="35px">
+                        INR
+                    </span>
+                    <input name="money_withdraw_amount" id="money_withdraw_amount_input" class="form-control text-light font-weight-600" inputmode="numeric" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+                </div>
+
+
                 <div id="selectIFSC">
-                    <select id="bankSelect" name="bank_account_id" class="mt-3 mb-2">
+                    <select id="bankSelect" name="bank_account_id" class="mb-3">
                         <?php
                         if (!empty($userBanks)) {
                             foreach ($userBanks as $bank) {
@@ -37,14 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdrawMoneyButton']
                     </select>
                 </div>
 
-                <!-- INR Amount -->
-                <div class="input-group mb-3" id="money_withdraw_amount_div">
-                    <span class="input-group-text" id="money_withdraw_currency_span">
-                        <img id="inr_logo" src="/img/inr.webp" alt="" width="35px" height="35px">
-                        INR
-                    </span>
-                    <input name="money_withdraw_amount" id="money_withdraw_amount_input" class="form-control text-light font-weight-600" inputmode="numeric" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-                </div>
+
 
                 <!-- Remarks -->
                 <div class="form-field__control mb-3" id="money_withdrawing_remarks_div">

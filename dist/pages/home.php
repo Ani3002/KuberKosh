@@ -13,11 +13,7 @@
 <body>
 
 <!-- Nav_Bar Begins Here --------------------------- -->
-  <nav class="navbar navbar-expand-lg bg-transparent">
-    <div class="container" style: ".center-container {
-      display: flex;
-      justify-content: center;
-    }">
+  <nav class="navbar nav-home mx-4 navbar-expand-lg bg-transparent">
       <a class="navbar-brand" href="index.php?landing">
         <img src="img/Logo.svg" alt="kuberkosh logo" width="50px" hight="50px">
       </a>
@@ -30,29 +26,28 @@
           <a class="nav-link active text-light font-weight-600" aria-current="page" href="#">Features</a>
           <a class="nav-link active mx-3 text-light font-weight-600" aria-current="page" href="#">Support</a>
         </div>
-        <a href="index.php?login" class="btn btn-primary bg-transparent mx-3 text-primary border-primary font-weight-600" aria-disabled="true">Sign In</a>
-        <a href="index.php?signup" class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a>
+        <a href="index.php?login" class="btn btn-primary bg-transparent text-primary border-primary font-weight-600" aria-disabled="true">Sign In</a>
+        <!-- <a href="index.php?signup" class="btn btn-primary bg-gradient text-light font-weight-600" aria-disabled="true">Sign Up</a> -->
       </div>
-    </div>
 </nav>
 <!-- Nav_Bar Ends Here --------------------------- -->
 
 
-<section class="p-7 slide-section1 custom-bg" style="background-image: url(/img/LandingPage.webp);">
+<section class="p-7 slide-section1 body-home custom-bg" style="background-image: url(/img/LandingPage.webp);">
   
   <!-- H1 Begins Here------------------------------- -->
-  <div class="container">
+  <!-- <div class="container"> -->
       <div class="row">
 
           <div class="container col-md-12 col-lg-12 text-center mt-md-5">
-            <h1 class="display-1 font-weight-900 ">We make digital <span class="d-block">Transactions</span> <span class="d-block">clear and simple</span></h1>
+            <h1 class="display-1 font-weight-900 ">We make digital <span class="d-block">Transactions</span> <span class="d-block">simple and secure</span></h1>
           </div>
         <p></p>
-        <div class="container text-center">
+        <!-- <div class="container text-center">
           <a class="btn  bg-gradient text-light font-weight-600" aria-disabled="true">Get Started</a>
-        </div>
+        </div> -->
       </div>
-  </div>
+  <!-- </div> -->
   <!-- H1 Ends Here------------------------------- -->
 
 
@@ -99,7 +94,7 @@
 
   <!-- Footer Begins Here --------------------- -->
 
-  <div class="container">
+  <!-- <div class="container"> -->
     <footer class="py-5 text-white">
       <div class="row">
         <div class="col-2 ">
@@ -157,7 +152,7 @@
         </ul>
       </div>
     </footer>
-  </div>
+  <!-- </div> -->
   <!-- Footer Ends Here --------------------- -->
 </section>
 </body>

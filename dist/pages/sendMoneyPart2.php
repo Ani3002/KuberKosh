@@ -14,7 +14,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 <!-- Collapsable Side Bar will be inserted here through index.php -->
 
 <div id="assumedBody">
-  <div id="sendDiv" class="card align-to-center position-relative">
+  <div id="sendDiv" class="card card1 align-to-center position-relative">
   <img id = "receiverProfilePic" src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
   
   <h5 class="" id="verified_name"> </h5>
@@ -102,7 +102,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 
 <!-- <div id="sendVerifyDiv" class="card align-to-center position-relative" style="display: none;"> -->
-<div id = "sendVerifyDiv" class="card align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%; display: none;">
+<div id = "sendVerifyDiv" class="card card1 align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%; display: none;">
   <!-- <img src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px"> -->
   <img id = "receiverProfilePic" src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
   
@@ -239,8 +239,8 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 
 
-  <!-- <div id="sendConfirmDiv" class="card align-to-center position-relative" style=" display: none;"> -->
-  <div id = "sendConfirmDiv" class="card align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%; display: none;">
+  <!-- <div id="sendConfirmDiv" class="card card1 align-to-center position-relative" style=" display: none;"> -->
+  <div id = "sendConfirmDiv" class="card card1 align-to-center position-absolute" style="margin-left: 30%; margin-top: 7%; display: none;">
   <img id = "receiverProfilePic" src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
   
   <h5 class="" id="verified_name"></h5>

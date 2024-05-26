@@ -41,6 +41,13 @@ elseif(isset($_GET['send'])){
         viewPage('navBar');
         viewPage('sendMoneyPart2');
 }
+elseif(isset($_GET['profile'])){
+    // for send money page
+        viewPage('profile1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('profile2');
+}
 elseif(isset($_GET['send-verify'])){
     // for send money page
         viewPage('sendMoneyVerify1');
@@ -64,17 +71,17 @@ elseif(isset($_GET['test'])){
 }
 elseif(isset($_GET['test1'])){
     // for send money page
-        viewPage('settings1');
-        viewPage('collapsableSideBar');
-        viewPage('navBar');
-        viewPage('test1');
-}
-elseif(isset($_GET['test3'])){
-    // for send money page
         // viewPage('settings1');
         // viewPage('collapsableSideBar');
         // viewPage('navBar');
-        viewPage('test3');
+        viewPage('test1');
+}
+elseif(isset($_GET['transactions'])){
+    // for send money page
+        viewPage('transactions1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('transactions2');
 }
 elseif(isset($_GET['request'])){
     // for send money page

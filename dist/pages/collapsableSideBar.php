@@ -44,7 +44,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?transactions" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/transacctionsLogo.svg" alt="Transactions Icon" width="25px" hight="25px"> </i>
                         <span>Transactions</span>
                     </a>
@@ -53,7 +53,7 @@
 
             <ul class = "sidebar-nav p-0">
                 <li class="sidebar-item">
-                    <a href="#" class="sidebar-attribute sidebar-link">
+                    <a href="http://localhost/index.php?profile" class="sidebar-attribute sidebar-link">
                         <i> <img src="img/profileLogo2.svg" alt="Profile Icon" width="25px" hight="25px"> </i>
                         <span>Profile</span>
                     </a>

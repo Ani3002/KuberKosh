@@ -22,7 +22,7 @@
 
         <img class = "bg-img" style="position: absolute;" src="/img/AuthenticationBackground.webp" alt="background image">
 
-        <div class="card mx-md-21 auth-form">
+        <div class="card card1 mx-md-21 auth-form">
         <form class="mx-auto" action="">
             <div class = "mx-auto text-center">
                 
