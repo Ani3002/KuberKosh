@@ -13,16 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdrawMoneyButton']
     // Get the selected bank_account_id from the form submission
     $bankAccountId = $_POST['bank_account_id'];
     $money_withdraw_amount = $_POST['money_withdraw_amount'];
-
+    $trnxRemarks = $_POST['money_withdrawing_remarks'];
+    
     // Call the function to withdraw money from the wallet
-    withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_withdraw_amount, $userId);
+    withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_withdraw_amount, $trnxRemarks, $userId);
 }
 ?>
 
 <body>
 <div id="assumedBody">
         <div id="requestDiv" class="card card1 align-to-center position-relative">
-            <form action="" class="card-form align-to-center">
+            <form action="" method="POST" class="card-form align-to-center">
 
                 <!-- INR Amount -->
                 <div class="input-group mt-2 mb-3" id="money_withdraw_amount_div">
@@ -51,8 +52,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdrawMoneyButton']
 
 
                 <!-- Remarks -->
-                <div class="form-field__control mb-3" id="money_withdrawing_remarks_div">
+                <!-- <div class="form-field__control mb-3" id="money_withdrawing_remarks_div">
                     <input id="money_withdrawing_remarks" type="text" class="form-field__input" placeholder="Write remarks here">
+                    <label for="money_withdrawing_remarks" class="form-field__label" style="padding-top: 15px; padding-bottom: 0px;">Remarks</label>
+                </div> -->
+
+                <!-- Remarks -->
+                <div class="form-field__control mb-3" id="money_withdrawing_remarks_div">
+                    <input name="money_withdrawing_remarks" id="money_withdrawing_remarks" type="text" class="form-field__input" placeholder="Write remarks here">
                     <label for="money_withdrawing_remarks" class="form-field__label" style="padding-top: 15px; padding-bottom: 0px;">Remarks</label>
                 </div>
 

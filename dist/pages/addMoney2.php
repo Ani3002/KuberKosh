@@ -16,14 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addMoneyButton'])) {
     // Get the selected bank_account_id from the form submission
     $bankAccountId = $_POST['bank_account_id'];
     $money_send_amount = $_POST['money_send_amount'];
+    $trnxRemarks = $_POST['money_sending_remarks'];
 
     // Call the function to add money to the wallet
-    addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_send_amount, $wallet_id);
+    addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_send_amount, $trnxRemarks, $wallet_id, $userId);
 }
 ?>
 <div id="assumedBody">
         <div id="requestDiv" class="card card1 align-to-center position-relative">
-            <form action="" class="card-form align-to-center">
+            <form action="" method="POST" class="card-form align-to-center"> 
                 <div id="selectIFSC">
                     <select id="bankSelect" name="bank_account_id" class="mt-3 mb-2">
                         <?php
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addMoneyButton'])) {
 
                 <!-- Remarks -->
                 <div class="form-field__control mb-3" id="money_sending_remarks_div">
-                    <input id="money_sending_remarks" type="text" class="form-field__input" placeholder="Write remarks here">
+                    <input name= "money_sending_remarks" id="money_sending_remarks" type="text" class="form-field__input" placeholder="Write remarks here">
                     <label for="money_sending_remarks" class="form-field__label" style="padding-top: 15px; padding-bottom: 0px;">Remarks</label>
                 </div>
 

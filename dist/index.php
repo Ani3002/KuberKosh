@@ -71,9 +71,9 @@ elseif(isset($_GET['test'])){
 }
 elseif(isset($_GET['test1'])){
     // for send money page
-        // viewPage('settings1');
-        // viewPage('collapsableSideBar');
-        // viewPage('navBar');
+        viewPage('settings1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
         viewPage('test1');
 }
 elseif(isset($_GET['transactions'])){

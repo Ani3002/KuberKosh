@@ -75,6 +75,8 @@
             height: 32rem;
             background-color: #1c1c1c99;
             color: #fff;
+            border-radius: 1rem;
+
         }
 
         .transaction-header {
