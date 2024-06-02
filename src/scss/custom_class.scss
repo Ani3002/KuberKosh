@@ -1,8 +1,8 @@
-body{
+body {
 
 
 
-    //  test
+  //  test
 
 
 
@@ -16,1159 +16,279 @@ body{
 
 
 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
-    // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
+  // Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal  Universal 
 
-    font-family: 'Inter', sans-serif;
+  font-family: 'Inter', sans-serif;
 
-    .font-weight-600{
-        font-weight: 600;
-    }
-
-    .font-weight-900{
-        font-weight: 900;
-    }
-
-    .text-white {
-        color: white;
-    }
-
-    .text-lgray {
-        color: rgb(182, 177, 177);
-    }
-
-    .align-to-center{
-        align-items: center;
-    }
-
-    .position-relative{
-      position: relative;
-    }
-    .position-absolute{
-        position: absolute;
-    }
-    #assumedBody{
-      margin: auto;
-    }
-    .card1{
-        margin: auto;
-        color: #FFF;
-        border-radius: 1rem;
-        // opacity: .6;
-        background: #1c1c1c99;
-        backdrop-filter: blur(10px);
-        
-        width: 40rem;
-        height: 30.5rem;
-        flex-shrink: 0;
-    }
-    .bg-img{
-        height:100vh;
-        width:100vw;
-        object-fit: cover;
-        /* filter: brightness(0.8); */
-        position: absolute;
-        z-index: -1; /* Background image should be behind everything */
-    }
-
-    .navbardiv{
-        position: absolute;
-        min-height: 100vh;
-        /* width: 100%;
-        overflow: hidden;
-        transition: all 0.35s ease-in-out; */
-    }
-    #verified_name{
-        color: #4ECB71;
-        text-align: center;
-        font-family: Inter;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 700;
-        line-height: normal;
-    }
-    #verified_wallet-address, #bankName, #accountNo{
-        color: var(--background-mode, #FFF);
-        font-family: Inter;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-    }
-
-
-
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-    // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
-
-
-
-    nav
-    {
-        margin-bottom: -5rem;
-    }
-
-    footer
-    {
-        margin-top: 205rem;
-    }
-
-    //Heading Settigns
-    h1
-    {
-        font-family: 'Inter', sans-serif;
-        color: rgb(233, 233, 207);
-    }
-
-    .slide-section1, .cta-section
-    {
-        // background-repeat: no-repeat;
-        background-size: cover;
-        height: 265.1875rem;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-    // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
-
-
-
-
-    .bg-img{
-        height:100vh;
-        width:100vw;
-        object-fit: cover;
-        // filter: brightness(0.8);
-        // position: absolute;
-    }
-    .auth-form{ // auth.php
-        // background-color: rgba(72, 72, 72, 0.7);
-        border-radius: 1.25rem;
-        border: 1px solid rgba(186, 186, 186, 0.50);
-        background: var(--background-mode, rgba(19, 19, 22, 0.40));
-        box-shadow: 20px 40px 60px 0px rgba(0, 0, 0, 0.50);
-        backdrop-filter: blur(50px);
-        // 2nd Revission of Auth Page
-        width: 638px; height: 486px; top: 80px; left: 30px;
-    }
-
-    .auth-h1{
-        color: var(--foreground-high, #FAFAFA);
-
-        /* heading */
-        font-family: Poppins;
-        font-size: 1.75rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 100%; /* 1.75rem */                    
-    }
-
-    .auth-or{
-        color: var(--foreground-low, #70707B);
-        text-align: center;
-
-        /* body/large/semibold */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 100%; /* 1rem */
-    }
-
-
-    .auth-p{
-        color: var(--foreground-low, #70707B);
-
-        /* body/large/regular */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 100%; /* 1rem */
-        text-transform: capitalize;
-    }
-
-    .auth-p-link{
-        color: var(--foreground-primary, #A0A0AB);
-
-        /* body/large/regular */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 100%; /* 1rem */
-        text-transform: capitalize;
-    }
-
-
-    .auth-btn{
-        border-radius: 0.5rem;
-        background: var(--container-primary-low, #26272B);
-        text-decoration: none; /* Remove underline */
-        color: cyan; /* Inherit the text color */
-        cursor: pointer; /* Set cursor to pointer on hover */
-
-        display: flex;
-        height: 3rem;
-        width: 10rem;
-        padding: 1rem;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-        flex: 1 0 0;
-
-
-        //Typography
-        color: var(--foreground-primary, #A0A0AB);
-
-        /* body/large/semibold */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 100%; /* 1rem */
-
-    }
-
-    .auth-submit-btn{
-        display: flex;
-        height: 3rem;
-        width: 23rem;
-        padding: 1rem;
-        justify-content: center;
-        align-items: center;
-        gap: 0.3125rem;
-        align-self: stretch;
-
-        border-radius: 0.5rem;
-        background: var(--container-primary, #1570EF);
-
-        //Typography
-        color: var(--foreground-onColor, #FCFCFC);
-
-        /* body/large/semibold */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: 100%; /* 1rem */
-    }
-
-    .form-label{
-
-        flex: 1 0 0;
-        color: var(--foreground-default, #D1D1D6);
-
-        /* body/large/regular */
-        font-family: Poppins;
-        font-size: 1rem;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 100%; /* 1rem */
-        text-transform: capitalize; 
-    }
-
-    .form-control{
-        display: flex;
-        padding: 0.75rem 1rem;
-        align-items: center;
-        gap: 0.3125rem;
-        flex: 1 0 0;
-        align-self: stretch;   
-        background: var(--background-mode, rgba(19, 19, 22, 0.40));
-
-        border-radius: 0.5rem;
-    }
-
-    .form-control::selection{
-        display: flex;
-        padding: 0.75rem 1rem;
-        align-items: center;
-        gap: 0.3125rem;
-        flex: 1 0 0;
-        align-self: stretch;   
-        background: var(--background-mode, rgba(19, 19, 22, 0.40));
-
-        border-radius: 0.5rem;
-        border: 3px solid var(--outline-primary, #194185);
-    }
-
-
-
-
-
-
-
-
-
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-    // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
-
-
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-    // ::after,
-    // ::before {
-    //     box-sizing: border-box;
-    //     margin: 0;
-    //     padding: 0;
-    // }
-
-
-
-
-    .sidebar-attribute {
-        text-decoration: none;
-    }
-
-    // li {
-    //     list-style: none;
-    // }
-
-    // h1 {
-    //     font-weight: 600;
-    //     font-size: 1.5rem;
-    // }
-
-
-
-
-    // body {
-    //     font-family: 'Poppins', sans-serif;
-    // }
-
-    .wrapper {
-        display: flex;
-    }
-
-    .main {
-        min-height: 100vh;
-        width: 100%;
-        overflow: hidden;
-        transition: all 0.35s ease-in-out;
-        background-color: #fafbfe;
-    }
-
-    #sidebar {
-        width: 70px;
-        min-width: 70px;
-        z-index: 1000;
-        transition: all .25s ease-in-out;
-        // background-color: #0e2238;
-        background-color: #ff000000;
-        display: flex;
-        flex-direction: column;
-    }
-    
-    #sidebar.expand {
-        width: 260px;
-        min-width: 260px;
-    }
-
-    .sidebar .toggle-btn {
-        background-color: transparent;
-        cursor: pointer;
-        border: 0;
-        padding: 1rem 1.5rem;
-    }
-
-    .sidebar .toggle-btn i {
-        font-size: 1.5rem;
-        color: #ffffff;
-    }
-
-    .sidebar-logo {
-        margin: auto 0;
-    }
-
-    .sidebar-logo a {
-        color: #FFF;
-        font-size: 1.15rem;
-        font-weight: 600;
-    }
-
-    #sidebar:not(.expand) .sidebar-logo,
-    #sidebar:not(.expand) a.sidebar-link span {
-        display: none;
-    }
-
-    .sidebar-nav {
-        padding: 2rem 0;
-        flex: 1 1 auto;
-    }
-
-    a.sidebar-link {
-        padding: .625rem 1.625rem;
-        color: #FFF;
-        display: block;
-        font-size: 0.9rem;
-        white-space: nowrap;
-        border-left: 3px solid transparent;
-    }
-
-    .sidebar-link i {
-        font-size: 1.1rem;
-        margin-right: .75rem;
-    }
-
-    a.sidebar-link:hover {
-        background-color: rgba(255, 255, 255, 0.187);
-        border-left: 3px solid #3b7ddd;
-    }
-
-    
-    .sidebar-item {
-        position: relative;
-    }    #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
-        position: absolute;
-        top: 0;
-        left: 70px;
-        // background-color: #0e2238;
-        background-color: #0eff02;
-        padding: 0;
-        min-width: 15rem;
-        display: none;
-    }
-
-    #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
-        display: block;
-        max-height: 15em;
-        width: 100%;
-        opacity: 1;
-    }
-
-    #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
-        border: solid;
-        border-width: 0 .075rem .075rem 0;
-        content: "";
-        display: inline-block;
-        padding: 2px;
-        position: absolute;
-        right: 1.5rem;
-        top: 1.4rem;
-        transform: rotate(-135deg);
-        transition: all .2s ease-out;
-    }
-
-    #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
-        transform: rotate(45deg);
-        transition: all .2s ease-out;
-    }
-
-
-
-
-
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-    // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
-
-
-    .btn-language{
-        padding-top: .8%;
-        // align-items: center;
-    }
-
-    .notification-icon{
-        padding-top: .5%;
-        padding-left: 3%;
-        padding-right: 3%;
-        align-items: center;
-    }
-
-    .user-name{
-        padding-top: 0%;
-        margin-top: 0.8%;
-        margin-right: 1%;
-        color: #ffffff;
-    }
-
-    .body-home{
-      margin-right: auto;
-      margin-left: auto;
-      margin-bottom: auto;
-    }
-    .nav-home{
-      margin-right: auto;
-        margin-left: auto;
-    }
-    .container{
-
-        margin-right: auto;
-        margin-left: auto;
-        margin: auto;
-
-        // padding-right: 0%;
-        // margin-right: 15px;
-    }
-
-    .transactions_div_main{
-      margin-left: 15rem;
-      margin-right: 2rem;
-      // margin-right: 25rem;
-    }
-
-    .collapse{
-        margin-right: 30.734;
-        // width; 
-    }
-
-    .receiver-profile-pic{
-        margin-top: 2.5%;
-    }
-    
-    #menu{
-      z-index: 1500;
-    }
-
-
-
-
-
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: "Poppins", sans-serif;
-      }
-      
-      body {
-        background: #ffccbc;
-      }
-      
-      .action {
-        z-index: 1500;
-        position: fixed;
-        // top: 20px;
-        right: 30px;
-      }
-      
-      .action .profile {
-        z-index: 1500;
-        position: relative;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        overflow: hidden;
-        cursor: pointer;
-      }
-      
-      .action .profile img {
-        z-index: 1500;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-      }
-      
-      .action .menu {
-        z-index: 1500;
-        position: absolute;
-        top: 120px;
-        right: -10px;
-        padding: 10px 20px;
-        background: rgba(0, 0, 0, 0.598);
-        width: 200px;
-        box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
-        border-radius: 15px;
-        transition: 0.5s;
-        visibility: hidden;
-        opacity: 0;
-        backdrop-filter: blur(5px);
-      }
-      
-      .action .menu.active {
-        z-index: 1500;
-        top: 80px;
-        visibility: visible;
-        opacity: 1;
-      }
-      
-      .action .menu::before {
-        z-index: 1500;
-        content: "";
-        position: absolute;
-        top: -5px;
-        right: 28px;
-        width: 20px;
-        height: 20px;
-        background: rgba(0, 0, 0, 0.303);
-        transform: rotate(45deg);
-      }
-
-      .action .menu h3 {
-        z-index: 1500;
-        width: 100%;
-        text-align: center;
-        font-size: 18px;
-        padding: 20px 0;
-        font-weight: 500;
-        color: #ffffff;
-        line-height: 1.5em;
-      }
-      
-      .action .menu h3 span {
-        z-index: 1500;
-        font-size: 14px;
-        color: #cecece;
-        font-weight: 300;
-      }
-      
-      .action .menu ul li {
-        z-index: 1500;
-        list-style: none;
-        padding: 16px 0;
-        border-top: 1px solid rgba(0, 0, 0, 0.05);
-        display: flex;
-        align-items: center;
-      }
-      
-      .action .menu ul li img {
-        z-index: 1500;
-        max-width: 20px;
-        margin-right: 10px;
-        opacity: 0.5;
-        transition: 0.5s;
-      }
-      
-      .action .menu ul li:hover img {
-        z-index: 1500;
-        opacity: 1;
-      }
-      
-      .action .menu ul li a {
-        z-index: 1500;
-        display: inline-block;
-        text-decoration: none;
-        color: #ffffff;
-        font-weight: 500;
-        transition: 0.5s;
-      }
-      
-      .action .menu ul li:hover a {
-        z-index: 1500;
-        color: #884afe;
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-    // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
-
-
-
-    #sendDiv{
-      margin-left: 30%; margin-top: 7%;
-    }
-
-    #send_money_form_1{
-      margin-top: 8px;
-    }
-      /* Actual code example */
-      
-      $primary-color: #b11adc;
-      $animation-duration: 0.4s;
-      
-      @mixin label-inactive() {
-        font-size: 1.2rem;
-        transform: translateY(0);
-      }
-      
-      @mixin label-active() {
-        font-size: 0.75rem;
-        transform: translateY(-14px);
-      }
-      
-      .form-field__label {
-        @include label-active();
-        // display: block;
-        left: 0;
-        margin: 0;
-        padding: 18px 12px 0;
-        position: absolute;
-        top: 0;
-        transition: all $animation-duration;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex-shrink: 0;
-
-        color: rgba(255, 255, 255, 0.35);
-        font-family: Inter;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: capitalize;
-      }
-    .form-field__label2 {
-        @include label-active();
-        // display: block;
-        left: 0;
-        margin: 0;
-        padding: 12px 12px 0;
-        position: absolute;
-        top: 0;
-        transition: all $animation-duration;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        flex-shrink: 0;
-
-        color: rgba(255, 255, 255, 0.35);
-        font-family: Inter;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-        text-transform: capitalize;
-      }
-
-
-      .form-field__control {
-        // background: #a068d4;
-        // border-radius: 8px 8px 8px 8px;
-        overflow: hidden;
-        position: relative;
-        width: 500px;
-
-        border-radius: 0.625rem;
-        border: 1px solid rgba(255, 255, 255, 0.10);
-        background: rgba(255, 255, 255, 0.05);
-
-      }
-      .form-field__input,
-      .form-field__textarea {
-        appearance: none;
-        background: transparent;
-        border: 0;
-        // border-bottom: 1px solid #999;
-        // color: #ffffff;
-        display: block;
-        font-size: 1.2rem;
-        margin-top: 24px;
-        outline: 0;
-        padding: 0 12px 10px 12px;
-        width: 100%;
-
-
-
-        color: var(--background-mode, #FFF);
-        font-family: Inter;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-
-      }
-      .form-field__input2,
-      .form-field__textarea {
-        appearance: none;
-        background: transparent;
-        border: 0;
-        // border-bottom: 1px solid #999;
-        // color: #ffffff;
-        display: block;
-        font-size: 1.2rem;
-        margin-top: 18px;
-        outline: 0;
-        padding: 0 12px 10px 12px;
-        width: 100%;
-
-
-
-        color: var(--background-mode, #FFF);
-        font-family: Inter;
-        font-size: 0.9375rem;
-        font-style: normal;
-        font-weight: 500;
-        line-height: normal;
-
-      }
-
-
-    //   #money_sending_address_div{
-    //     padding-bottom: 15px;
-    //     border: 1px solid rgba(255, 255, 255, 0.10); 
-    //   }
-
-      #money_send_amount_div,
-      #money_withdraw_amount_div{
-        padding-top: 20px;
-      }
-      #money_send_currency_span,
-      #money_withdraw_currency_span{
-        color: var(--background-mode, #FFF);
-        font-family: Inter;
-        font-size: 1.25rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        text-transform: capitalize;
-
-        border-right-color: #ffffff00;
-        border-radius: 10px 0 0 10px;
-        height: 45px;
-        border: 1px solid rgba(255, 255, 255, 0.10); 
-        background: rgba(255, 255, 255, 0.05);
-      }
-      #inr_logo{
-        padding: 0 3px 0 0;
-      }
-      #money_send_amount_input,
-      #money_withdraw_amount_input{
-        height: 45px;
-
-        border-left: #ffffff00;
-        border-radius: 0 10px  10px 0;
-        border: 1px solid rgba(255, 255, 255, 0.10); 
-        background: rgba(255, 255, 255, 0.05);
-
-      }
-      #dropdown_purpose_div{
-        padding: 0px 0 20px 0;
-      }
-      #dropdown_purpose_button_a{
-        height: 40px;
-        width: 500px;
-        // margin: 0 0 3px 11px;
-        // padding: 0 0 0 0;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.10); 
-      }
-      #dropdown_purpose_button_ul{
-        // height: 40px;
-        color: #ffffff;
-        width: 500px;
-        // margin: 0 0 3px 11px;
-        // padding: 0 0 0 0;
-        background: rgb(182, 182, 182);
-        border: 1px solid rgba(255, 255, 255, 0.10); 
-      }
-      #money_send_btn{
-        margin: 20px 200px 0 200px;
-        width: 100px;
-      }
-      #money_send_address_verify_span{
-        background: #ffffff00;
-        border-color: #ffffff00;
-        padding: 0 0 0 0;
-        height: 40px;
-        margin: -8.5% 0 0 87%;
-      }
-
-
-
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-      // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
-
-
-
-
-    .goodluckdubugingit65446453{
-      width: 225px; height:40px; margin: -25px 10px 0 10px;
-    }
-
-    .goodluckdubugingit65546542{
-        width: 225px; height:40px; margin: -25px  0 0 40px;
-    }
-    .idkwhattonameit34645{
-        position: absolute;
-        margin: 60px 174px 0 -90px;
-        // margin: 120px -90px 0 174px;
-
-
-        width: 154px;
-        // width: 40px;
-        // top: 390px;
-        // left: 250px;
-    }
-
-    .forgot-pin{
-        margin: -10px 0 0 0;
-        padding: auto;
-        font-size: 10px;
-        color: #29b5ff;
-        text-decoration: none;
-    
-    }
-    .enter-pin-text{
-    
-        font-size: 10px;
-    }
-    /* style.css */
-    #pin-input-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50px;
-        padding: 10px 0 0 0;
-        /* min-height: 100vh; */
-    }
-    
-    .input {
-        color: #fff;
-        width: 30px;
-        height: 30px;
-        border: none;
-        background-color: #ffffff00;
-        border-bottom: 2px solid rgba(41,181,255);
-        margin: 0 5px;
-        text-align: center;
-        font-size: 26px;
-        cursor: not-allowed;
-        pointer-events: none;
-    }
-    
-    .input:focus {
-        border-bottom: 2px solid rgba(10,187,146);
-        outline: none;
-    }
-    
-    
-    
-    .input:nth-child(1) {
-        cursor: pointer;
-        pointer-events: all;
-    }
-    
-
-
-
-
-    // Confirmation Card 
-
-    .trnx_confirm_amnt{
-        
-        padding: 25px 0 0 0px;
-        color: rgba(255, 255, 255, 0.80);
-        font-family: Inter;
-        font-size: 2rem;
-        font-style: normal;
-        font-weight: 600;
-        line-height: normal;
-        text-transform: capitalize;
-    }
-    #dwnld_receipt_btn_div{
-        border-top-width: 150px;
-        margin-top: 150px;
-    }
-    #share_icon{
-        position: absolute;
-        margin: 15px 174px 0 174px;
-        // width: 184px;
-        width: 40px;
-        top: 395px;
-        left: 250px;
-    }
-
-
-
-    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
-    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
-    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
-    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
-    // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
-
-    #input-group{
-      height: 45px;
-    }
-    
-    #requestDiv,#sendConfirmDiv,#sendVerifyDiv, #sendDiv, #profileDiv {
-      // margin-left: 30%; margin-top: 7%;
-      margin-left: auto;
-      margin-right: auto;
-      margin-top: 100px;
-      // margin: auto;
-
-    }
-
-    .content{
-      margin: auto;
-      margin-left: 250px;
-      // margin-right: 50px;
-      margin-top: 100px;
-      // margin: auto;
-
-    }
-
-    .card-form {
-      margin-top: 8px;
-
-    }
-    
-    .tab-card{
-      position: absolute;
-      z-index: 1200;
-      /* Ensure the card is centered */
-      top: 50%;
-      left: 50%;
-      transform: translate(-62%, -65%);
-
-      color: #FFF;
-      border-radius: 1rem;
-      // opacity: .6;
-      background: #1c1c1c99;
-      backdrop-filter: blur(10px);
-      
-      width: 66rem;
-      height: 34.5rem;
-      flex-shrink: 0;
+  .font-weight-600 {
+    font-weight: 600;
   }
 
-    .tab{
-      width: 48rem;
-    }
+  .font-weight-900 {
+    font-weight: 900;
+  }
+
+  .text-white {
+    color: white;
+  }
+
+  .text-lgray {
+    color: rgb(182, 177, 177);
+  }
+
+  .align-to-center {
+    align-items: center;
+  }
+
+  .position-relative {
+    position: relative;
+  }
+
+  .position-absolute {
+    position: absolute;
+  }
+
+  #assumedBody {
+    margin: auto;
+  }
+
+  .card1 {
+    margin: auto;
+    color: #FFF;
+    border-radius: 1rem;
+    // opacity: .6;
+    background: #1c1c1c99;
+    backdrop-filter: blur(10px);
+
+    width: 40rem;
+    height: 30.5rem;
+    flex-shrink: 0;
+  }
+
+  .bg-img {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    /* filter: brightness(0.8); */
+    position: absolute;
+    z-index: -1;
+    /* Background image should be behind everything */
+  }
+
+  .navbardiv {
+    position: absolute;
+    min-height: 100vh;
+    /* width: 100%;
+        overflow: hidden;
+        transition: all 0.35s ease-in-out; */
+  }
+
+  #verified_name {
+    color: #4ECB71;
+    text-align: center;
+    font-family: Inter;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+  }
+
+  #verified_wallet-address,
+  #bankName,
+  #accountNo {
+    color: var(--background-mode, #FFF);
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+  }
+
+  #btn-date {
+    /* Set width and height */
+    width: 100px;
+    height: 400px;
+
+    /* Set padding */
+    padding: 10px 20px;
+
+    /* Set font size */
+    font-size: 16px;
+
+    /* Set line height */
+    line-height: 1.5;
+
+    /* Set border radius */
+    border-radius: 5px;
+
+    /* Set margin */
+    margin: 5px;
+
+    /* Set text alignment */
+    text-align: center;
+
+    /* Set box-sizing to control the sizing behavior */
+    box-sizing: border-box;
+
+    /* Set min-width and min-height to ensure minimum dimensions */
+    min-width: 50px;
+    min-height: 30px;
+
+  }
 
 
 
-    // #money_send_currency_span {
-      
+/* Background color of the daterangepicker */
+.daterangepicker {
+  background-color: #fff;
+}
 
-    // }
+/* Border color of the daterangepicker */
+.daterangepicker {
+  border-color: #ccc;
+}
+
+/* Text color of the daterangepicker */
+.daterangepicker {
+  color: #333;
+}
+
+/* Font size of the daterangepicker */
+.daterangepicker {
+  font-size: 14px;
+}
+
+/* Background color of the available dates */
+.daterangepicker td.available:not(.off) {
+  background-color: #ffffff;
+}
+
+/* Text color of the available dates */
+.daterangepicker td.available:not(.off) {
+  color: #333;
+}
+/* Font size of the available dates */
+.daterangepicker td.available:not(.off) {
+  font-size: 14px;
+}
+
+/* Background color of the selected dates */
+.daterangepicker td.active, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active.disabled, 
+.daterangepicker td.active.disabled:hover {
+  background-color: #007bff;
+}
+
+/* Text color of the selected dates */
+.daterangepicker td.active, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active.disabled, 
+.daterangepicker td.active.disabled:hover {
+  color: #fff;
+}
+xrdp
+/* Font size of the selected dates */
+.daterangepicker td.active, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active:hover, 
+.daterangepicker td.active.disabled, 
+.daterangepicker td.active.disabled:hover {
+  font-size: 14px;
+}
+
+/* Background color of the dates within the selected range */
+.daterangepicker td.in-range, 
+.daterangepicker td.in-range:hover, 
+.daterangepicker td.start-date, 
+.daterangepicker td.end-date {
+  background-color: #007bff;
+}
+
+/* Text color of the dates within the selected range */
+.daterangepicker td.in-range, 
+.daterangepicker td.in-range:hover, 
+.daterangepicker td.start-date, 
+.daterangepicker td.end-date {
+  color: #fff;
+}
+
+/* Font size of the dates within the selected range */
+.daterangepicker td.in-range, 
+.daterangepicker td.in-range:hover, 
+.daterangepicker td.start-date, 
+.daterangepicker td.end-date {
+  font-size: 14px;
+}
+
+/* Background color of the disabled or out of range dates */
+.daterangepicker td.disabled, 
+.daterangepicker td.disabled:hover, 
+.daterangepicker td.off, 
+.daterangepicker td.off:hover {
+  background-color: #f8f9fa;
+}
+
+/* Text color of the disabled or out of range dates */
+.daterangepicker td.disabled, 
+.daterangepicker td.disabled:hover, 
+.daterangepicker td.off, 
+.daterangepicker td.off:hover {
+  color: #ccc;
+}
+
+/* Font size of the disabled or out of range dates */
+.daterangepicker td.disabled, 
+.daterangepicker td.disabled:hover, 
+.daterangepicker td.off, 
+.daterangepicker td.off:hover {
+  font-size: 14px;
+}
 
 
 
-    #dropdown_purpose_button_a {
-      height: 45px;
-      padding-bottom: 4px;
-      padding-top: 15px;
-      border-radius: 10px
-    }
-    
-    .form-field__label {
-      padding-top: 15px; padding-bottom: 0px;
-
-    }
-    
-    #qr_code_div {
-      text-align: center;
-    }
-    
-    #receiver_address{
-      padding-top: 4px;
-      margin-top: 15px;
-    }
-    #money_withdrawing_remarks_div,
-    #money_sending_address_div, 
-    #money_sending_remarks_div {
-      height: 45px;
-
-    }
-    
-    #money_sending_remarks {
-      padding-bottom: 4px;
-      padding-top: 4px;
-      margin-top: 15px;
-    }
-    
-    #receiver_address_label{
-    padding-top: 15px; padding-bottom: 0px;
-    }
-
-    #link_share_btn_div {
-      width: 100%;
-      text-align: center; /* Center the button */
-    }
-
-    
 
 
 
-    #bankSelect {
-        /* Styles for the collapsed dropdown */
-        height: 45px;
-        width: 500px;
-        border-radius: 10px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.10);
-        color: #fff; /* Text color for the collapsed dropdown */
-    }
+
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
+  // Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page  Landing page 
 
 
-    #bankSelect option {
-      /* Styles for the expanded dropdown options */
-      background-color: rgba(255, 255, 255, 0.05);
-      color: #000000; /* Text color for the expanded dropdown options */
-    }
+
+  nav {
+    margin-bottom: -5rem;
+  }
+
+  footer {
+    margin-top: 205rem;
+  }
+
+  //Heading Settigns
+  h1 {
+    font-family: 'Inter', sans-serif;
+    color: rgb(233, 233, 207);
+  }
+
+  .slide-section1,
+  .cta-section {
+    // background-repeat: no-repeat;
+    background-size: cover;
+    height: 265.1875rem;
+  }
 
 
 
@@ -1181,11 +301,1095 @@ body{
 
 
 
-    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
-    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
-    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
-    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
-    // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
 
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+  // Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page  Auth page 
+
+
+
+
+  .bg-img {
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    // filter: brightness(0.8);
+    // position: absolute;
+  }
+
+  .auth-form {
+    // auth.php
+    // background-color: rgba(72, 72, 72, 0.7);
+    border-radius: 1.25rem;
+    border: 1px solid rgba(186, 186, 186, 0.50);
+    background: var(--background-mode, rgba(19, 19, 22, 0.40));
+    box-shadow: 20px 40px 60px 0px rgba(0, 0, 0, 0.50);
+    backdrop-filter: blur(50px);
+    // 2nd Revission of Auth Page
+    width: 638px;
+    height: 486px;
+    top: 80px;
+    left: 30px;
+  }
+
+  .auth-h1 {
+    color: var(--foreground-high, #FAFAFA);
+
+    /* heading */
+    font-family: Poppins;
+    font-size: 1.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    /* 1.75rem */
+  }
+
+  .auth-or {
+    color: var(--foreground-low, #70707B);
+    text-align: center;
+
+    /* body/large/semibold */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    /* 1rem */
+  }
+
+
+  .auth-p {
+    color: var(--foreground-low, #70707B);
+
+    /* body/large/regular */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    /* 1rem */
+    text-transform: capitalize;
+  }
+
+  .auth-p-link {
+    color: var(--foreground-primary, #A0A0AB);
+
+    /* body/large/regular */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    /* 1rem */
+    text-transform: capitalize;
+  }
+
+
+  .auth-btn {
+    border-radius: 0.5rem;
+    background: var(--container-primary-low, #26272B);
+    text-decoration: none;
+    /* Remove underline */
+    color: cyan;
+    /* Inherit the text color */
+    cursor: pointer;
+    /* Set cursor to pointer on hover */
+
+    display: flex;
+    height: 3rem;
+    width: 10rem;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1 0 0;
+
+
+    //Typography
+    color: var(--foreground-primary, #A0A0AB);
+
+    /* body/large/semibold */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    /* 1rem */
+
+  }
+
+  .auth-submit-btn {
+    display: flex;
+    height: 3rem;
+    width: 23rem;
+    padding: 1rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.3125rem;
+    align-self: stretch;
+
+    border-radius: 0.5rem;
+    background: var(--container-primary, #1570EF);
+
+    //Typography
+    color: var(--foreground-onColor, #FCFCFC);
+
+    /* body/large/semibold */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    /* 1rem */
+  }
+
+  .form-label {
+
+    flex: 1 0 0;
+    color: var(--foreground-default, #D1D1D6);
+
+    /* body/large/regular */
+    font-family: Poppins;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 100%;
+    /* 1rem */
+    text-transform: capitalize;
+  }
+
+  .form-control {
+    display: flex;
+    padding: 0.75rem 1rem;
+    align-items: center;
+    gap: 0.3125rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    background: var(--background-mode, rgba(19, 19, 22, 0.40));
+
+    border-radius: 0.5rem;
+  }
+
+  .form-control::selection {
+    display: flex;
+    padding: 0.75rem 1rem;
+    align-items: center;
+    gap: 0.3125rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    background: var(--background-mode, rgba(19, 19, 22, 0.40));
+
+    border-radius: 0.5rem;
+    border: 3px solid var(--outline-primary, #194185);
+  }
+
+
+
+
+
+
+
+
+
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+  // Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar.  Collapsable Side Bar. 
+
+
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+  // ::after,
+  // ::before {
+  //     box-sizing: border-box;
+  //     margin: 0;
+  //     padding: 0;
+  // }
+
+
+
+
+  .sidebar-attribute {
+    text-decoration: none;
+  }
+
+  // li {
+  //     list-style: none;
+  // }
+
+  // h1 {
+  //     font-weight: 600;
+  //     font-size: 1.5rem;
+  // }
+
+
+
+
+  // body {
+  //     font-family: 'Poppins', sans-serif;
+  // }
+
+  .wrapper {
+    display: flex;
+  }
+
+  .main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+    background-color: #fafbfe;
+  }
+
+  #sidebar {
+    width: 70px;
+    min-width: 70px;
+    z-index: 1000;
+    transition: all .25s ease-in-out;
+    // background-color: #0e2238;
+    background-color: #ff000000;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #sidebar.expand {
+    width: 260px;
+    min-width: 260px;
+  }
+
+  .sidebar .toggle-btn {
+    background-color: transparent;
+    cursor: pointer;
+    border: 0;
+    padding: 1rem 1.5rem;
+  }
+
+  .sidebar .toggle-btn i {
+    font-size: 1.5rem;
+    color: #ffffff;
+  }
+
+  .sidebar-logo {
+    margin: auto 0;
+  }
+
+  .sidebar-logo a {
+    color: #FFF;
+    font-size: 1.15rem;
+    font-weight: 600;
+  }
+
+  #sidebar:not(.expand) .sidebar-logo,
+  #sidebar:not(.expand) a.sidebar-link span {
+    display: none;
+  }
+
+  .sidebar-nav {
+    padding: 2rem 0;
+    flex: 1 1 auto;
+  }
+
+  a.sidebar-link {
+    padding: .625rem 1.625rem;
+    color: #FFF;
+    display: block;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    border-left: 3px solid transparent;
+  }
+
+  .sidebar-link i {
+    font-size: 1.1rem;
+    margin-right: .75rem;
+  }
+
+  a.sidebar-link:hover {
+    background-color: rgba(255, 255, 255, 0.187);
+    border-left: 3px solid #3b7ddd;
+  }
+
+
+  .sidebar-item {
+    position: relative;
+  }
+
+  #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
+    position: absolute;
+    top: 0;
+    left: 70px;
+    // background-color: #0e2238;
+    background-color: #0eff02;
+    padding: 0;
+    min-width: 15rem;
+    display: none;
+  }
+
+  #sidebar:not(.expand) .sidebar-item:hover .has-dropdown+.sidebar-dropdown {
+    display: block;
+    max-height: 15em;
+    width: 100%;
+    opacity: 1;
+  }
+
+  #sidebar.expand .sidebar-link[data-bs-toggle="collapse"]::after {
+    border: solid;
+    border-width: 0 .075rem .075rem 0;
+    content: "";
+    display: inline-block;
+    padding: 2px;
+    position: absolute;
+    right: 1.5rem;
+    top: 1.4rem;
+    transform: rotate(-135deg);
+    transition: all .2s ease-out;
+  }
+
+  #sidebar.expand .sidebar-link[data-bs-toggle="collapse"].collapsed::after {
+    transform: rotate(45deg);
+    transition: all .2s ease-out;
+  }
+
+
+
+
+
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+  // Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar  Nav Bar 
+
+
+  .btn-language {
+    padding-top: .8%;
+    // align-items: center;
+  }
+
+  .notification-icon {
+    padding-top: .5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    align-items: center;
+  }
+
+  .user-name {
+    padding-top: 0%;
+    margin-top: 0.8%;
+    margin-right: 1%;
+    color: #ffffff;
+  }
+
+  .body-home {
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: auto;
+  }
+
+  .nav-home {
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .container {
+
+    margin-right: auto;
+    margin-left: auto;
+    margin: auto;
+
+    // padding-right: 0%;
+    // margin-right: 15px;
+  }
+
+  .transactions_div_main {
+    margin-left: 15rem;
+    margin-right: 2rem;
+    // margin-right: 25rem;
+  }
+
+  .collapse {
+    margin-right: 30.734;
+    // width; 
+  }
+
+  .receiver-profile-pic {
+    margin-top: 2.5%;
+  }
+
+  #menu {
+    z-index: 1500;
+  }
+
+
+
+
+
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+  }
+
+  body {
+    background: #ffccbc;
+  }
+
+  .action {
+    z-index: 1500;
+    position: fixed;
+    // top: 20px;
+    right: 30px;
+  }
+
+  .action .profile {
+    z-index: 1500;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+
+  .action .profile img {
+    z-index: 1500;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .action .menu {
+    z-index: 1500;
+    position: absolute;
+    top: 120px;
+    right: -10px;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.598);
+    width: 200px;
+    box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    transition: 0.5s;
+    visibility: hidden;
+    opacity: 0;
+    backdrop-filter: blur(5px);
+  }
+
+  .action .menu.active {
+    z-index: 1500;
+    top: 80px;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .action .menu::before {
+    z-index: 1500;
+    content: "";
+    position: absolute;
+    top: -5px;
+    right: 28px;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.303);
+    transform: rotate(45deg);
+  }
+
+  .action .menu h3 {
+    z-index: 1500;
+    width: 100%;
+    text-align: center;
+    font-size: 18px;
+    padding: 20px 0;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 1.5em;
+  }
+
+  .action .menu h3 span {
+    z-index: 1500;
+    font-size: 14px;
+    color: #cecece;
+    font-weight: 300;
+  }
+
+  .action .menu ul li {
+    z-index: 1500;
+    list-style: none;
+    padding: 16px 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+  }
+
+  .action .menu ul li img {
+    z-index: 1500;
+    max-width: 20px;
+    margin-right: 10px;
+    opacity: 0.5;
+    transition: 0.5s;
+  }
+
+  .action .menu ul li:hover img {
+    z-index: 1500;
+    opacity: 1;
+  }
+
+  .action .menu ul li a {
+    z-index: 1500;
+    display: inline-block;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 500;
+    transition: 0.5s;
+  }
+
+  .action .menu ul li:hover a {
+    z-index: 1500;
+    color: #884afe;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+  // Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page Input Elements inside Main Card for Send Money Page 
+
+
+
+  #sendDiv {
+    margin-left: 30%;
+    margin-top: 7%;
+  }
+
+  #send_money_form_1 {
+    margin-top: 8px;
+  }
+
+  /* Actual code example */
+
+  $primary-color: #b11adc;
+  $animation-duration: 0.4s;
+
+  @mixin label-inactive() {
+    font-size: 1.2rem;
+    transform: translateY(0);
+  }
+
+  @mixin label-active() {
+    font-size: 0.75rem;
+    transform: translateY(-14px);
+  }
+
+  .form-field__label {
+    @include label-active();
+    // display: block;
+    left: 0;
+    margin: 0;
+    padding: 18px 12px 0;
+    position: absolute;
+    top: 0;
+    transition: all $animation-duration;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+
+    color: rgba(255, 255, 255, 0.35);
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  .form-field__label2 {
+    @include label-active();
+    // display: block;
+    left: 0;
+    margin: 0;
+    padding: 12px 12px 0;
+    position: absolute;
+    top: 0;
+    transition: all $animation-duration;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
+
+    color: rgba(255, 255, 255, 0.35);
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+
+  .form-field__control {
+    // background: #a068d4;
+    // border-radius: 8px 8px 8px 8px;
+    overflow: hidden;
+    position: relative;
+    width: 500px;
+
+    border-radius: 0.625rem;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.05);
+
+  }
+
+  .form-field__input,
+  .form-field__textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    // border-bottom: 1px solid #999;
+    // color: #ffffff;
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 24px;
+    outline: 0;
+    padding: 0 12px 10px 12px;
+    width: 100%;
+
+
+
+    color: var(--background-mode, #FFF);
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+  }
+
+  .form-field__input2,
+  .form-field__textarea {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    // border-bottom: 1px solid #999;
+    // color: #ffffff;
+    display: block;
+    font-size: 1.2rem;
+    margin-top: 18px;
+    outline: 0;
+    padding: 0 12px 10px 12px;
+    width: 100%;
+
+
+
+    color: var(--background-mode, #FFF);
+    font-family: Inter;
+    font-size: 0.9375rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+
+  }
+
+
+  //   #money_sending_address_div{
+  //     padding-bottom: 15px;
+  //     border: 1px solid rgba(255, 255, 255, 0.10); 
+  //   }
+
+  #money_send_amount_div,
+  #money_withdraw_amount_div {
+    padding-top: 20px;
+  }
+
+  #money_send_currency_span,
+  #money_withdraw_currency_span {
+    color: var(--background-mode, #FFF);
+    font-family: Inter;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+
+    border-right-color: #ffffff00;
+    border-radius: 10px 0 0 10px;
+    height: 45px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  #inr_logo {
+    padding: 0 3px 0 0;
+  }
+
+  #money_send_amount_input,
+  #money_withdraw_amount_input {
+    height: 45px;
+
+    border-left: #ffffff00;
+    border-radius: 0 10px 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.05);
+
+  }
+
+  #dropdown_purpose_div {
+    padding: 0px 0 20px 0;
+  }
+
+  #dropdown_purpose_button_a {
+    height: 40px;
+    width: 500px;
+    // margin: 0 0 3px 11px;
+    // padding: 0 0 0 0;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  #dropdown_purpose_button_ul {
+    // height: 40px;
+    color: #ffffff;
+    width: 500px;
+    // margin: 0 0 3px 11px;
+    // padding: 0 0 0 0;
+    background: rgb(182, 182, 182);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+  }
+
+  #money_send_btn {
+    margin: 20px 200px 0 200px;
+    width: 100px;
+  }
+
+  #money_send_address_verify_span {
+    background: #ffffff00;
+    border-color: #ffffff00;
+    padding: 0 0 0 0;
+    height: 40px;
+    margin: -8.5% 0 0 87%;
+  }
+
+
+
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+  // Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page  Input Elements Send Money Verify Page 
+
+
+
+
+  .goodluckdubugingit65446453 {
+    width: 225px;
+    height: 40px;
+    margin: -25px 10px 0 10px;
+  }
+
+  .goodluckdubugingit65546542 {
+    width: 225px;
+    height: 40px;
+    margin: -25px 0 0 40px;
+  }
+
+  .idkwhattonameit34645 {
+    position: absolute;
+    margin: 60px 174px 0 -90px;
+    // margin: 120px -90px 0 174px;
+
+
+    width: 154px;
+    // width: 40px;
+    // top: 390px;
+    // left: 250px;
+  }
+
+  .forgot-pin {
+    margin: -10px 0 0 0;
+    padding: auto;
+    font-size: 10px;
+    color: #29b5ff;
+    text-decoration: none;
+
+  }
+
+  .enter-pin-text {
+
+    font-size: 10px;
+  }
+
+  /* style.css */
+  #pin-input-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    padding: 10px 0 0 0;
+    /* min-height: 100vh; */
+  }
+
+  .input {
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: #ffffff00;
+    border-bottom: 2px solid rgba(41, 181, 255);
+    margin: 0 5px;
+    text-align: center;
+    font-size: 26px;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .input:focus {
+    border-bottom: 2px solid rgba(10, 187, 146);
+    outline: none;
+  }
+
+
+
+  .input:nth-child(1) {
+    cursor: pointer;
+    pointer-events: all;
+  }
+
+
+
+
+
+  // Confirmation Card 
+
+  .trnx_confirm_amnt {
+
+    padding: 25px 0 0 0px;
+    color: rgba(255, 255, 255, 0.80);
+    font-family: Inter;
+    font-size: 2rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    text-transform: capitalize;
+  }
+
+  #dwnld_receipt_btn_div {
+    border-top-width: 150px;
+    margin-top: 150px;
+  }
+
+  #share_icon {
+    position: absolute;
+    margin: 15px 174px 0 174px;
+    // width: 184px;
+    width: 40px;
+    top: 395px;
+    left: 250px;
+  }
+
+
+
+  // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+  // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+  // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+  // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+  // Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  Request Money Page  
+
+  #input-group {
+    height: 45px;
+  }
+
+  #requestDiv,
+  #sendConfirmDiv,
+  #sendVerifyDiv,
+  #sendDiv,
+  #profileDiv {
+    // margin-left: 30%; margin-top: 7%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
+    // margin: auto;
+
+  }
+
+  .content {
+    margin: auto;
+    margin-left: 250px;
+    // margin-right: 50px;
+    margin-top: 100px;
+    // margin: auto;
+
+  }
+
+  .card-form {
+    margin-top: 8px;
+
+  }
+
+  .tab-card {
+    position: absolute;
+    z-index: 1200;
+    /* Ensure the card is centered */
+    top: 50%;
+    left: 50%;
+    transform: translate(-62%, -65%);
+
+    color: #FFF;
+    border-radius: 1rem;
+    // opacity: .6;
+    background: #1c1c1c99;
+    backdrop-filter: blur(10px);
+
+    width: 66rem;
+    height: 34.5rem;
+    flex-shrink: 0;
+  }
+
+  .tab {
+    width: 48rem;
+  }
+
+
+
+  // #money_send_currency_span {
+
+
+  // }
+
+
+
+  #dropdown_purpose_button_a {
+    height: 45px;
+    padding-bottom: 4px;
+    padding-top: 15px;
+    border-radius: 10px
+  }
+
+  .form-field__label {
+    padding-top: 15px;
+    padding-bottom: 0px;
+
+  }
+
+  #qr_code_div {
+    text-align: center;
+  }
+
+  #receiver_address {
+    padding-top: 4px;
+    margin-top: 15px;
+  }
+
+  #money_withdrawing_remarks_div,
+  #money_sending_address_div,
+  #money_sending_remarks_div {
+    height: 45px;
+
+  }
+
+  #money_sending_remarks {
+    padding-bottom: 4px;
+    padding-top: 4px;
+    margin-top: 15px;
+  }
+
+  #receiver_address_label {
+    padding-top: 15px;
+    padding-bottom: 0px;
+  }
+
+  #link_share_btn_div {
+    width: 100%;
+    text-align: center;
+    /* Center the button */
+  }
+
+
+
+
+
+  #bankSelect {
+    /* Styles for the collapsed dropdown */
+    height: 45px;
+    width: 500px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    color: #fff;
+    /* Text color for the collapsed dropdown */
+  }
+
+
+  #bankSelect option {
+    /* Styles for the expanded dropdown options */
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #000000;
+    /* Text color for the expanded dropdown options */
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+  // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+  // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+  // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+  // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+  // Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  Settings  
+
+
 }

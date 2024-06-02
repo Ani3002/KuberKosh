@@ -105,7 +105,7 @@ $wallet_id = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_id'];
     ?>
 
 
-    <div class="transactions_div">
+    <div id="transactionsContainer" class="transactions_div">
 
 
 

@@ -605,6 +605,7 @@ function fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress)
     }
 }
 
+
 // Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
 // Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
 // Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. Function to fetch ProfilePictureLink via walletAddress. 
@@ -625,6 +626,28 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
         return 0;
     }
 }
+
+// function downloadProfilePicture($profilePicLink, $walletAddress)
+// {
+//     // Define the directory to save the profile pictures
+//     $directory = 'assets/profilePics/';
+    
+//     // Create the directory if it doesn't exist
+//     if (!file_exists($directory)) {
+//         mkdir($directory, 0777, true);
+//     }
+
+//     // Define the file name
+//     $fileName = $walletAddress . '.png';
+
+//     // Define the file path
+//     $filePath = $directory . $fileName;
+
+//     // Download the image
+//     file_put_contents($filePath, file_get_contents($profilePicLink));
+
+//     return $filePath;
+// }
 
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
@@ -874,7 +897,7 @@ function getTrnxDetailsDateRange($connect_wallet_transactions_db, $wallet_id, $s
     $wallet_id = $connect_wallet_transactions_db->real_escape_string($wallet_id);
 
     // Prepare SQL statement with the dynamic table name and date range
-    $query = "SELECT * FROM `$wallet_id` WHERE `Date` BETWEEN ? AND ?";
+    $query = "SELECT * FROM `$wallet_id` WHERE `Date` BETWEEN ? AND ? ORDER BY `Date` DESC";
 
     // Prepare and bind parameters
     $stmt = $connect_wallet_transactions_db->prepare($query);

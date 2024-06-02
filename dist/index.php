@@ -13,13 +13,22 @@ if((isset($_GET['home']))){
     // for signup page
         viewPage('auth');
     
-}elseif(isset($_GET['dash'])){
+}
+elseif(isset($_GET['dash'])){
     // for dashboard page
         viewPage('dash');
         viewPage('collapsableSideBar');
         viewPage('navBar');
         viewPage('dash2');
-}elseif(isset($_GET['database'])){
+}
+elseif(isset($_GET['dash4'])){
+    // for dashboard page
+        viewPage('dash');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('dash4');
+}
+elseif(isset($_GET['database'])){
     // for dashboard page
         viewPage('database');
 }
@@ -82,6 +91,12 @@ elseif(isset($_GET['transactions'])){
         viewPage('collapsableSideBar');
         viewPage('navBar');
         viewPage('transactions2');
+}elseif(isset($_GET['transactions2'])){
+    // for send money page
+        viewPage('transactions1');
+        viewPage('collapsableSideBar');
+        viewPage('navBar');
+        viewPage('transactions2 copy');
 }
 elseif(isset($_GET['request'])){
     // for send money page

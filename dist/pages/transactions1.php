@@ -15,7 +15,6 @@
     <script src="js/moment.min.js"></script>
     <script src="js/daterangepicker.min.js"></script>
     <link rel="stylesheet" href="css/daterangepicker.css">
-    <script src="js/bootstrap.min.js"></script>
 
     <style>
         body {
