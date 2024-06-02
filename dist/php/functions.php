@@ -906,6 +906,11 @@ function getTrnxDetailsDateRange($connect_wallet_transactions_db, $wallet_id, $s
 }
 
 
+function extractParticularsParts($particulars, $part) {
+    $parts = explode('/', $particulars);
+    return isset($parts[$part]) ? $parts[$part] : 'unknown_user';
+}
+
 // Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
 // Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
 // Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. Function to check whether table in transactions db. 
@@ -1106,8 +1111,25 @@ function withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transact
                 $bankAccQueryStmt = $connect_kuberkosh_db->query($bankAccQuery);
 
                 if ($bankAccQueryStmt) {
-                    $response = array('success' => true, 'trnxId' => $trnxId, 'money_withdraw_amount' => $money_withdraw_amount, 'bankAccountId' => $bankAccountId, 'trnxMessage' => 'Transaction Successful');
-                    $status = 'Success';
+                    // Fetch user banks to get the account number
+                    $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
+                    $accountNumber = '';
+                    foreach ($userBanks as $bank) {
+                        if ($bank['bank_account_id'] == $bankAccountId) {
+                            $accountNumber = $bank['account_no'];
+                            $bankName = $bank['bank_info'];
+                            break;
+                        }
+                    }
+                    $response = array(
+                        'success' => true,
+                        'trnxId' => $trnxId,
+                        'money_withdraw_amount' => $money_withdraw_amount,
+                        'bankAccountId' => $bankAccountId,
+                        'account_number' => $accountNumber,
+                        'bankName' => $bankName,
+                        'trnxMessage' => 'Withdraw Successful'
+                    );
                     // echo '<script>alert("Money withdrawn successfully!")</script>';
                     return $response;
 

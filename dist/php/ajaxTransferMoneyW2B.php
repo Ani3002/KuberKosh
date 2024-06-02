@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     // $response = array ('success' => true, 'trnxId' => 'trnxId');
     
     // Send JSON response
-    header('Content-Type: applicatio/json');
+    header('Content-Type: application/json');
     echo json_encode($response);
 }
 else

@@ -91,9 +91,8 @@ body{
         font-style: normal;
         font-weight: 700;
         line-height: normal;
-
     }
-    #verified_wallet-address{
+    #verified_wallet-address, #bankName, #accountNo{
         color: var(--background-mode, #FFF);
         font-family: Inter;
         font-size: 0.9375rem;

@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
 
-    <style>
+    <!-- <style>
         .content {
             /* margin: auto; */
             margin-top: 100px;
@@ -45,7 +45,7 @@
             padding: 6px 12px;
             border-top: none;
         }
-    </style>
+    </style> -->
 </head>
 
 <body>
