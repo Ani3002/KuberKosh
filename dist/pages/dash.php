@@ -1,19 +1,168 @@
 <?php
-
-    include "php/google-auth.php"
-    
-?>
+include "php/google-auth.php"
+    ?>
 <html>
- <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Login with Google in PHP</title>
-  <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport'/>
-  <script src="js/bundle.js"></script>
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
-  
- </head>
- <body>
-    <!-- Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image   -->
-    <img class = "bg-img" src="/img/Background.webp" alt="background image">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Login with Google in PHP</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport' />
+    <script src="js/bundle.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
+
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #wd {
+            margin-top: 20px;
+            margin-left: 20px;
+            width: 10.25rem;
+            color: var(--background-mode, #FFF);
+            font-family: Inter;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+        }
+
+        #nameLabel,
+        #bankNameLabel {
+            margin: 20 0 0 20px;
+        }
+
+        #dashUserName,
+        #bankName {
+            margin: 10 0 0 20px;
+        }
+
+        #walletAddressLabel,
+        #bankAccNoLabel {
+            margin: 50 0 0 20px;
+        }
+
+        #dashWalletAddress,
+        #bankAccNo{
+            margin: 10 0 0 20px;
+        }
+
+        #dashBankSelectDiv {
+            width: 50px;
+
+        }
+        #dashCheckBal {
+            margin: 15 0 0 10px;
+        }
+        .hiddenBalance{
+            appearance: none;
+            background: transparent;
+            border: 0;
+
+            display: block;
+            font-size: 1.2rem;
+            outline: 0;
+            padding: 0 0 0 0;
+
+
+
+            color: var(--background-mode, #FFF);
+            font-family: Inter;
+            font-size: 0.9375rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        #dashCheckBankBal{
+            margin: 8 0 0 10px;
+        }
+
+        #dashWalletBal, #dashBankBal{
+            margin: 10 0 0 10px;
+
+        }
+        #dashEyeBtn, #dashEyeBtnBank{
+            margin: 8 0 0 -110px;
+        }
+        #dashBankSelect {
+            margin: 12 50 0 5px;
+            /* Styles for the collapsed dropdown */
+            height: 30px;
+            width: 235px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 0 5 0 5px;
+            color: #fff;
+            /* Text color for the collapsed dropdown */
+        }
+
+
+        #dashBankSelect option {
+            /* Styles for the expanded dropdown options */
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #000000;
+            /* Text color for the expanded dropdown options */
+        }
+        #bankSelect {
+            width: 16.25rem;
+            height: 1.25rem;
+        }
+        #bankBalanceLabel{
+            margin: 6 0 0 10px;
+        }
+
+        .label {
+            width: 10.25rem;
+            color: #878787;
+            font-family: Inter;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        .dashLabelContent {
+            width: 11.25rem;
+            color: var(--background-mode, #FFF);
+            font-family: Inter;
+            font-size: 0.875rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+        #doughnutChartDiv{
+            margin: 10 0 0 200px;
+        }
+
+        .custom-legend {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            color: white;
+        }
+        .custom-legend-item {
+            width: 35%;
+            display: flex;
+            align-items: center;
+            margin: 5px;
+        }
+        .custom-legend-box {
+            width: 12px;
+            height: 12px;
+            margin-right: 5px;
+        }
+        .custom-legend-label {
+            font-size: 12px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Background Image -->
+    <img class="bg-img" src="/img/Background.webp" alt="background image">

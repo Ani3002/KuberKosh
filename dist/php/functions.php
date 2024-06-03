@@ -407,6 +407,7 @@ function getUserBanks($connect_kuberkosh_db, $userId)
                 SELECT
                     bank_accounts.bank_account_id,
                     bank_accounts.bank_name,
+                    bank_accounts.account_balance,
                     bank_accounts.account_number,
                     bank_brunches.brunchLocation
                 FROM
@@ -424,7 +425,8 @@ function getUserBanks($connect_kuberkosh_db, $userId)
             $userBanks[] = [
                 'bank_account_id' => $row['bank_account_id'],
                 'bank_info' => $row['bank_name'] . ', ' . $row['brunchLocation'],
-                'account_no' => $row['account_number']
+                'account_no' => $row['account_number'],
+                'accountBalance' => $row['account_balance']
             ];
         }
     }

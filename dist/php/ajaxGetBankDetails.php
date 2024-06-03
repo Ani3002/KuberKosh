@@ -17,18 +17,21 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     $accountNumber = '';
     $bankName = '';
+    $accountBalance = '';
 
     foreach ($userBanks as $bank) {
         if ($bank['bank_account_id'] == $bankAccountId) {
             $accountNumber = $bank['account_no'];
             $bankName = $bank['bank_info'];
+            $accountBalance = $bank['accountBalance'];
             break;
         }
     }
 
     $response = array(
         'accountNumber' => $accountNumber,
-        'bankName' => $bankName
+        'bankName' => $bankName,
+        'accountBalance' => $accountBalance
     );
 
     header('Content-Type: application/json');
