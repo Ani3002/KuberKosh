@@ -10,10 +10,12 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 ?>
 
-
 <div id="assumedBody" class="container">
     <div id="dashDivOne" class="card dashDivCard1 position-relative">
-        <h5 id="wd">Wallet Details</h5>
+        <div class="d-flex">
+            <h5 id="wd">Wallet Details</h5>
+            <h5 id="sa">Spend Analysis</h5>
+        </div>
         <div class="d-flex gap-0">
             <div>
                 <h5 id="nameLabel" class="label">Name</h5>
@@ -43,32 +45,16 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     }
                     ?>
                 </select>
-
-
-
-
                 <h5 id="dashCheckBankBal" class="dashLabelContent">Bank Balance</h5>
                 <div class="d-flex">
                     <div>
-                        <input id="dashBankBal" type="password" class="hiddenBalance"
-                            value=""
-                            placeholder="balance">
+                        <input id="dashBankBal" type="password" class="hiddenBalance" value="" placeholder="balance">
                     </div>
-                    <span id="dashEyeBtnBank" class="eye-button" onmousedown="showBankBalance()" onmouseup="hideBankBalance()"
-                        onmouseleave="hideBankBalance()">
+                    <span id="dashEyeBtnBank" class="eye-button" onmousedown="showBankBalance()"
+                        onmouseup="hideBankBalance()" onmouseleave="hideBankBalance()">
                         👁️
                     </span>
                 </div>
-
-
-
-
-
-
-
-
-
-
                 <h5 id="dashCheckBal" class="dashLabelContent">Wallet Balance</h5>
                 <div class="d-flex">
                     <div>
@@ -76,15 +62,20 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                             value="<?php echo fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId); ?> "
                             placeholder="balance">
                     </div>
-                    <span id="dashEyeBtn" class="eye-button" onmousedown="showWalletBalance()" onmouseup="hideWalletBalance()"
-                        onmouseleave="hideWalletBalance()">
+                    <span id="dashEyeBtn" class="eye-button" onmousedown="showWalletBalance()"
+                        onmouseup="hideWalletBalance()" onmouseleave="hideWalletBalance()">
                         👁️
                     </span>
                 </div>
             </div>
+
+
             <div id="doughnutChartDiv" style="flex; width: 150px; height: 150px;">
                 <canvas id="doughnutChart"></canvas>
             </div>
+
+
+
             <div id="chartLegend" class="custom-legend">
                 <div class="custom-legend-item">
                     <div class="custom-legend-box"></div>
@@ -94,26 +85,163 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <div class="d-flex">
+        <div id="dashDivTwo" class="card dashDivCard2 align-to-center position-relative">
+
+
+            <div id="a21" class="d-flex gap-1">
+                <div>
+                    <h5 id="ob">Overview Balance</h5>
+                    <div class="d-flex">
+                        <h5 id="dateRange"> Last Week:</h5>
+                        <span id="dateRangeAmnt">$5000.00</span>
+                    </div>
+                </div>
+                <div>
+                    <select id="dashDateSelect" name="bank_account_id" class="dashLabelContent">
+                        <option value="">1 Week</option>
+                        <option value="">2 Week</option>
+                        <option value="">1 Month</option>
+                        <option value="">2 Month</option>
+                        <option value="">6 Month</option>
+                    </select>
+                    <div class="d-flex">
+                        <h5 id="presentAmnt"> $6000.00</h5>
+                        <span id="percentageChange"> 6 %</span>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="overviewBalanceChart"></canvas>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div id="dashDivThree" class="card dashDivCard3 align-to-center position-relative">
+
+            <h5 id="recentTransactions">Recent Transactions</h5>
+            <div id="cardWrapperDiv">
+
+                <div class="card card2 transaction-card">
+                    <div class="card-header transaction-header">
+                        <div class="d-flex align-items-center dashTransactions">
+                            <img src="<?php //if $transaction['credit']  src= "img/up.svg"    if transaction debit    down.svg ?>" class="rounded-circle me-1" width="35px"
+                                height="35px">
+                            <div class="d-flex gap-1">
+                                <div id="dashTrnxType" class="fw-bold">
+                                    Received
+                                </div>
+                                <span id="dashTrnxTime" class="fw-normal">
+                                    16:45
+                                </span>
+                                <span id="dashTrnxDate" class="fw-normal">
+                                    07 May
+                                </span>
+                                <span id="dashTrnxAmnt" class="fw-normal">
+                                    +500.00
+                                </span>
+                                <span id="dashTrnxStatus" class="fw-normal">
+                                    Successful
+                                </span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
 
         </div>
     </div>
-    <div class="d-flex">
-        <div id="dashDivTwo" class="card dashDivCard2 align-to-center position-relative"></div>
-        <div id="dashDivThree" class="card dashDivCard3 align-to-center position-relative"></div>
-    </div>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Function to fetch transactions
+        function sendAjaxRequest(start, end) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'php/ajaxRenderDashTransactions.php', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            var dataToSend = JSON.stringify({ startDate: start, endDate: end });
+            xhr.send(dataToSend);
 
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    displayTransactions(response.page);
+                } else {
+                    alert('Error occurred while fetching transactions. Please try again.');
+                }
+            };
+        }
+
+        // Function to display transactions
+        function displayTransactions(htmlContent) {
+            document.getElementById('cardWrapperDiv').innerHTML = htmlContent;
+        }
+
+        // Calculate the date range (1 week)
+        function getDateRange() {
+            var endDate = new Date();
+            var startDate = new Date();
+            startDate.setDate(endDate.getDate() - 7);
+
+            var formatDate = date => date.toISOString().split('T')[0];
+            return { start: formatDate(startDate), end: formatDate(endDate) };
+        }
+
+        // Fetch transactions for the last week
+        var dateRange = getDateRange();
+        sendAjaxRequest(dateRange.start, dateRange.end);
+    });
+</script>
+
+
+<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+<script>
+    function showWalletBalance() {
+        document.getElementById("dashWalletBal").type = "text";
+    }
+
+    function hideWalletBalance() {
+        document.getElementById("dashWalletBal").type = "password";
+    }
+
+    function showBankBalance() {
+        document.getElementById("dashBankBal").type = "text";
+    }
+
+    function hideBankBalance() {
+        document.getElementById("dashBankBal").type = "password";
+    }
+
+    function copyToClipboard(elementId) {
+        var copyText = document.getElementById(elementId);
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); // For mobile devices
+
+        document.execCommand("copy");
+
+        // Optionally, you can show a tooltip or some feedback to the user
+        alert("Copied the text: " + copyText.value);
+    }
+
+    document.getElementById('sa').addEventListener('click', function () {
+        window.location.href = 'https://google.com'; // Replace with your target URL
+    });
 
     // Function to fetch and update bank details
     function updateBankDetails() {
         var dashBankSelect = document.getElementById('dashBankSelect');
         var bankAccountId = dashBankSelect.value;
-
-        
 
         var xhrGetBankDetails = new XMLHttpRequest();
         xhrGetBankDetails.open('POST', 'php/ajaxGetBankDetails.php');
@@ -138,36 +266,12 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     document.getElementById('dashBankSelect').addEventListener('change', updateBankDetails);
     // Run the function on page load
     window.onload = updateBankDetails;
+</script>
 
-    function showWalletBalance() {
-        document.getElementById("dashWalletBal").type = "text";
-    }
-
-    function hideWalletBalance() {
-        document.getElementById("dashWalletBal").type = "password";
-    }
-    function showBankBalance() {
-        document.getElementById("dashBankBal").type = "text";
-    }
-
-    function hideBankBalance() {
-        document.getElementById("dashBankBal").type = "password";
-    }
-
-    function copyToClipboard(elementId) {
-        var copyText = document.getElementById(elementId);
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); // For mobile devices
-
-        document.execCommand("copy");
-
-        // Optionally, you can show a tooltip or some feedback to the user
-        alert("Copied the text: " + copyText.value);
-    }
-
-    // Initialize Chart.js Doughnut Chart
-    var ctx = document.getElementById('doughnutChart').getContext('2d');
-    var doughnutChart = new Chart(ctx, {
+<script>
+    // Initialize Doughnut Chart
+    var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+    var doughnutChart = new Chart(ctxDoughnut, {
         type: 'doughnut',
         data: {
             labels: ['Installment', 'Restaurant', 'Rent', 'Food', 'Investment'],
@@ -179,23 +283,14 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false, // Allows you to control the chart dimensions
-            // cutoutPercentage: 50, // Adjust this value to control the size of the inner cutout
-            cutout: '45%', // Adjust this value to control the size of the inner cutout
-
+            maintainAspectRatio: false,
+            cutout: '45%',
             plugins: {
                 legend: {
-                    display: false,
-                    position: 'right', // 'top', 'left', 'bottom', 'right'
-                    labels: {
-                        fontSize: 12, // Adjust the font size of the labels
-                        boxWidth: 25 // Adjust the width of the color box next to each label
-                    }
+                    display: false
                 },
                 title: {
-                    display: false,
-                    text: 'Expense Breakdown',
-                    fontSize: 16 // Adjust the title font size
+                    display: false
                 }
             }
         }
@@ -207,7 +302,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
             return `
                     <div class="custom-legend-item">
                         <div class="custom-legend-box" style="background-color:${chart.data.datasets[0].backgroundColor[index]}"></div>
-                        <div >
+                        <div>
                             <div class="custom-legend-label">${label}</div>
                             <div class="custom-legend-label"> ${chart.data.datasets[0].data[index]}%</div>
                         </div>
@@ -218,4 +313,88 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     }
 
     generateCustomLegend(doughnutChart);
+</script>
+
+<script>
+    // Initialize Bar Chart
+    const totalValue = 100;
+    const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
+    const fillData = dataValues;
+    const backgroundData = dataValues.map(value => totalValue);
+
+    const data = {
+        labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+        datasets: [
+            {
+                label: 'Filled',
+                data: fillData,
+                backgroundColor: 'rgba(73, 77, 173, 1)',
+                borderColor: 'rgba(73, 77, 173, 1)',
+                borderWidth: 0,
+                barThickness: 10,
+                borderRadius: {
+                    topLeft: 10,
+                    topRight: 10,
+                    bottomLeft: 10,
+                    bottomRight: 10
+                },
+            },
+            {
+                label: 'Empty',
+                data: backgroundData,
+                backgroundColor: '#FFFFFF',
+                borderColor: '#FFFFFF',
+                borderWidth: 0,
+                barThickness: 10,
+                borderRadius: {
+                    topLeft: 10,
+                    topRight: 10
+                },
+            }
+        ]
+    };
+
+    const config = {
+        type: 'bar',
+        data: data,
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: false,
+                    ticks: {
+                        color: '#FFF'
+                    },
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0)'
+                    }
+                },
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: '#FFF'
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Overview Balance',
+                    color: '#FFF',
+                    font: {
+                        size: 20
+                    }
+                }
+            }
+        }
+    };
+
+    const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
+    const overviewBalanceChart = new Chart(ctxBar, config);
 </script>

@@ -8,16 +8,16 @@ include "php/google-auth.php"
     <title>Login with Google in PHP</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport' />
     <script src="js/bundle.js"></script>
+    <script src="js/charts.js"></script>
     <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" /> -->
 
     <style>
-        html,
-        body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
+        .chart-container {
+            width: 420px;
+            /* 80% */
+            /* margin: 0 auto; */
         }
 
         #wd {
@@ -30,6 +30,26 @@ include "php/google-auth.php"
             font-style: normal;
             font-weight: 600;
             line-height: normal;
+        }
+
+        #sa {
+            margin-top: 20px;
+            margin-left: 470px;
+            width: 13.25rem;
+            color: white;
+            /* Change text color to purple */
+            font-family: Inter, sans-serif;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 600;
+            line-height: normal;
+            cursor: pointer;
+            /* Indicate that the element is clickable */
+        }
+
+        #sa:hover {
+            color: rgb(131, 70, 197);
+
         }
 
         #nameLabel,
@@ -48,7 +68,7 @@ include "php/google-auth.php"
         }
 
         #dashWalletAddress,
-        #bankAccNo{
+        #bankAccNo {
             margin: 10 0 0 20px;
         }
 
@@ -56,10 +76,12 @@ include "php/google-auth.php"
             width: 50px;
 
         }
+
         #dashCheckBal {
             margin: 15 0 0 10px;
         }
-        .hiddenBalance{
+
+        .hiddenBalance {
             appearance: none;
             background: transparent;
             border: 0;
@@ -78,17 +100,22 @@ include "php/google-auth.php"
             font-weight: 500;
             line-height: normal;
         }
-        #dashCheckBankBal{
+
+        #dashCheckBankBal {
             margin: 8 0 0 10px;
         }
 
-        #dashWalletBal, #dashBankBal{
+        #dashWalletBal,
+        #dashBankBal {
             margin: 10 0 0 10px;
 
         }
-        #dashEyeBtn, #dashEyeBtnBank{
+
+        #dashEyeBtn,
+        #dashEyeBtnBank {
             margin: 8 0 0 -110px;
         }
+
         #dashBankSelect {
             margin: 12 50 0 5px;
             /* Styles for the collapsed dropdown */
@@ -109,11 +136,13 @@ include "php/google-auth.php"
             color: #000000;
             /* Text color for the expanded dropdown options */
         }
+
         #bankSelect {
             width: 16.25rem;
             height: 1.25rem;
         }
-        #bankBalanceLabel{
+
+        #bankBalanceLabel {
             margin: 6 0 0 10px;
         }
 
@@ -136,7 +165,8 @@ include "php/google-auth.php"
             font-weight: 500;
             line-height: normal;
         }
-        #doughnutChartDiv{
+
+        #doughnutChartDiv {
             margin: 10 0 0 200px;
         }
 
@@ -146,20 +176,129 @@ include "php/google-auth.php"
             justify-content: center;
             color: white;
         }
+
         .custom-legend-item {
             width: 35%;
             display: flex;
             align-items: center;
             margin: 5px;
         }
+
         .custom-legend-box {
             width: 12px;
             height: 12px;
             margin-right: 5px;
         }
+
         .custom-legend-label {
             font-size: 12px;
         }
+
+
+
+        #a21 {
+            margin: 10 0 5 5px;
+
+        }
+
+        #ob {
+            /* margin: 10 0 10 -130px; */
+            width: 14.65044rem;
+            height: 1.5rem;
+            color: var(--background-mode, #FFF);
+            font-family: Poppins;
+            font-size: 1.25rem;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        #dashDateSelect {
+            margin: 0 0 0 75px;
+            /* Styles for the collapsed dropdown */
+            /* height: 30px; */
+            width: 100px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            padding: 0 5 0 5px;
+            color: #fff;
+            /* Text color for the collapsed dropdown */
+        }
+
+        #dateRange {
+            color: var(--background-mode, #FFF);
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        #dateRangeAmnt {
+            margin: 0 0 0 5px;
+            color: var(--background-mode, #37D159);
+            font-family: Poppins;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: normal;
+        }
+
+        #presentAmnt {
+            margin: 0 0 0 30px;
+            /* width: 143.249px; */
+            /* height: 36px; */
+            flex-shrink: 0;
+            color: var(--background-mode, #FFF);
+            font-family: Poppins;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            /* line-height: normal; */
+        }
+
+        #percentageChange {
+            margin: 2 0 0 10px;
+            color: #37D159;
+            font-family: Poppins;
+            font-size: 15px;
+            font-style: normal;
+            font-weight: 400;
+            /* line-height: normal; */
+        }
+
+        #recentTransactions {
+            margin: 5 0 5 0px;
+
+            #color: var(--background-mode, #FFF);
+            font-family: Poppins;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: normal;
+        }
+
+        #dashTrnxType {
+            margin: 0 0 0 0px;
+        }
+
+        .card2 {
+            /* margin: auto; */
+            color: #FFF;
+            border-radius: 1rem;
+            background: #1c1c1c00;
+            backdrop-filter: blur(10px);
+            flex-shrink: 0;
+        }
+
+        #cardWrapperDiv {
+            overflow-y: auto;
+
+            /* margin: 30 0 0 0px; */
+        }
+
+        #overviewBalanceChart {}
     </style>
 </head>
 
