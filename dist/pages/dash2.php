@@ -88,40 +88,34 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
         </div>
     </div>
 
-
     <div class="d-flex">
-        <div id="dashDivTwo" class="card dashDivCard2 align-to-center position-relative">
-
-
-            <div id="a21" class="d-flex gap-1">
-                <div>
-                    <h5 id="ob">Overview Balance</h5>
-                    <div class="d-flex">
-                        <h5 id="dateRange"> Last Week:</h5>
-                        <span id="dateRangeAmnt">$5000.00</span>
-                    </div>
-                </div>
-                <div>
-                    <select id="dashDateSelect" name="bank_account_id" class="dashLabelContent">
-                        <option value="">1 Week</option>
-                        <option value="">2 Week</option>
-                        <option value="">1 Month</option>
-                        <option value="">2 Month</option>
-                        <option value="">6 Month</option>
-                    </select>
-                    <div class="d-flex">
-                        <h5 id="presentAmnt"> $6000.00</h5>
-                        <span id="percentageChange"> 6 %</span>
-                    </div>
+    <div id="dashDivTwo" class="card dashDivCard2 align-to-center position-relative">
+        <div id="a21" class="d-flex gap-1">
+            <div>
+                <h5 id="ob">Overview Balance</h5>
+                <div class="d-flex">
+                    <h5 id="dateRange">Last Week:</h5>
+                    <span id="dateRangeAmnt">$5000.00</span>
                 </div>
             </div>
-            <div class="chart-container">
-                <canvas id="overviewBalanceChart"></canvas>
+            <div>
+                <select id="dashDateSelect" name="bank_account_id" class="dashLabelContent">
+                    <option value="1_week">1 Week</option>
+                    <option value="2_weeks">2 Weeks</option>
+                    <option value="1_month">1 Month</option>
+                    <option value="2_months">2 Months</option>
+                    <option value="6_months">6 Months</option>
+                </select>
+                <div class="d-flex">
+                    <h5 id="presentAmnt">$6000.00</h5>
+                    <span id="percentageChange">6 %</span>
+                </div>
             </div>
-
-
-
         </div>
+        <div class="chart-container">
+            <canvas id="overviewBalanceChart"></canvas>
+        </div>
+    </div>
 
 
 
@@ -133,8 +127,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                 <div class="card card2 transaction-card">
                     <div class="card-header transaction-header">
                         <div class="d-flex align-items-center dashTransactions">
-                            <img src="<?php //if $transaction['credit']  src= "img/up.svg"    if transaction debit    down.svg ?>" class="rounded-circle me-1" width="35px"
-                                height="35px">
+                            <img src="<?php //if $transaction['credit']  src= "img/up.svg"    if transaction debit    down.svg ?>"
+                                class="rounded-circle me-1" width="35px" height="35px">
                             <div class="d-flex gap-1">
                                 <div id="dashTrnxType" class="fw-bold">
                                     Received
@@ -318,85 +312,215 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 </script>
 
 <script>
-    // Initialize Bar Chart
-    const totalValue = 100;
-    const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
-    const fillData = dataValues;
-    const backgroundData = dataValues.map(value => totalValue);
 
-    const data = {
-        labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+        const totalValue = 100;
+
+        function updateChart(dataValues, labels) {
+        const fillData = dataValues;
+        const backgroundData = dataValues.map(() => totalValue);
+
+        const data = {
+            labels: labels,
         datasets: [
-            {
-                label: 'Filled',
-                data: fillData,
-                backgroundColor: 'rgba(73, 77, 173, 1)',
-                borderColor: 'rgba(73, 77, 173, 1)',
-                borderWidth: 0,
-                barThickness: 10,
-                borderRadius: {
-                    topLeft: 10,
-                    topRight: 10,
-                    bottomLeft: 10,
-                    bottomRight: 10
+        {
+            label: 'Filled',
+        data: fillData,
+        backgroundColor: 'rgba(73, 77, 173, 1)',
+        borderColor: 'rgba(73, 77, 173, 1)',
+        borderWidth: 0,
+        barThickness: 10,
+        borderRadius: {
+            topLeft: 10,
+        topRight: 10,
+        bottomLeft: 10,
+        bottomRight: 10
+                    },
                 },
-            },
-            {
-                label: 'Empty',
-                data: backgroundData,
-                backgroundColor: '#FFFFFF',
-                borderColor: '#FFFFFF',
-                borderWidth: 0,
-                barThickness: 10,
-                borderRadius: {
-                    topLeft: 10,
-                    topRight: 10
-                },
-            }
+        {
+            label: 'Empty',
+        data: backgroundData,
+        backgroundColor: '#FFFFFF',
+        borderColor: '#FFFFFF',
+        borderWidth: 0,
+        barThickness: 10,
+        borderRadius: {
+            topLeft: 10,
+        topRight: 10
+                    },
+                }
         ]
-    };
+        };
 
-    const config = {
-        type: 'bar',
+        const config = {
+            type: 'bar',
         data: data,
         options: {
             scales: {
-                y: {
-                    beginAtZero: true,
-                    stacked: false,
-                    ticks: {
-                        color: '#FFF'
+            y: {
+            beginAtZero: true,
+        stacked: false,
+        ticks: {
+            color: '#FFF'
+                        },
+        grid: {
+            color: 'rgba(0, 0, 0, 0)'
+                        }
                     },
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0)'
+        x: {
+            stacked: true,
+        ticks: {
+            color: '#FFF'
+                        },
+        grid: {
+            display: false
+                        }
                     }
                 },
-                x: {
-                    stacked: true,
-                    ticks: {
-                        color: '#FFF'
+        plugins: {
+            legend: {
+            display: false
                     },
-                    grid: {
-                        display: false
-                    }
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false,
-                    text: 'Overview Balance',
-                    color: '#FFF',
-                    font: {
-                        size: 20
+        title: {
+            display: false,
+        text: 'Overview Balance',
+        color: '#FFF',
+        font: {
+            size: 20
+                        }
                     }
                 }
             }
-        }
-    };
+        };
 
-    const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
-    const overviewBalanceChart = new Chart(ctxBar, config);
+        const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
+        new Chart(ctxBar, config);
+    }
+
+        document.getElementById('dashDateSelect').addEventListener('change', function() {
+        const dateRange = this.value;
+
+        var xhrFetchTransactionSummary = new XMLHttpRequest();
+        xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
+        xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
+        var dataToSend = JSON.stringify({dateRange: dateRange });
+        xhrFetchTransactionSummary.send(dataToSend);
+
+        xhrFetchTransactionSummary.onload = function () {
+            if (xhrFetchTransactionSummary.status === 200) {
+                const response = JSON.parse(xhrFetchTransactionSummary.responseText);
+        const {averagePrevious, averageCurrent, percentageChange, dataValues, labels} = response;
+
+        document.getElementById('dateRange').innerText = dateRange;
+        document.getElementById('dateRangeAmnt').innerText = `$${averagePrevious.toFixed(2)}`;
+        document.getElementById('presentAmnt').innerText = `$${averageCurrent.toFixed(2)}`;
+        document.getElementById('percentageChange').innerText = `${percentageChange.toFixed(2)} %`;
+
+        updateChart(dataValues, labels);
+            } else {
+            alert('Failed to fetch data');
+            }
+        };
+    });
+
+        document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  // Trigger initial load
 </script>
+
+
+
+
+
+<!-- <script>
+
+
+
+
+
+
+
+
+
+
+// Initialize Bar Chart
+
+
+// const totalValue = 100;
+// const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
+// const fillData = dataValues;
+// const backgroundData = dataValues.map(value => totalValue);
+
+// const data = {
+// labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
+// datasets: [
+// {
+// label: 'Filled',
+// data: fillData,
+// backgroundColor: 'rgba(73, 77, 173, 1)',
+// borderColor: 'rgba(73, 77, 173, 1)',
+// borderWidth: 0,
+// barThickness: 10,
+// borderRadius: {
+// topLeft: 10,
+// topRight: 10,
+// bottomLeft: 10,
+// bottomRight: 10
+// },
+// },
+// {
+// label: 'Empty',
+// data: backgroundData,
+// backgroundColor: '#FFFFFF',
+// borderColor: '#FFFFFF',
+// borderWidth: 0,
+// barThickness: 10,
+// borderRadius: {
+// topLeft: 10,
+// topRight: 10
+// },
+// }
+// ]
+// };
+
+// const config = {
+// type: 'bar',
+// data: data,
+// options: {
+// scales: {
+// y: {
+// beginAtZero: true,
+// stacked: false,
+// ticks: {
+// color: '#FFF'
+// },
+// grid: {
+// color: 'rgba(0, 0, 0, 0)'
+// }
+// },
+// x: {
+// stacked: true,
+// ticks: {
+// color: '#FFF'
+// },
+// grid: {
+// display: false
+// }
+// }
+// },
+// plugins: {
+// legend: {
+// display: false
+// },
+// title: {
+// display: false,
+// text: 'Overview Balance',
+// color: '#FFF',
+// font: {
+// size: 20
+// }
+// }
+// }
+// }
+// };
+
+// const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
+// const overviewBalanceChart = new Chart(ctxBar, config);
+</script> -->
