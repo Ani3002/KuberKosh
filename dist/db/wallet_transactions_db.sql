@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: May 05, 2024 at 12:49 PM
+-- Generation Time: Jun 05, 2024 at 10:05 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -142,7 +142,121 @@ INSERT INTO `1` (`trnx_no`, `Date`, `Particulars`, `Trnx_id`, `debit`, `credit`,
 (105, '2024-05-04', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240504210141//', '71f076b33cd0facc0f90fbde5e7276d9e9db4abf7f4b8c7e2329730b965d8bb9', NULL, 1, 401, ''),
 (106, '2024-05-04', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240504210159//', '2c0b49b30b4071e9f90c032ea346804874f259d4308eb309111097680ca66718', NULL, 1, 402, ''),
 (107, '2024-05-04', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240504210228//', '393313917bd16d55b60cfdb3bcbc2aba2e7955667e6153f14aba2dbbe856b5e3', NULL, 1, 403, ''),
-(108, '2024-05-04', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240504210240//', '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', NULL, 1, 404, '');
+(108, '2024-05-04', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240504210240//', '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', NULL, 1, 404, ''),
+(109, '2024-05-05', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240505163412/test/test', '80c781d77b5faac6fa7e2f0f4fd8ebc7d8f090b1a53c697ecceef155bd607526', 21, NULL, 383, 'test'),
+(110, '2024-05-05', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240505224153//', 'f782084eed86ab945c1dc21a0cba5c57a6a4d4b28682df70423756d2d7b30e8e', NULL, 23, 406, ''),
+(111, '2024-05-05', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240505224204//', 'a5cf5609ead3794866dd016c09f1b81305d99b0bdd913a467c5d12e4dd4b6433', NULL, 23, 429, ''),
+(112, '2024-05-05', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240505224219//', 'b2a372a176a28d60ab758df6bcd8ba742fe2303d854a6f07bb178b5d40c5b671', NULL, 23, 452, ''),
+(113, '2024-05-05', 'W2W/CR/Anirban Routh/routhanirban9655@kkosh/2/20240505224220//', 'eecee7972d3dca8f4490bd08d59f5b2b055fe73ade3c2b62075a59977408cdaa', NULL, 23, 475, ''),
+(114, '2024-05-05', 'W2W/DR/NIPU DEY ROUTH/nipu735224@kkosh/3/20240505231009/test/test', 'd0b1dad557f6bfadc07d47ecbca27dccde2067b108688a720e285368f7b89c56', 12, NULL, 463, 'test'),
+(115, '2024-05-05', 'W2W/DR/NIPU DEY ROUTH/nipu735224@kkosh/3/20240505231020/test/test', '74b80593b4557fc489c56e446ebdbecdf3f10d1c2b6f7f61366cb0c32fc76044', 12, NULL, 451, 'test'),
+(122, '2024-05-24', 'Bank Transfer', '3f62a206-1986-11ef-b957-0242ac120004', NULL, 21, 472, 'Transfer from Bank'),
+(123, '2024-05-24', 'Bank Transfer', '046aaabf-1988-11ef-b957-0242ac120004', NULL, 234, 706, 'Transfer from Bank'),
+(124, '2024-05-24', 'Bank Transfer', '0b227464-198e-11ef-b957-0242ac120004', 324, NULL, 382, 'Transfer to Bank'),
+(125, '2024-05-24', 'Bank Transfer', '43251d2e-1990-11ef-b957-0242ac120004', 21, NULL, 361, 'Transfer to Bank'),
+(126, '2024-05-24', 'Bank Transfer', '5377deb2-1990-11ef-b957-0242ac120004', 21, NULL, 340, 'Transfer to Bank'),
+(127, '2024-05-25', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240525023147/test/test css', '36944a8592e3794717cfa7b0a0e8a74e2dc79b800468ca252953e29dfacf7188', 1, NULL, 339, 'test'),
+(128, '2024-05-28', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240528005950/test/test send', 'ef083e3b0b4d58744cc3ae5e43cbccd7865e1006deaff576a1db2bce9acf37bf', 21, NULL, 318, 'test'),
+(129, '2024-05-28', 'Bank Transfer', '39b0d93c-1c90-11ef-aa35-0242ac120003', 21, NULL, 297, 'Transfer to Bank'),
+(130, '2024-05-29', 'W2B/DR/Anirban Routh/35/20240529121052/', 'dd55d8c62b902d2775f1f9b2f6900e5a04c9182e213d9d5a1a4728b959028748', 121, NULL, 176, 'Transfer to Bank'),
+(131, '2024-05-29', 'W2B/CR/20240529124638/', '62437e6bf3ed045a0b296ab536e0501c7f968dc5a0192505ec67090563a6e4b1', NULL, 21, 197, 'Transfer from Bank'),
+(132, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529124809/', 'ffda8271b3417565c0e6863a0cfe3fc26bacf4c38ed7ea552c407738cddbe089', NULL, 21, 218, 'Transfer from Bank'),
+(133, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529124924/', '0c072ea7c32a399d8bf655e0726424c33192644a107ba598786a7ef7945b7e83', NULL, 21, 239, 'Transfer from Bank'),
+(134, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529125009/test remarks', '0990ed948818902ac984bc975945cfc5e5d9773c239a76cecfdc4f83ff59d254', NULL, 213, 452, 'Transfer from Bank'),
+(135, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529125054/test remarks', 'b5cd75ccc0baddc41086ee3e5a2b0c00778fddb3cd44110bb0d36cc7c183b177', NULL, 213, 665, 'Transfer from Bank'),
+(136, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529125101/', '8c836b5d147face0ca33a3ca77e367d45b530dca272ef3f21af9b57b4c1767c3', NULL, 321, 986, 'Transfer from Bank'),
+(137, '2024-05-29', 'W2B/DR/Anirban Routh/35/20240529125128/TRST REMARK WITHDRAW', '9c24cd5226983331beee0b9eed3145788fb90aac465bb58631a08ee367a8d2d9', 321, NULL, 665, 'Transfer to Bank'),
+(138, '2024-05-29', 'W2B/DR/Anirban Routh/35/20240529125604/TRST REMARK WITHDRAW', 'f2e9bacfe5ccfa83662dd7b20d2e035f4f1c3faa52bad8d5ccb52463ebc34697', 321, NULL, 344, 'Transfer to Bank'),
+(139, '2024-05-29', 'W2B/CR/Anirban Routh/35/20240529131218/', '46be7b7b00d60dc8d848dd59984111af38e1125cf75edda0134787c692869cd4', NULL, 231, 575, 'Transfer from Bank'),
+(140, '2024-05-29', 'W2B/DR/Anirban Routh/35/20240529132743/trst withdraw', 'b5b34af6ca683ce9b557ca03dd5144c88cb51b552774657eba906db1860dbd2b', 321, NULL, 254, 'Transfer to Bank'),
+(141, '2024-05-30', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240530042633/test/test remarks', 'c6813dbcce6304133ce9e8f08030226e76f598a91770edbdb094ac5c7da7e7b6', 21, NULL, 233, 'test'),
+(142, '2024-05-30', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240530052904/fgh/test remarks', '4c36d7f1c85d4870be4c9734f20c54457aa42e4ad25254680274ae29fe59446a', 21, NULL, 212, 'fgh'),
+(143, '2024-05-30', 'W2B/DR/Anirban Routh/35/20240530112400/', 'f52d992905f8a98a364db63c7ba21fc9ae2b888159421cd9d1d9c285fa61f3b0', 2, NULL, 210, 'Transfer to Bank'),
+(144, '2024-05-30', 'W2B/DR/Anirban Routh/35/20240530112529/', '5a96e44a6fc9c2be113d6d808bb5781849a73a18398e863d43e668cbb817d749', 2, NULL, 208, 'Transfer to Bank'),
+(145, '2024-05-30', 'W2B/DR/Anirban Routh/35/20240530112637/', 'd0aef9609aeb827aa7dd09eef574f4078bbbdbefe653870512f97a28107395ba', 21, NULL, 187, 'Transfer to Bank'),
+(146, '2024-05-30', 'W2B/DR/Anirban Routh/35/20240530112706/', '3f18afdc3361f825917ac8256ca0e18a5ca1a72010910f659d3a13af5fac812b', 21, NULL, 166, 'Transfer to Bank'),
+(147, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531070026/', '4721ced4aad2e9f9d636898f1177bef68e4126ed9c77076ae86025232c970e93', 21, NULL, 145, 'Transfer to Bank'),
+(148, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531070223/', 'ce7d0d473aca22c5f8462c35e78a9869623cd4d21774e42a2b7b8c28b381eadd', 21, NULL, 124, 'Transfer to Bank'),
+(149, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531073815/', 'cb7824a076eb0a5c0612f79db7fb0693d2581eed3b363b26f65c22e335d46bd9', 21, NULL, 103, 'Transfer to Bank'),
+(150, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531073840/', '8e4d732b4a2510c36bbe170209b42be991386f804ef0628c6e1d8ec8c8852ecc', 21, NULL, 82, 'Transfer to Bank'),
+(151, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531073919/', '07bf91ae207e2c83ee044e3babefd1f08b1e671bbd0cdedacb8ea3af265a0852', 21, NULL, 61, 'Transfer to Bank'),
+(152, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531073953/', '01354f740b16e7e95712c0a7720d04bff8a46e759ca47e52fb80ee887cb5d7ef', 12, NULL, 49, 'Transfer to Bank'),
+(153, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531074528/', '53a9e377d34a08f0006ea747839e8a356844d1ede5f70c9e0c5ebbef33a1d0dc', 21, NULL, 28, 'Transfer to Bank'),
+(154, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531074534/', '3eb0f3e4bd1d1635875b1aa1ada3addefb793cfb3dc495e6ead39c6c28054104', 1, NULL, 27, 'Transfer to Bank'),
+(155, '2024-05-31', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240531080627//', '2849eaf15fda88881c6cbf203cbe86e2fec19d4c410de4995cc4a4bb72dba95c', 1, NULL, 26, ''),
+(156, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083346/', 'b1e5a1b49bf402754274da774f6588f8b70397468dc13506d4031ffa36a38912', 2, NULL, 24, 'Transfer to Bank'),
+(157, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083353/', '6377b22534003bd7f1c658db2c24c6120a08ce05b87b64a5eec03a9fe3f97680', 2, NULL, 22, 'Transfer to Bank'),
+(158, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083355/', '7a98fb16235c31c4839c2dbb0042d44aa4e662e5ebd3126248455d982d6a5c7f', 2, NULL, 20, 'Transfer to Bank'),
+(159, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083358/', '03faa5c72e28b455fa65cf8b8a82d23b1f06ec7e692a9d4963b8f22fb14fc843', 2, NULL, 18, 'Transfer to Bank'),
+(160, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083416/', 'e2b95d6c2ad52c1984999607a329a5c24a81a545c0929f19cdc4c3d4a10b6da6', 2, NULL, 16, 'Transfer to Bank'),
+(161, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083421/', 'f93d43e9af121352ee19ef851dbe010018a47c320b2fbd64c18b09d0d2d3b900', 2, NULL, 14, 'Transfer to Bank'),
+(162, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083430/', 'eac6b5b83531056f283929418f7a5f1529b2c50c6ea8bdf749ba2bf9523265ab', 2, NULL, 12, 'Transfer to Bank'),
+(163, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083457/', '963f9081458377c36ce546a4e47db58551594369e6434ee6816a1eaafed28979', 2, NULL, 10, 'Transfer to Bank'),
+(164, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083507/', '8b1db956daa22580d78d4894e964f89e8bbe0fa45e6409dedc27eefb8c72693c', 1, NULL, 9, 'Transfer to Bank'),
+(165, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083558/', '222db9a0af1ba700b3cabf43e799404506a4aad04566d64477f01f254e58fb89', 2, NULL, 7, 'Transfer to Bank'),
+(166, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083558/', 'eee3c30a445eda9b1d51fd89936dbaa6d6f72dff37a13fe5be6613042bd35250', 2, NULL, 5, 'Transfer to Bank'),
+(167, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083558/', '394f754458cde42a9f7dabf2be7fe1a5d70bc65e8d747ef6e6134e463d953d04', 2, NULL, 3, 'Transfer to Bank'),
+(168, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083614/', '7355cd981eb2ae9505b8a2697bd658fa0624ad54380d81b823317d33c87823eb', 2, NULL, 1, 'Transfer to Bank'),
+(169, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531083640/', 'e179959bc42b907f4f32d3465ed7af2d788e3e73b0d668c72363351cbb4f7726', 1, NULL, 0, 'Transfer to Bank'),
+(170, '2024-05-31', 'W2B/CR/Anirban Routh/35/20240531083835/', '7e7aa453668111fd20ec19607c9bb09647f5fee5f0d0690f3ce43b4b2d0e6739', NULL, 500, 500, 'Transfer from Bank'),
+(171, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531084112/', '3200bcecfb40420601832984f4462953fa21fdd5e955b2718a5bf6957e717f56', 1, NULL, 499, 'Transfer to Bank'),
+(172, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531084139/', 'da1a00f88a9e5c33849e990f760b733758ea7f4e2d5f43da4badf2aa038d1554', 1, NULL, 498, 'Transfer to Bank'),
+(173, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531084305/', 'c885b5c2791cb2135f6ae29854b20ffe84fffba9beb2519fad0db872eb7bedcb', 2, NULL, 496, 'Transfer to Bank'),
+(174, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531084645/', '57477426b1700dd3799ee51d11df9515d23866e544fce22abb8b57eb339dd9cd', 2, NULL, 494, 'Transfer to Bank'),
+(175, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531084830/', '84713dc39a0550fab4b468a7779cf68ef20c4b5d62c673d90dbadbc02737a105', 2, NULL, 492, 'Transfer to Bank'),
+(176, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085024/test', 'a6bf01c131b61c31d2481a7e1d3c8c022d673c018ba61c41629770d4ce833b09', 2, NULL, 490, 'Transfer to Bank'),
+(177, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085032/test', '97a539d20ad58c6ac092079cb51d8155ba273926ca2064f8509e45e29bcdb039', 2, NULL, 488, 'Transfer to Bank'),
+(178, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085341/test after stash', '05c0b57023530bae81dab69494e9a29bd385128c024a3a3871dcef50f2b5fce1', 21, NULL, 467, 'Transfer to Bank'),
+(179, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085434/test after stash', '8f5b56f728154c56f98380cedd67a7554b5060977817c1e88fad336abcb3e6b2', 21, NULL, 446, 'Transfer to Bank'),
+(180, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085531/test after stash', 'b1f6170a5f7679f5e6794699c1644d13cb701e7a7e1a7263e32b80b8475657b9', 21, NULL, 425, 'Transfer to Bank'),
+(181, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085555/', 'a2c59811443c69555a86998e139ad545dfe7385a4204325bfa51bfc9e474f9d7', 1, NULL, 424, 'Transfer to Bank'),
+(182, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531085738/', '38740aad4458eca956418dfde327be5a2269c3f292b541bf44db7aa6bc5890b5', 1, NULL, 423, 'Transfer to Bank'),
+(183, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090110/', 'beabe6bf7b337d36c768916a294ff4e02b0e6c4a2fae781117c6a8b63b54e857', 1, NULL, 422, 'Transfer to Bank'),
+(184, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090133/', '03a7ef248d0df46721693f57c1b8391dd42151c6dcb02d61beaaa7620edcd752', 2, NULL, 420, 'Transfer to Bank'),
+(185, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090148/', '7752a7ab708076952c072670a05af9f6f92d8564ef3a6b80fe504e0763ca317a', 2, NULL, 418, 'Transfer to Bank'),
+(186, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090202/', '9441751e5fc01e410cbc64d7704251182e70e7c8751f2e9bb5ba97a7d592c0b4', 2, NULL, 416, 'Transfer to Bank'),
+(187, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090223/', '10d7f67cd805e05aa813a8d582c5e8141745eca487149d01d1d2086592603165', 2, NULL, 414, 'Transfer to Bank'),
+(188, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090241/', '966a9e3ec7e4f23fe7611097d065d130f21afab8ffbc97b193b3a95452d6fdd9', 2, NULL, 412, 'Transfer to Bank'),
+(189, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090314/', '2c9332489663f7cd993f9b7fcada181f478beedefe6b69a3c3599a7d3557c494', 2, NULL, 410, 'Transfer to Bank'),
+(190, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090516/', 'bfce35afd5eee1007e33cd48d15c9917c911a93b183f56db9fcbbd1cf5374846', 2, NULL, 408, 'Transfer to Bank'),
+(191, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090655/', 'a6f6a802da3eedd47511ce50a2dc34c290464ec225f1a9c18dccd07ecda496e6', 2, NULL, 406, 'Transfer to Bank'),
+(192, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090840/', '2a37cbdd798999da04138ce3daa8ce20b9f3f9df2e01b510f78e4bb407c94b89', 1, NULL, 405, 'Transfer to Bank'),
+(193, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090919/test\'', 'bda8680eea27af73c9d6893f14bd1279aca05ad22002b144d07e415738732c7e', 12, NULL, 393, 'Transfer to Bank'),
+(194, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090941/', '9456815d01de06aa057316237e293f8666b8bdc365bfc559783cefc527c0a7af', 1, NULL, 392, 'Transfer to Bank'),
+(195, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531090942/', '0b8b02ed6958e329f6b40dbf87cf8c6897ddf530bb5351aad088f7a8ff501e7e', 1, NULL, 391, 'Transfer to Bank'),
+(196, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531091012/', '295b5a252e36eec5113914922c33433955ea4ed62bcae7b8a3afa32f796b33f1', 1, NULL, 390, 'Transfer to Bank'),
+(197, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531093837/', '3f0ede5ef6068e8bcce217911c4e0add8e534a8944487a9fa19956e08919e0ae', 2, NULL, 388, 'Transfer to Bank'),
+(198, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531094440/', '21c8763e0b96f9d188378e19c40db590f70e71fcf41f5cdff3c65f4df8928471', 21, NULL, 367, 'Transfer to Bank'),
+(199, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531094633/', '9703c280d63ed64e7e1d338484d599da34e26a5d9b3857b44bd378e276ff44f5', 2, NULL, 365, 'Transfer to Bank'),
+(200, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531094851/', '2a865e9300cdf7e6b53022bb518dd73aa03e0791fa8b8737c78b1d6b4f981e83', 2, NULL, 363, 'Transfer to Bank'),
+(201, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531095055/', 'ed5ecbe0fe0b18dca4b2fbc469cfad930552f69d76dd318e93b9f4c98dc0371f', 2, NULL, 361, 'Transfer to Bank'),
+(202, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531095411/', '1aad9ec31a83522978f5e74841c40fcdbfe7b4c1eee9c99839c139dcb818b8a2', 12, NULL, 349, 'Transfer to Bank'),
+(203, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531095446/', 'd28782a68c1fbecda2552f2b899002f16a39b96bdfcfe18fc2b28d9614b88a33', 21, NULL, 328, 'Transfer to Bank'),
+(204, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531095803/', '8f784f5744d977a766a8c1868debfbd2b990a9ae1532ac859bb3282095b56d80', 2, NULL, 326, 'Transfer to Bank'),
+(205, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531095827/', '02f8a872e0461729698746f953398a91e023080ee74a02af6a38db5569119250', 1, NULL, 325, 'Transfer to Bank'),
+(206, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531100010/', '3b7a742a074f71168a59eb57a8c45b7aa3245368898189619208d89edf0ae39d', 1, NULL, 324, 'Transfer to Bank'),
+(207, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531100900/', '57e9fb19ca5f462807c2f3d79813d35935e5ff5197f3e83f9b365593b2d78652', 2, NULL, 322, 'Transfer to Bank'),
+(208, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101014/', '7347d1856b7141497cb9220090b509f664e592d67223dc7fdcf7c1d903c84a8d', 2, NULL, 320, 'Transfer to Bank'),
+(209, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101103/', '3b22c27e2bb90b1d80e67e4e800c44599b736c29d4c34de4b943a1a3a5d49420', 2, NULL, 318, 'Transfer to Bank'),
+(210, '2024-05-31', 'W2W/DR/Anirban Routh/routhanirban9655@kkosh/2/20240531101128//', 'c71e9520a92a0b48dd782c0baf8fbaafacc769996331849c74cafc3d97f10d3a', 1, NULL, 317, ''),
+(211, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101755/', '8206c2f465946aecd6c4aa11fd1081b4a22d9675146555da8fe2c4e6c245a354', 1, NULL, 316, 'Transfer to Bank'),
+(212, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101856/', 'e16adc1f042bdb45b2770efa6ce7a2eb3122cecb881d22a647cff78434f111ee', 1, NULL, 315, 'Transfer to Bank'),
+(213, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101922/', '09a5916159f4920815fa0578eb5d9d7db4294da5f151bbb579d867668e7c2e32', 1, NULL, 314, 'Transfer to Bank'),
+(214, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531101951/', '1979fe7fcfbd59ae6b7219401c3e5dac8bdc365a698f1d1a760b000fd45fd182', 12, NULL, 302, 'Transfer to Bank'),
+(215, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102239/', '2efbc17ad2d7d938549669866c6c4e78c70cb9213eefb654b08fc6934cab52eb', 2, NULL, 300, 'Transfer to Bank'),
+(216, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102339/', 'b30d37558d806d2450069fdbad45571ec9ba206ffc937775105c0f7fe27738fc', 1, NULL, 299, 'Transfer to Bank'),
+(217, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102525/', 'f89e4f1077075955a9d0d0c8fb4686c3a4662b723c399179701e0970e57e48e9', 1, NULL, 298, 'Transfer to Bank'),
+(218, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102726/', '39914a054cc98420d3e92a30f3e4aa535412c46de373028214990582fcf3d7cd', 1, NULL, 297, 'Transfer to Bank'),
+(219, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102907/', 'e5c398b42e5a0f8a2c527ab1140c8abee98c893bbe19eb7d4c2f4f62972c1830', 1, NULL, 296, 'Transfer to Bank'),
+(220, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531102941/', 'd5d86eb97ce39b899506cd10149240f42db48bbd32a23d2813061dcd65546a88', 1, NULL, 295, 'Transfer to Bank'),
+(221, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531103009/', 'c491c2443a916a0b87be820df1194ebddee7f47118b0924affeb5cc26c3b723f', 1, NULL, 294, 'Transfer to Bank'),
+(222, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531103105/', 'bb0d95b24c793730793aa26c5e4307e2168daff628516d5a3e0c7124735931f0', 1, NULL, 293, 'Transfer to Bank'),
+(223, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531103429/', 'b2a3188d5f67987234bbdd55d5eb69033e82978b2d5a6cf14517b0516f669feb', 1, NULL, 292, 'Transfer to Bank'),
+(224, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531103602/', '70ca4150ef0edc5337f274e987f86b64a7f6a2f735cc0e8422f4acbf40101421', 2, NULL, 290, 'Transfer to Bank'),
+(225, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531130215/', 'a65c9a1c915e4288a7915dce9bac59a91abc1000ad70c0ac0ed3e2254eb796c2', 2, NULL, 288, 'Transfer to Bank'),
+(226, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531130308/', '7e9ef114b89a192799cc812b8f12c2b8edcea53a80ed5dfb1d1ac728ece2912f', 2, NULL, 286, 'Transfer to Bank'),
+(227, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531130335/', 'ca3915d95c49035c106e94675e4961cbce09e5b71c3f4de4dca188ef853c8423', 2, NULL, 284, 'Transfer to Bank'),
+(228, '2024-05-31', 'W2B/DR/Anirban Routh/35/20240531130754/', 'f19d3963bf14dee3c97821d562854f4b1e0feba4a3a848946f9cabe5b5ba1f90', 1, NULL, 283, 'Transfer to Bank');
 
 -- --------------------------------------------------------
 
@@ -266,7 +380,44 @@ INSERT INTO `2` (`trnx_no`, `Date`, `Particulars`, `Trnx_id`, `debit`, `credit`,
 (121, '2024-05-04', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240504210141//', '71f076b33cd0facc0f90fbde5e7276d9e9db4abf7f4b8c7e2329730b965d8bb9', 1, NULL, 10106, ''),
 (122, '2024-05-04', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240504210159//', '2c0b49b30b4071e9f90c032ea346804874f259d4308eb309111097680ca66718', 1, NULL, 10105, ''),
 (123, '2024-05-04', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240504210228//', '393313917bd16d55b60cfdb3bcbc2aba2e7955667e6153f14aba2dbbe856b5e3', 1, NULL, 10104, ''),
-(124, '2024-05-04', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240504210240//', '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', 1, NULL, 10103, '');
+(124, '2024-05-04', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240504210240//', '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', 1, NULL, 10103, ''),
+(125, '2024-05-05', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240505163412/test/test', '80c781d77b5faac6fa7e2f0f4fd8ebc7d8f090b1a53c697ecceef155bd607526', NULL, 21, 10124, 'test'),
+(126, '2024-05-05', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240505224153//', 'f782084eed86ab945c1dc21a0cba5c57a6a4d4b28682df70423756d2d7b30e8e', 23, NULL, 10101, ''),
+(127, '2024-05-05', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240505224204//', 'a5cf5609ead3794866dd016c09f1b81305d99b0bdd913a467c5d12e4dd4b6433', 23, NULL, 10078, ''),
+(128, '2024-05-05', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240505224219//', 'b2a372a176a28d60ab758df6bcd8ba742fe2303d854a6f07bb178b5d40c5b671', 23, NULL, 10055, ''),
+(129, '2024-05-05', 'W2W/DR/Anirban Routh/routhanirban95@kkosh/1/20240505224220//', 'eecee7972d3dca8f4490bd08d59f5b2b055fe73ade3c2b62075a59977408cdaa', 23, NULL, 10032, ''),
+(130, '2024-05-05', 'W2W/CR/Anirban Routh/nipu735224@kkosh/3/20240505230753//', 'b61624c2117192824513656364e7a3bf59188494b948e9c99b8d4e593de0f02c', NULL, 1, 10033, ''),
+(131, '2024-05-25', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240525023147/test/test css', '36944a8592e3794717cfa7b0a0e8a74e2dc79b800468ca252953e29dfacf7188', NULL, 1, 10034, 'test'),
+(132, '2024-05-28', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240528005950/test/test send', 'ef083e3b0b4d58744cc3ae5e43cbccd7865e1006deaff576a1db2bce9acf37bf', NULL, 21, 10055, 'test'),
+(133, '2024-05-30', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240530042633/test/test remarks', 'c6813dbcce6304133ce9e8f08030226e76f598a91770edbdb094ac5c7da7e7b6', NULL, 21, 10076, 'test'),
+(134, '2024-05-30', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240530052904/fgh/test remarks', '4c36d7f1c85d4870be4c9734f20c54457aa42e4ad25254680274ae29fe59446a', NULL, 21, 10097, 'fgh'),
+(135, '2024-05-31', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240531080627//', '2849eaf15fda88881c6cbf203cbe86e2fec19d4c410de4995cc4a4bb72dba95c', NULL, 1, 10098, ''),
+(136, '2024-05-31', 'W2W/CR/Anirban Routh/routhanirban95@kkosh/1/20240531101128//', 'c71e9520a92a0b48dd782c0baf8fbaafacc769996331849c74cafc3d97f10d3a', NULL, 1, 10099, '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `3`
+--
+
+CREATE TABLE `3` (
+  `trnx_no` int(15) NOT NULL,
+  `Date` date NOT NULL,
+  `Particulars` varchar(300) NOT NULL,
+  `Trnx_id` varchar(100) NOT NULL,
+  `debit` int(11) DEFAULT NULL,
+  `credit` int(11) DEFAULT NULL,
+  `end_balance` int(11) NOT NULL,
+  `trnxPurpose` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `3`
+--
+
+INSERT INTO `3` (`trnx_no`, `Date`, `Particulars`, `Trnx_id`, `debit`, `credit`, `end_balance`, `trnxPurpose`) VALUES
+(1, '2024-05-05', 'W2W/CR/NIPU DEY ROUTH/routhanirban95@kkosh/1/20240505231009/test/test', 'd0b1dad557f6bfadc07d47ecbca27dccde2067b108688a720e285368f7b89c56', NULL, 12, 12, 'test'),
+(2, '2024-05-05', 'W2W/CR/NIPU DEY ROUTH/routhanirban95@kkosh/1/20240505231020/test/test', '74b80593b4557fc489c56e446ebdbecdf3f10d1c2b6f7f61366cb0c32fc76044', NULL, 12, 24, 'test');
 
 --
 -- Indexes for dumped tables
@@ -285,6 +436,12 @@ ALTER TABLE `2`
   ADD PRIMARY KEY (`trnx_no`);
 
 --
+-- Indexes for table `3`
+--
+ALTER TABLE `3`
+  ADD PRIMARY KEY (`trnx_no`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -292,13 +449,19 @@ ALTER TABLE `2`
 -- AUTO_INCREMENT for table `1`
 --
 ALTER TABLE `1`
-  MODIFY `trnx_no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
+  MODIFY `trnx_no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
 
 --
 -- AUTO_INCREMENT for table `2`
 --
 ALTER TABLE `2`
-  MODIFY `trnx_no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
+  MODIFY `trnx_no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=137;
+
+--
+-- AUTO_INCREMENT for table `3`
+--
+ALTER TABLE `3`
+  MODIFY `trnx_no` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

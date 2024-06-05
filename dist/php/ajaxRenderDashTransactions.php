@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $datetime = htmlspecialchars(extractParticularsParts($transaction['Particulars'], 5));
             $time = date('H:i', strtotime($datetime));
             $date = date('d M', strtotime($datetime));
+
             $amountClass = $transaction['credit'] ? 'text-success' : 'text-danger';
             $amount = $transaction['credit'] ? '+' . $transaction['credit'] : '-' . $transaction['debit'];
             $status = 'Successful';
@@ -51,9 +52,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                         <img src="<?php echo $imgSrc; ?>" class="rounded-circle me-1" width="35px" height="35px">
                         <div class="d-flex gap-1">
                             <div class="fw-bold"><?php echo $typeLabel; ?></div>
-                            <!-- <span class="fw-normal"><?php echo $time; ?></span> -->
-                            <span class="fw-normal"><?php echo date('h:i:s A', strtotime(htmlspecialchars(extractParticularsParts($transaction['Particulars'], 5) ?? ''))); ?></span>
-
+                            <span class="fw-normal"><?php echo $time; ?></span>
+                            <!-- <span class="fw-normal"><?php echo date('H:i', strtotime(htmlspecialchars(extractParticularsParts($transaction['Particulars'], 5) ?? ''))); ?></span> -->
                             <span class="fw-normal"><?php echo $date; ?></span>
                             <span class="fw-normal <?php echo $amountClass; ?>"><?php echo $amount; ?></span>
                             <span class="fw-normal text-success"><?php echo $status; ?></span>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db:3306
--- Generation Time: May 05, 2024 at 12:48 PM
+-- Generation Time: Jun 05, 2024 at 10:05 AM
 -- Server version: 11.3.2-MariaDB-1:11.3.2+maria~ubu2204
 -- PHP Version: 8.2.8
 
@@ -39,8 +39,7 @@ CREATE TABLE `Bank` (
 
 INSERT INTO `Bank` (`bank_user_id`, `user_id`, `default_bank_account_id`) VALUES
 (4, 7, 20),
-(8, 9, NULL),
-(9, 10, NULL);
+(8, 9, 22);
 
 -- --------------------------------------------------------
 
@@ -62,8 +61,8 @@ CREATE TABLE `bank_accounts` (
 --
 
 INSERT INTO `bank_accounts` (`bank_account_id`, `bank_user_id`, `account_number`, `ifsc_code`, `bank_name`, `account_balance`) VALUES
-(20, 4, '53222', 'GDB0WF42845', 'Iron Bank', 0),
-(21, 4, '8768978', 'GDB0WF42845', 'Bank of Tyrell', 0);
+(35, 8, '34', 'BOT0HG54321', 'Bank of Tyrell', 10102),
+(36, 8, '354', 'BON0WF56789', 'Bank of the North', 0);
 
 -- --------------------------------------------------------
 
@@ -219,7 +218,25 @@ INSERT INTO `transaction_logs` (`log_id`, `user_id`, `sender_wallet_id`, `receiv
 (59, 7, 2, 1, '71f076b33cd0facc0f90fbde5e7276d9e9db4abf7f4b8c7e2329730b965d8bb9', 1.00, 'Success', '172.18.0.1', '2024-05-04 21:01:41', '', ''),
 (60, 7, 2, 1, '2c0b49b30b4071e9f90c032ea346804874f259d4308eb309111097680ca66718', 1.00, 'Success', '172.18.0.1', '2024-05-04 21:01:59', '', ''),
 (61, 7, 2, 1, '393313917bd16d55b60cfdb3bcbc2aba2e7955667e6153f14aba2dbbe856b5e3', 1.00, 'Success', '172.18.0.1', '2024-05-04 21:02:28', '', ''),
-(62, 7, 2, 1, '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', 1.00, 'Success', '172.18.0.1', '2024-05-04 21:02:40', '', '');
+(62, 7, 2, 1, '3b3d7a21828a174ef7b6dbf8c38602cd10a171fa908218e084acaa1b03be7452', 1.00, 'Success', '172.18.0.1', '2024-05-04 21:02:40', '', ''),
+(63, 9, 1, 2, '80c781d77b5faac6fa7e2f0f4fd8ebc7d8f090b1a53c697ecceef155bd607526', 21.00, 'Success', '172.18.0.1', '2024-05-05 16:34:12', '', ''),
+(64, 7, 2, 1, 'f782084eed86ab945c1dc21a0cba5c57a6a4d4b28682df70423756d2d7b30e8e', 23.00, 'Success', '172.18.0.1', '2024-05-05 22:41:53', '', ''),
+(65, 7, 2, 1, 'a5cf5609ead3794866dd016c09f1b81305d99b0bdd913a467c5d12e4dd4b6433', 23.00, 'Success', '172.18.0.1', '2024-05-05 22:42:04', '', ''),
+(66, 7, 2, 1, 'b2a372a176a28d60ab758df6bcd8ba742fe2303d854a6f07bb178b5d40c5b671', 23.00, 'Success', '172.18.0.1', '2024-05-05 22:42:19', '', ''),
+(67, 7, 2, 1, 'eecee7972d3dca8f4490bd08d59f5b2b055fe73ade3c2b62075a59977408cdaa', 23.00, 'Success', '172.18.0.1', '2024-05-05 22:42:20', '', ''),
+(68, 10, 3, 2, 'b61624c2117192824513656364e7a3bf59188494b948e9c99b8d4e593de0f02c', 1.00, 'Success', '172.18.0.1', '2024-05-05 23:07:53', '', ''),
+(69, 9, 1, 3, 'd0b1dad557f6bfadc07d47ecbca27dccde2067b108688a720e285368f7b89c56', 12.00, 'Success', '172.18.0.1', '2024-05-05 23:10:09', '', ''),
+(70, 9, 1, 3, '74b80593b4557fc489c56e446ebdbecdf3f10d1c2b6f7f61366cb0c32fc76044', 12.00, 'Success', '172.18.0.1', '2024-05-05 23:10:20', '', ''),
+(71, 9, 1, 1, '1ca4f29a87d1dfb01d1ef08c11f5a53c2ddfff8f1c0dabdfc720ffebd8b38e30', 210.00, 'Success', '172.18.0.1', '2024-05-23 14:57:51', '', ''),
+(72, 9, 1, 2, '36944a8592e3794717cfa7b0a0e8a74e2dc79b800468ca252953e29dfacf7188', 1.00, 'Success', '172.18.0.1', '2024-05-25 02:31:47', '', ''),
+(73, 9, 1, 2, 'ef083e3b0b4d58744cc3ae5e43cbccd7865e1006deaff576a1db2bce9acf37bf', 21.00, 'Success', '172.18.0.1', '2024-05-28 00:59:50', '', ''),
+(74, 9, 1, 1, '46be7b7b00d60dc8d848dd59984111af38e1125cf75edda0134787c692869cd4', 231.00, 'Success', '172.18.0.1', '2024-05-29 13:12:19', '', ''),
+(75, 9, 1, 1, 'b5b34af6ca683ce9b557ca03dd5144c88cb51b552774657eba906db1860dbd2b', 321.00, 'Success', '172.18.0.1', '2024-05-29 13:27:43', '', ''),
+(76, 9, 1, 2, 'c6813dbcce6304133ce9e8f08030226e76f598a91770edbdb094ac5c7da7e7b6', 21.00, 'Success', '172.18.0.1', '2024-05-30 04:26:33', '', ''),
+(77, 9, 1, 2, '4c36d7f1c85d4870be4c9734f20c54457aa42e4ad25254680274ae29fe59446a', 21.00, 'Success', '172.18.0.1', '2024-05-30 05:29:04', '', ''),
+(78, 9, 1, 2, '2849eaf15fda88881c6cbf203cbe86e2fec19d4c410de4995cc4a4bb72dba95c', 1.00, 'Success', '172.18.0.1', '2024-05-31 08:06:27', '', ''),
+(79, 9, 1, 1, '7e7aa453668111fd20ec19607c9bb09647f5fee5f0d0690f3ce43b4b2d0e6739', 500.00, 'Success', '172.18.0.1', '2024-05-31 08:38:35', '', ''),
+(80, 9, 1, 2, 'c71e9520a92a0b48dd782c0baf8fbaafacc769996331849c74cafc3d97f10d3a', 1.00, 'Success', '172.18.0.1', '2024-05-31 10:11:28', '', '');
 
 -- --------------------------------------------------------
 
@@ -339,7 +356,7 @@ ALTER TABLE `Bank`
 -- AUTO_INCREMENT for table `bank_accounts`
 --
 ALTER TABLE `bank_accounts`
-  MODIFY `bank_account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `bank_account_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `bank_brunches`
@@ -357,7 +374,7 @@ ALTER TABLE `registeredBanks`
 -- AUTO_INCREMENT for table `transaction_logs`
 --
 ALTER TABLE `transaction_logs`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `users`

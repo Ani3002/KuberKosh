@@ -899,7 +899,7 @@ function getTrnxDetailsDateRange($connect_wallet_transactions_db, $wallet_id, $s
     $wallet_id = $connect_wallet_transactions_db->real_escape_string($wallet_id);
 
     // Prepare SQL statement with the dynamic table name and date range
-    $query = "SELECT * FROM `$wallet_id` WHERE `Date` BETWEEN ? AND ? ORDER BY `Date` DESC";
+    $query = "SELECT * FROM `$wallet_id` WHERE `Date` BETWEEN ? AND ? ORDER BY `Date` DESC, `trnx_no` DESC";
 
     // Prepare and bind parameters
     $stmt = $connect_wallet_transactions_db->prepare($query);
@@ -1001,7 +1001,7 @@ function addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db
     $trnxId = hash("sha3-256", $trnxId);
 
     $trnxRemarks = $trnxRemarks ?? ''; // Ensure $trnxRemarks is not null
-    $senderParticulars = "W2B/CR/{$receiverName}/{$senderBankAccountId}/{$currentDateTime}/{$trnxRemarks}";
+    $senderParticulars = "B2W/CR/{$receiverName}//{$senderBankAccountId}/{$currentDateTime}//{$trnxRemarks}";
 
     // Validate and sanitize the input
     if (!empty($bankAccountId) && is_numeric($bankAccountId) && !empty($money_send_amount) && is_numeric($money_send_amount)) {
@@ -1101,7 +1101,8 @@ function withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transact
     $trnxId = hash("sha3-256", $trnxId);
 
     $trnxRemarks = $trnxRemarks ?? ''; // Ensure $trnxRemarks is not null
-    $senderParticulars = "W2B/DR/{$receiverName}/{$receiverBankAccountId}/{$currentDateTime}/{$trnxRemarks}";
+    $senderParticulars = "W2B/DR/{$receiverName}//{$receiverBankAccountId}/{$currentDateTime}//{$trnxRemarks}";
+
 
     // Validate and sanitize the input
     if (!empty($bankAccountId) && is_numeric($bankAccountId) && !empty($money_withdraw_amount) && is_numeric($money_withdraw_amount)) {

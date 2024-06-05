@@ -183,6 +183,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
             };
         }
 
+
+
         // Function to display transactions
         function displayTransactions(htmlContent) {
             document.getElementById('cardWrapperDiv').innerHTML = htmlContent;
