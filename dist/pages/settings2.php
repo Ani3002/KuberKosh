@@ -215,10 +215,50 @@ if (!empty($walletDetails['wallet_address'])) {
             <p>changePassword details will be here</p>
         </div>
 
-        <div id="manage2FA" class="tabcontent">
+        <!-- <div id="manage2FA" class="tabcontent">
             <h3>manage2FA</h3>
             <p>manage2FA will be here</p>
+        </div> -->
+
+        <div id="manage2FA" class="tabcontent">
+            <h3>Manage 2FA</h3>
+            <p id="totpStatus">Status: TOTP is disabled</p>
+            <button id="enableTOTPBtn" onclick="enableTOTP()">Enable TOTP</button>
+            <div id="totpContainer" style="display: none;">
+                <!-- QR code and OTP verification input field will be dynamically loaded here -->
+            </div>
+
+            <script>
+                function enableTOTP() {
+                    // Show the TOTP container
+                    document.getElementById('totpContainer').style.display = 'block';
+                    
+                    // Fetch QR code and OTP verification input field
+                    fetch('php/ajaxGenerateTOTP.php')
+                        .then(response => response.text())
+                        .then(data => {
+                            // Inject the fetched HTML into the container
+                            document.getElementById('totpContainer').innerHTML = data;
+                        })
+                        .catch(error => console.error('Error fetching TOTP data:', error));
+                }
+
+                function verify_otp() {
+                    let otp = document.getElementById('otp').value;
+                    fetch('verify.php?otp=' + otp)
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(data)
+                            if (data.result == true) {
+                                alert("Valid One Time Password");
+                            } else{
+                                alert("Invalid One Time Password");
+                            }
+                        });
+                }
+            </script>
         </div>
+
 
     </div>
 
@@ -251,8 +291,7 @@ if (!empty($walletDetails['wallet_address'])) {
         echo "var branches = $jsonBranches; \n";
         echo "var userId = $userId; \n"
         ?>
-
-        function showSettingsDetails(evt, settingsName) {
+            function showSettingsDetails(evt, settingsName) {
             if (settingsName === "bankSettings") {
                 loadBanks();
             }

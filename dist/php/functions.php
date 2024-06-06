@@ -161,7 +161,28 @@ function getUserId($oauth_uid)
 }
 
 
-
+function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db){
+    $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = '$userId'";
+    
+    // Execute the query
+    $result = $connect_kuberkosh_db->query($query);
+    
+    // Check if there are any users with empty secret keys
+    if ($result && $result->num_rows == 1) {
+        // Loop through each user
+        $row = $result->fetch_assoc();
+        // $secretKey = $row['secret_key'];
+        if (empty($secretKey)) {
+            // Update the user's record with the secret key
+            $updateQuery = "UPDATE `users` SET `secret_key` = '$newSecretKey' WHERE `user_id` = $userId";
+            $connect_kuberkosh_db->query($updateQuery);
+    
+            return "Secret keys have been inserted successfully.";
+        }
+    
+    }
+    
+    }
 
 
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 

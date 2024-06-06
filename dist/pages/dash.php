@@ -1,6 +1,16 @@
+<?php include "php/google-auth.php"?>
 <?php
-include "php/google-auth.php"
-    ?>
+// Check if the user ID is not set in the session
+if (!isset($_SESSION['user_id'])) {
+    // Redirect the user to the login page using JavaScript
+    echo "
+    <script type='text/javascript'>
+        window.location.href = 'index.php?login';
+    </script>
+    ";
+    exit; // Stop further execution of the script
+}
+?>
 <html>
 
 <head>

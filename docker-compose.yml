@@ -1,3 +1,5 @@
+# # # Date: 06062024
+# # # Description: 
 services:
   webserver:                            # It will run the php codes to serve the web page
     # image: php:apache                 # This will use the image directly from docker without any mod.
@@ -28,39 +30,3 @@ services:
       - PMA_PORT=3306
 
 
-
-
-# version: "3"
-# volumes:
-#   mysqldata:
-#   composer-cache:
-#     external: true
-
-# services:
-#   mysql:
-#     image: mysql:latest
-#     volumes:
-#       - ./sql:/docker-entrypoint-initdb.d/
-#       - mysqldata:/var/lib/mysql
-#     environment:
-#       - MYSQL_DATABASE=${MYSQL_DATABASE:-"my_database"}
-#       - MYSQL_USER=${MYSQL_USER:-"user"}
-#       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-"password"}
-#       - MYSQL_RANDOM_ROOT_PASSWORD
-#     ports:
-#       - "3306:3306"
-
-#   php:
-#     build:
-#       context: .
-#       dockerfile: ./Dockerfile
-#     depends_on:
-#       - mysql
-#     volumes:
-#       - ./:/project
-#       - composer-cache:/tmp/composer
-#     environment:
-#       - MYSQL_DATABASE=${MYSQL_DATABASE:-"my_database"}
-#       - MYSQL_HOST=mysql
-#       - MYSQL_USER=${MYSQL_USER:-"user"}
-#       - MYSQL_PASSWORD=${MYSQL_PASSWORD:-"password"}

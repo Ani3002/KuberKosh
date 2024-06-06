@@ -6,7 +6,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav mx-auto" style= "padding-left: 30px;">
+        <div class="navbar-nav mx-auto" style= "padding-left: 120px;">
           <a class="nav-link active mx-3 text-light font-weight-300" aria-current="page" href="#">About</a>
           <a class="nav-link active text-light font-weight-300" aria-current="page" href="#">Features</a>
           <a class="nav-link active mx-3 text-light font-weight-300" aria-current="page" href="#">Support</a>        
@@ -20,8 +20,7 @@
           <img src="https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/fox.jpg" width="40" height="40" class="rounded-circle"> -->
 
           <?php
-                echo '<h5 class="user-name font-weight-600 align-to-center" style = "padding-right: 50px;">' . $_SESSION["first_name"]. '</h5>';
-
+                echo '<h5 class="user-name font-weight-600 align-to-center" style = "padding-right: 10px;">' . $_SESSION["first_name"]. '</h5>';
                 //echo '<img src="' . $_SESSION['profile_picture'] . '" width="40" height="40" class="rounded-circle" />';
           ?>
 

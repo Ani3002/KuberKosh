@@ -265,37 +265,29 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 </script>
 
 <script>
-    // Initialize Doughnut Chart
-    var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
-    var doughnutChart = new Chart(ctxDoughnut, {
-        type: 'doughnut',
-        data: {
-            labels: ['Installment', 'Restaurant', 'Rent', 'Food', 'Investment'],
-            datasets: [{
-                data: [24, 21, 28, 18, 9],
-                backgroundColor: ['#4CAF50', '#FFC107', '#2196F3', '#F44336', '#9C27B0'],
-                hoverBackgroundColor: ['#66BB6A', '#FFCA28', '#42A5F5', '#EF5350', '#AB47BC']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '45%',
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false
+        function fetchChartData() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'php/ajaxFetchChartData.php', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    updateDoughnutChart(response.labels, response.data);
+                    generateCustomLegend(doughnutChart);
                 }
-            }
+            };
+            xhr.send();
         }
-    });
 
-    function generateCustomLegend(chart) {
-        const legendContainer = document.getElementById('chartLegend');
-        const items = chart.data.labels.map((label, index) => {
-            return `
+        function updateDoughnutChart(labels, data) {
+            doughnutChart.data.labels = labels;
+            doughnutChart.data.datasets[0].data = data;
+            doughnutChart.update();
+        }
+
+        function generateCustomLegend(chart) {
+            const legendContainer = document.getElementById('chartLegend');
+            const items = chart.data.labels.map((label, index) => {
+                return `
                     <div class="custom-legend-item">
                         <div class="custom-legend-box" style="background-color:${chart.data.datasets[0].backgroundColor[index]}"></div>
                         <div>
@@ -304,125 +296,159 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                         </div>
                     </div>
                 `;
-        }).join('');
-        legendContainer.innerHTML = items;
-    }
+            }).join('');
+            legendContainer.innerHTML = items;
+        }
 
-    generateCustomLegend(doughnutChart);
-</script>
+        // Initialize Doughnut Chart
+        var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
+        var doughnutChart = new Chart(ctxDoughnut, {
+            type: 'doughnut',
+            data: {
+                labels: [], // Initial empty labels
+                datasets: [{
+                    data: [], // Initial empty data
+                    backgroundColor: ['#4CAF50', '#FFC107', '#2196F3', '#F44336', '#9C27B0', '#849599'],
+                    hoverBackgroundColor: ['#66BB6A', '#FFCA28', '#42A5F5', '#EF5350', '#AB47BC', '##97abaf']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: '45%',
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // Fetch chart data and update the chart
+        fetchChartData();
+    </script>
 
 <script>
+const totalValue = 100;
+let chartInstance;
 
-        const totalValue = 100;
+function updateChart(dataValues, labels) {
+    const fillData = dataValues;
+    const backgroundData = dataValues.map(() => totalValue);
 
-        function updateChart(dataValues, labels) {
-        const fillData = dataValues;
-        const backgroundData = dataValues.map(() => totalValue);
-
-        const data = {
-            labels: labels,
+    const data = {
+        labels: labels,
         datasets: [
-        {
-            label: 'Filled',
-        data: fillData,
-        backgroundColor: 'rgba(73, 77, 173, 1)',
-        borderColor: 'rgba(73, 77, 173, 1)',
-        borderWidth: 0,
-        barThickness: 10,
-        borderRadius: {
-            topLeft: 10,
-        topRight: 10,
-        bottomLeft: 10,
-        bottomRight: 10
-                    },
+            {
+                label: 'Filled',
+                data: fillData,
+                backgroundColor: 'rgba(73, 77, 173, 1)',
+                borderColor: 'rgba(73, 77, 173, 1)',
+                borderWidth: 0,
+                barThickness: 10,
+                borderRadius: {
+                    topLeft: 10,
+                    topRight: 10,
+                    bottomLeft: 10,
+                    bottomRight: 10
                 },
-        {
-            label: 'Empty',
-        data: backgroundData,
-        backgroundColor: '#FFFFFF',
-        borderColor: '#FFFFFF',
-        borderWidth: 0,
-        barThickness: 10,
-        borderRadius: {
-            topLeft: 10,
-        topRight: 10
-                    },
-                }
+            },
+            {
+                label: 'Empty',
+                data: backgroundData,
+                backgroundColor: '#FFFFFF',
+                borderColor: '#FFFFFF',
+                borderWidth: 0,
+                barThickness: 10,
+                borderRadius: {
+                    topLeft: 10,
+                    topRight: 10
+                },
+            }
         ]
-        };
+    };
 
-        const config = {
-            type: 'bar',
+    const config = {
+        type: 'bar',
         data: data,
         options: {
             scales: {
-            y: {
-            beginAtZero: true,
-        stacked: false,
-        ticks: {
-            color: '#FFF'
-                        },
-        grid: {
-            color: 'rgba(0, 0, 0, 0)'
-                        }
+                y: {
+                    beginAtZero: true,
+                    stacked: false,
+                    ticks: {
+                        color: '#FFF'
                     },
-        x: {
-            stacked: true,
-        ticks: {
-            color: '#FFF'
-                        },
-        grid: {
-            display: false
-                        }
+                    grid: {
+                        color: 'rgba(0, 0, 0, 0)'
                     }
                 },
-        plugins: {
-            legend: {
-            display: false
+                x: {
+                    stacked: true,
+                    ticks: {
+                        color: '#FFF'
                     },
-        title: {
-            display: false,
-        text: 'Overview Balance',
-        color: '#FFF',
-        font: {
-            size: 20
-                        }
+                    grid: {
+                        display: false
+                    }
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false
+                },
+                title: {
+                    display: false,
+                    text: 'Overview Balance',
+                    color: '#FFF',
+                    font: {
+                        size: 20
                     }
                 }
             }
-        };
+        }
+    };
 
-        const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
-        new Chart(ctxBar, config);
+    const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
+    
+    if (chartInstance) {
+        chartInstance.destroy();
     }
+    
+    chartInstance = new Chart(ctxBar, config);
+}
 
-        document.getElementById('dashDateSelect').addEventListener('change', function() {
-        const dateRange = this.value;
+document.getElementById('dashDateSelect').addEventListener('change', function() {
+    const dateRange = this.value;
 
-        var xhrFetchTransactionSummary = new XMLHttpRequest();
-        xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
-        xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
-        var dataToSend = JSON.stringify({dateRange: dateRange });
-        xhrFetchTransactionSummary.send(dataToSend);
+    var xhrFetchTransactionSummary = new XMLHttpRequest();
+    xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
+    xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
+    var dataToSend = JSON.stringify({dateRange: dateRange });
+    xhrFetchTransactionSummary.send(dataToSend);
 
-        xhrFetchTransactionSummary.onload = function () {
-            if (xhrFetchTransactionSummary.status === 200) {
-                const response = JSON.parse(xhrFetchTransactionSummary.responseText);
-        const {averagePrevious, averageCurrent, percentageChange, dataValues, labels} = response;
+    xhrFetchTransactionSummary.onload = function () {
+        if (xhrFetchTransactionSummary.status === 200) {
+            const response = JSON.parse(xhrFetchTransactionSummary.responseText);
+            const {averagePrevious, averageCurrent, percentageChange, dataValues, labels} = response;
 
-        document.getElementById('dateRange').innerText = dateRange;
-        document.getElementById('dateRangeAmnt').innerText = `$${averagePrevious.toFixed(2)}`;
-        document.getElementById('presentAmnt').innerText = `$${averageCurrent.toFixed(2)}`;
-        document.getElementById('percentageChange').innerText = `${percentageChange.toFixed(2)} %`;
+            document.getElementById('dateRange').innerText = dateRange;
+            document.getElementById('dateRangeAmnt').innerText = `₹${averagePrevious.toFixed(2)}`;
+            document.getElementById('presentAmnt').innerText = `₹${averageCurrent.toFixed(2)}`;
+            document.getElementById('percentageChange').innerText = `${percentageChange.toFixed(2)} %`;
 
-        updateChart(dataValues, labels);
-            } else {
+            updateChart(dataValues, labels);
+        } else {
             alert('Failed to fetch data');
-            }
-        };
-    });
+        }
+    };
+});
 
-        document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  // Trigger initial load
+// Trigger initial load
+document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  
 </script>
 
 

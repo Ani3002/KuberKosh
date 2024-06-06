@@ -70,18 +70,17 @@ if(isset($_GET["code"]))
         // If email exists proceed with login process or 2FA
         if (doesEmailExist($email)) 
         {
-          echo 'email does exist';
+          // echo 'email does exist';
           $_SESSION["msg"] = "Email Id Is Already Registered !";
           $_SESSION["field"] = "email";
           $_SESSION['user_id'] = getUserId($_SESSION['oauth_uid']);
-
         }
 
         // Check whether email id does not exists in database.
         // If email id does not exist add user to database
         elseif (!doesEmailExist($email)) 
         {
-          echo 'email does not exist';
+          // echo 'email does not exist';
           $_SESSION["msg"] = "Email is not Registered !";
           $_SESSION["field"] = "email";
           
