@@ -1,23 +1,24 @@
 <?php
-include_once 'php/database.php';
-include_once 'php/functions.php';
+include_once 'database.php';
+include_once 'functions.php';
 
 // Display All Errors (For Easier Development)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Start Server Session
+
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
-    // Redirect the user to the login page or display an error message
-    exit("User is not logged in.");
+    exit(json_encode(['error' => 'User is not logged in']));
 }
 
 // Get user ID from session
 $userId = $_SESSION['user_id'];
 
 // Include composer packages
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 use PragmaRX\Google2FA\Google2FA;
 
 // Initiate Google2FA object
@@ -48,17 +49,35 @@ $response = new stdClass();
 if ($valid) {
     // Get the secret key
     $secretKey = $user->google2fa_secret;
-    
-    // Insert the secret key in the database
-    $dbResponse = insertSecretKeyInDb($userId, $secretKey, $connect_kuberkosh_db);
-    
-    // Prepare the response
-    $response->result = true;
-    $response->dbResponse = $dbResponse;
+
+    // Check if TOTP is already enabled
+    $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = ?";
+    if ($stmt = $connect_kuberkosh_db->prepare($query)) {
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $stmt->store_result();
+
+        if ($stmt->num_rows == 1) {
+            $stmt->bind_result($existingSecretKey);
+            $stmt->fetch();
+
+            if (!empty($existingSecretKey)) {
+                $response->result = false;
+                $response->message = "TOTP already exists, cannot setup new TOTP";
+            } else {
+                // Insert the secret key in the database
+                $dbResponse = insertSecretKeyInDb($userId, $secretKey, $connect_kuberkosh_db);
+                $response->result = true;
+                $response->dbResponse = $dbResponse;
+                $_SESSION['mfa_ok'] = true;
+            }
+        }
+        $stmt->close();
+    }
 } else {
     // If OTP is not valid, return an error response
     $response->result = false;
-    $response->error = "Invalid OTP";
+    $response->message = "Invalid OTP";
 }
 
 // Generate and print JSON response

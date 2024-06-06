@@ -221,57 +221,109 @@ if (!empty($walletDetails['wallet_address'])) {
         </div> -->
 
         <div id="manage2FA" class="tabcontent">
-            <h3>Manage 2FA</h3>
-            <p id="totpStatus">Status: TOTP is disabled</p>
-            <button id="enableTOTPBtn" onclick="enableTOTP()">Enable TOTP</button>
-            <div id="totpContainer" style="display: none;">
-                <!-- QR code and OTP verification input field will be dynamically loaded here -->
-            </div>
+    <h3>Manage 2FA</h3>
+    <p id="totpStatus">Status: TOTP is disabled</p>
+    <button id="enableTOTPBtn" onclick="enableTOTP()">Enable TOTP</button>
+    <button id="disableTOTPBtn" onclick="disableTOTP()" style="display: none;">Disable TOTP</button>
+    <div id="totpContainer" style="display: none;">
+        <!-- QR code and OTP verification input field will be dynamically loaded here -->
+    </div>
 
-            <script>
-                 function enableTOTP() {
-        // Show the TOTP container
-        document.getElementById('totpContainer').style.display = 'block';
-        
-        // Fetch QR code and OTP verification input field
-        fetch('php/ajaxGenerateTOTP.php')
+    <script>
+        // Function to check TOTP status
+        function checkTOTPStatus() {
+            fetch('php/ajaxCheckTOTP.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.TOTPenabled) {
+                        document.getElementById('totpStatus').textContent = 'Status: TOTP is enabled';
+                        document.getElementById('enableTOTPBtn').style.display = 'none';
+                        document.getElementById('disableTOTPBtn').style.display = 'block';
+                    } else {
+                        document.getElementById('totpStatus').textContent = 'Status: TOTP is disabled';
+                        document.getElementById('enableTOTPBtn').style.display = 'block';
+                        document.getElementById('disableTOTPBtn').style.display = 'none';
+                    }
+                })
+                .catch(error => console.error('Error checking TOTP status:', error));
+        }
+
+        // Function to enable TOTP
+        function enableTOTP() {
+            // Show the TOTP container
+            document.getElementById('totpContainer').style.display = 'block';
+            
+            // Fetch QR code and OTP verification input field
+            fetch('php/ajaxGenerateTOTP.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.TOTPenabled) {
+                        alert("TOTP already exists, cannot setup new TOTP");
+                    } else {
+                        // Inject the fetched HTML into the container
+                        document.getElementById('totpContainer').innerHTML = `
+                            <h2>QR Code</h2>
+                            <p><img src="data:image/png;base64,${data.qr_code}" alt="QR Code" width="200" height="200"></p>
+                            <p>Secret Key: ${data.secret_key}</p>
+                            <h2>Verify Code</h2>
+                            One-time password: <input type="number" name="otp" id="otp" required />
+                            <input type="button" value="Verify" onclick="verify_otp();" />
+                        `;
+                    }
+                })
+                .catch(error => console.error('Error fetching TOTP data:', error));
+        }
+
+        // Function to verify OTP
+        function verify_otp() {
+            let otp = document.getElementById('otp').value;
+            fetch('php/enableTOTP.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ otp: otp })
+            })
             .then(response => response.json())
             .then(data => {
-                // Inject the fetched HTML into the container
-                document.getElementById('totpContainer').innerHTML = `
-                    <h2>QR Code</h2>
-                    <p><img src="data:image/png;base64,${data.qr_code}" alt="QR Code" width="200" height="200"></p>
-                    <p>Secret Key: ${data.secret_key}</p>
-                    <h2>Verify Code</h2>
-                    One-time password: <input type="number" name="otp" id="otp" required />
-                    <input type="button" value="Verify" onclick="verify_otp();" />
-                `;
+                console.log(data);
+                if (data.result === true) {
+                    alert("Valid One Time Password. TOTP has been enabled successfully.");
+                    checkTOTPStatus();
+                } else {
+                    alert(data.message || "Invalid One Time Password.");
+                }
             })
-            .catch(error => console.error('Error fetching TOTP data:', error));
-    }
+            .catch(error => console.error('Error verifying OTP:', error));
+        }
 
-    function verify_otp() {
-        let otp = document.getElementById('otp').value;
-        fetch('verify.php', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ otp: otp })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            if (data.result == true) {
-                alert("Valid One Time Password");
-            } else{
-                alert("Invalid One Time Password");
+        // Function to disable TOTP
+        function disableTOTP() {
+            if (confirm("Are you sure you want to disable TOTP?")) {
+                fetch('php/ajaxDisableTOTP.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.result === true) {
+                        alert("TOTP has been disabled successfully.");
+                        checkTOTPStatus();
+                    } else {
+                        alert(data.message || "Failed to disable TOTP.");
+                    }
+                })
+                .catch(error => console.error('Error disabling TOTP:', error));
             }
-        })
-        .catch(error => console.error('Error verifying OTP:', error));
-    }
-            </script>
-        </div>
+        }
+
+        // Initial check of TOTP status
+        checkTOTPStatus();
+    </script>
+</div>
+
 
 
     </div>

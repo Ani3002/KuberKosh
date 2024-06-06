@@ -13,9 +13,13 @@ if ((isset($_GET['home']))) {
     // for signup page
     viewPage('auth');
 
+} elseif (isset($_GET['mfa'])) {
+    // for mfa page
+    viewPage('MFA');
+
 } elseif (isset($_GET['dash'])) {
     // for dashboard page
-    // viewPage('verifySession');
+    viewPage('verifySession');
     viewPage('dash');
     viewPage('collapsableSideBar');
     viewPage('navBar');
@@ -35,8 +39,6 @@ if ((isset($_GET['home']))) {
     viewPage('database');
 } elseif (isset($_GET['logout'])) {
     // for dashboard page
-    viewPage('verifySession');
-
     viewPage('logout');
 } elseif (isset($_GET['settings'])) {
     // for send money page

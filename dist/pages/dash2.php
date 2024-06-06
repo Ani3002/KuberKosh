@@ -7,6 +7,7 @@ global $connect_wallet_transactions_db;
 
 $userId = $_SESSION['user_id']; // Works only if a user session exists
 
+
 $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 ?>
 

@@ -161,31 +161,6 @@ function getUserId($oauth_uid)
 }
 
 
-function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db)
-{
-    $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = '$userId'";
-
-    // Execute the query
-    $result = $connect_kuberkosh_db->query($query);
-
-    // Check if there are any users with empty secret keys
-    if ($result && $result->num_rows == 1) {
-        // Loop through each user
-        $row = $result->fetch_assoc();
-        // $secretKey = $row['secret_key'];
-        if (empty($secretKey)) {
-            // Update the user's record with the secret key
-            $updateQuery = "UPDATE `users` SET `secret_key` = '$newSecretKey' WHERE `user_id` = $userId";
-            $connect_kuberkosh_db->query($updateQuery);
-
-            return "Secret keys have been inserted successfully.";
-        }
-
-    }
-
-}
-
-
 // function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db)
 // {
 //     $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = '$userId'";
@@ -193,31 +168,144 @@ function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db)
 //     // Execute the query
 //     $result = $connect_kuberkosh_db->query($query);
 
-//     // Initialize the response array
-//     $response = [
-//         'TOTPenabled' => false,
-//         'updateStatus' => 'No update performed'
-//     ];
-
-//     // Check if the query was successful and we have a result
+//     // Check if there are any users with empty secret keys
 //     if ($result && $result->num_rows == 1) {
+//         // Loop through each user
 //         $row = $result->fetch_assoc();
-//         $secretKey = $row['secret_key'];
-//         $response['TOTPenabled'] = !empty($secretKey);
-
-//         // If TOTP is not enabled, update the user's record with the new secret key
+//         // $secretKey = $row['secret_key'];
 //         if (empty($secretKey)) {
+//             // Update the user's record with the secret key
 //             $updateQuery = "UPDATE `users` SET `secret_key` = '$newSecretKey' WHERE `user_id` = $userId";
-//             $updateResult = $connect_kuberkosh_db->query($updateQuery);
+//             $connect_kuberkosh_db->query($updateQuery);
 
-//             $response['updateStatus'] = $updateResult ? 'Secret key updated successfully' : 'Failed to update secret key';
+//             return "Secret keys have been inserted successfully.";
 //         }
-//     }
 
-//     return $response;
+//     }
 
 // }
 
+
+function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db) {
+    $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = ?";
+    
+    // Prepare and execute the query
+    if ($stmt = $connect_kuberkosh_db->prepare($query)) {
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $stmt->store_result();
+        
+        // Initialize variable
+        $secretKey = null;
+        
+        // Check if the user exists
+        if ($stmt->num_rows == 1) {
+            $stmt->bind_result($secretKey);
+            $stmt->fetch();
+            
+            $TOTPenabled = !empty($secretKey);
+
+            if (!$TOTPenabled) {
+                // Update the user's record with the secret key
+                $updateQuery = "UPDATE `users` SET `secret_key` = ? WHERE `user_id` = ?";
+                if ($updateStmt = $connect_kuberkosh_db->prepare($updateQuery)) {
+                    $updateStmt->bind_param('si', $newSecretKey, $userId);
+                    $updateStatus = $updateStmt->execute();
+                    $updateStmt->close();
+                    
+                    return [
+                        'TOTPenabled' => $TOTPenabled,
+                        'updateStatus' => $updateStatus
+                    ];
+                }
+            } else {
+                return [
+                    'TOTPenabled' => $TOTPenabled,
+                    'updateStatus' => false
+                ];
+            }
+        }
+
+        $stmt->close();
+    }
+
+    return [
+        'TOTPenabled' => false,
+        'updateStatus' => false
+    ];
+}
+
+
+
+
+
+
+
+
+
+
+function checkTOTPenabled($userId, $connect_kuberkosh_db) {
+    $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = ?";
+    
+    // Prepare and execute the query
+    if ($stmt = $connect_kuberkosh_db->prepare($query)) {
+        $stmt->bind_param('i', $userId);
+        $stmt->execute();
+        $stmt->store_result();
+        
+        // Initialize variable
+        $secretKey = null;
+        
+        // Check if the user exists
+        if ($stmt->num_rows == 1) {
+            $stmt->bind_result($secretKey);
+            $stmt->fetch();
+            
+            $TOTPenabled = !empty($secretKey);
+            
+            $stmt->close();
+            return json_encode(['TOTPenabled' => $TOTPenabled]);
+        }
+
+        $stmt->close();
+    }
+
+    return json_encode(['TOTPenabled' => false]);
+}
+
+
+
+// Function to disable TOTP by deleting the secret key
+function disableTOTP($userId, $connect_kuberkosh_db) {
+    $query = "UPDATE `users` SET `secret_key` = NULL WHERE `user_id` = ?";
+    
+    // Prepare and execute the query
+    if ($stmt = $connect_kuberkosh_db->prepare($query)) {
+        $stmt->bind_param('i', $userId);
+        $updateStatus = $stmt->execute();
+        $stmt->close();
+        
+        return $updateStatus;
+    }
+
+    return false;
+}
+
+
+function fetchSecretKey($connect_kuberkosh_db, $userId)
+{
+    $query = "SELECT secret_key FROM users WHERE user_id = '$userId'";
+
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $secretKey = isset($row['secret_key']) ? $row['secret_key'] : '';
+
+        return $secretKey;
+    } else {
+        return 0;
+    }
+}
 
 
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 

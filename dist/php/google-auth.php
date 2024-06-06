@@ -14,7 +14,7 @@ $ClientSecret='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';
 $google_client = new Google_Client();
 $google_client->setClientId($ClientId);
 $google_client->setClientSecret($ClientSecret);
-$google_client->setRedirectUri('http://localhost/index.php?dash');
+$google_client->setRedirectUri('http://localhost/index.php?mfa');
 $google_client->addScope('email');
 $google_client->addScope('profile');
 
