@@ -161,12 +161,13 @@ function getUserId($oauth_uid)
 }
 
 
-function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db){
+function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db)
+{
     $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = '$userId'";
-    
+
     // Execute the query
     $result = $connect_kuberkosh_db->query($query);
-    
+
     // Check if there are any users with empty secret keys
     if ($result && $result->num_rows == 1) {
         // Loop through each user
@@ -176,13 +177,47 @@ function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db){
             // Update the user's record with the secret key
             $updateQuery = "UPDATE `users` SET `secret_key` = '$newSecretKey' WHERE `user_id` = $userId";
             $connect_kuberkosh_db->query($updateQuery);
-    
+
             return "Secret keys have been inserted successfully.";
         }
-    
+
     }
-    
-    }
+
+}
+
+
+// function insertSecretKeyInDb($userId, $newSecretKey, $connect_kuberkosh_db)
+// {
+//     $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = '$userId'";
+
+//     // Execute the query
+//     $result = $connect_kuberkosh_db->query($query);
+
+//     // Initialize the response array
+//     $response = [
+//         'TOTPenabled' => false,
+//         'updateStatus' => 'No update performed'
+//     ];
+
+//     // Check if the query was successful and we have a result
+//     if ($result && $result->num_rows == 1) {
+//         $row = $result->fetch_assoc();
+//         $secretKey = $row['secret_key'];
+//         $response['TOTPenabled'] = !empty($secretKey);
+
+//         // If TOTP is not enabled, update the user's record with the new secret key
+//         if (empty($secretKey)) {
+//             $updateQuery = "UPDATE `users` SET `secret_key` = '$newSecretKey' WHERE `user_id` = $userId";
+//             $updateResult = $connect_kuberkosh_db->query($updateQuery);
+
+//             $response['updateStatus'] = $updateResult ? 'Secret key updated successfully' : 'Failed to update secret key';
+//         }
+//     }
+
+//     return $response;
+
+// }
+
 
 
 // BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING BANKING 
@@ -654,7 +689,7 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
 // {
 //     // Define the directory to save the profile pictures
 //     $directory = 'assets/profilePics/';
-    
+
 //     // Create the directory if it doesn't exist
 //     if (!file_exists($directory)) {
 //         mkdir($directory, 0777, true);
@@ -952,7 +987,8 @@ function getTrnxDetailsDateRange($connect_wallet_transactions_db, $wallet_id, $s
 }
 
 
-function extractParticularsParts($particulars, $part) {
+function extractParticularsParts($particulars, $part)
+{
     $parts = explode('/', $particulars);
     return isset($parts[$part]) ? $parts[$part] : 'unknown_user';
 }

@@ -7,7 +7,6 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-
 // Check if user is logged in
 if (!isset($_SESSION['user_id'])) {
     // Redirect the user to the login page or display an error message
@@ -27,28 +26,41 @@ $_g2fa = new Google2FA();
 // Retrieve user data
 $user = $_SESSION['g2fa_user'];
 
-// Retrieve One Time Password from URL (DO NOT do this in production)
-$otp = $_GET['otp'];
+// Get the raw POST data
+$postData = file_get_contents('php://input');
+
+// Decode JSON data
+$request = json_decode($postData, true);
+
+// Check if the OTP key exists in the request
+if (!isset($request['otp'])) {
+    exit(json_encode(['error' => 'OTP is missing']));
+}
+
+// Retrieve One Time Password from request
+$otp = $request['otp'];
 
 // Verify provided OTP
 $valid = $_g2fa->verifyKey($user->google2fa_secret, $otp);
 
 // Check if OTP is valid
+$response = new stdClass();
 if ($valid) {
     // Get the secret key
     $secretKey = $user->google2fa_secret;
     
     // Insert the secret key in the database
-    $response = insertSecretKeyInDb($userId, $secretKey, $connect_kuberkosh_db);
+    $dbResponse = insertSecretKeyInDb($userId, $secretKey, $connect_kuberkosh_db);
     
-    // Generate and print JSON response
-    $response = json_encode($response);
-    echo $response;
+    // Prepare the response
+    $response->result = true;
+    $response->dbResponse = $dbResponse;
 } else {
     // If OTP is not valid, return an error response
-    $response = new stdClass();
+    $response->result = false;
     $response->error = "Invalid OTP";
-    $response = json_encode($response);
-    echo $response;
 }
+
+// Generate and print JSON response
+echo json_encode($response);
 ?>

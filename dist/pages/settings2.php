@@ -229,33 +229,47 @@ if (!empty($walletDetails['wallet_address'])) {
             </div>
 
             <script>
-                function enableTOTP() {
-                    // Show the TOTP container
-                    document.getElementById('totpContainer').style.display = 'block';
-                    
-                    // Fetch QR code and OTP verification input field
-                    fetch('php/ajaxGenerateTOTP.php')
-                        .then(response => response.text())
-                        .then(data => {
-                            // Inject the fetched HTML into the container
-                            document.getElementById('totpContainer').innerHTML = data;
-                        })
-                        .catch(error => console.error('Error fetching TOTP data:', error));
-                }
+                 function enableTOTP() {
+        // Show the TOTP container
+        document.getElementById('totpContainer').style.display = 'block';
+        
+        // Fetch QR code and OTP verification input field
+        fetch('php/ajaxGenerateTOTP.php')
+            .then(response => response.json())
+            .then(data => {
+                // Inject the fetched HTML into the container
+                document.getElementById('totpContainer').innerHTML = `
+                    <h2>QR Code</h2>
+                    <p><img src="data:image/png;base64,${data.qr_code}" alt="QR Code" width="200" height="200"></p>
+                    <p>Secret Key: ${data.secret_key}</p>
+                    <h2>Verify Code</h2>
+                    One-time password: <input type="number" name="otp" id="otp" required />
+                    <input type="button" value="Verify" onclick="verify_otp();" />
+                `;
+            })
+            .catch(error => console.error('Error fetching TOTP data:', error));
+    }
 
-                function verify_otp() {
-                    let otp = document.getElementById('otp').value;
-                    fetch('verify.php?otp=' + otp)
-                        .then((response) => response.json())
-                        .then((data) => {
-                            console.log(data)
-                            if (data.result == true) {
-                                alert("Valid One Time Password");
-                            } else{
-                                alert("Invalid One Time Password");
-                            }
-                        });
-                }
+    function verify_otp() {
+        let otp = document.getElementById('otp').value;
+        fetch('verify.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ otp: otp })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            if (data.result == true) {
+                alert("Valid One Time Password");
+            } else{
+                alert("Invalid One Time Password");
+            }
+        })
+        .catch(error => console.error('Error verifying OTP:', error));
+    }
             </script>
         </div>
 
