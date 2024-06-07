@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
     $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
     $walletPINHash = ($walletDetails['wallet_pin']);
 
-    $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_address'];
+    $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address'];
 
 
     // Check if the hashed PIN entered by the user matches the hashed PIN stored in the database

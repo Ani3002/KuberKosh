@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addMoneyButton'])) {
     addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_send_amount, $trnxRemarks, $wallet_id, $userId);
 }
 ?>
+
 <div id="assumedBody">
         <div id="requestDiv" class="card card1 align-to-center position-relative">
             <form action="" method="POST" class="card-form align-to-center"> 

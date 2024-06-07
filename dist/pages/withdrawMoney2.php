@@ -20,6 +20,28 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 // }
 ?>
 
+
+<!-- Modal -->
+<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger fw-semibold" id="failedModalLabel">Failed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="failedModalMessage" class="modal-body text-light fw-normal">
+                Failed.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
 <body>
     <div id="assumedBody">
         <div id="requestDiv" class="card card1 align-to-center position-relative">
@@ -73,7 +95,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
         <img id="receiverProfilePic" src="img/transparent.png" class="rounded-circle receiver-profile-pic "
             alt="receivers profile pic" width="100px" height="70px">
 
-       
+
         <h5 class="" id="verified_name"></h5>
         <h5 class="" id="verified_wallet_address"></h5>
 
@@ -222,6 +244,16 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
 
     <script>
+        function showModal(label, message) {
+            var modalElement = document.getElementById('failedModal');
+            var failedModalLabel = document.getElementById('failedModalLabel');
+            failedModalLabel.textContent = label;
+            var failedModalMessage = document.getElementById('failedModalMessage');
+            failedModalMessage.textContent = message;
+            var myModal = new bootstrap.Modal(modalElement);
+            myModal.show();
+        }
+
         function replaceDivWithVerificationDiv() {
             var parentNode = document.getElementById('assumedBody');
             var originalDiv = document.getElementById('requestDiv');
@@ -251,12 +283,12 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
             var bankAccountId = bankSelect.value;
 
             if (isNaN(amountToSend) || amountToSend <= 0) {
-                alert("Please enter a valid amount to withdraw.");
+                showModal("Failed:", "Please enter a valid amount to withdraw.");
                 return;
             }
 
             if (bankAccountId === "") {
-                alert("Please select a bank account.");
+                showModal("Failed:", "Please select a bank account.");
                 return;
             }
 
@@ -265,13 +297,13 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
             xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
 
             var dataToSend = JSON.stringify({ amountToSend: amountToSend });
-            alert('Data being sent to server: ' + dataToSend);
+            // alert('Data being sent to server: ' + dataToSend);
             xhrValidateTransferAmount.send(dataToSend);
 
             xhrValidateTransferAmount.onload = function () {
                 if (xhrValidateTransferAmount.status === 200) {
                     var response = JSON.parse(xhrValidateTransferAmount.responseText);
-                    alert('Response from server: ' + JSON.stringify(response));
+                    // alert('Response from server: ' + JSON.stringify(response));
 
                     if (!response.hasOwnProperty('error') && response.valid) {
                         replaceDivWithVerificationDiv();
@@ -284,10 +316,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                         xhrGetBankDetails.setRequestHeader('Content-Type', 'application/json');
                         var dataToSend = JSON.stringify({ bankAccountId: bankAccountId });
                         xhrGetBankDetails.send(dataToSend);
-                        xhrGetBankDetails.onload = function () 
-                        {
-                            if (xhrGetBankDetails.status === 200) 
-                            {
+                        xhrGetBankDetails.onload = function () {
+                            if (xhrGetBankDetails.status === 200) {
                                 var response = JSON.parse(xhrGetBankDetails.responseText);
 
                                 document.getElementById('verified_name').innerText = response.bankName;
@@ -305,7 +335,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                         money_send_btn.addEventListener('click', function (event) {
                             event.preventDefault();
 
-                            alert('confirm btn clicked');
+                            // alert('confirm btn clicked');
                             var pin = "";
                             for (let i = 1; i <= 6; i++) {
                                 var pinInput = document.getElementById('pin-input' + i);
@@ -400,29 +430,30 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                             var xhrTransferMoneyW2B = new XMLHttpRequest();
                             xhrTransferMoneyW2B.open('POST', 'php/ajaxTransferMoneyW2B.php');
                             xhrTransferMoneyW2B.setRequestHeader('Content-Type', 'application/json');
-                            alert('3');
-                            alert('money_withdraw_amount: ' + amountToSend);
-                            alert('bankAccountId: ' + bankAccountId);
-                            alert('hashedPINEnteredByUser: ' + hashedString);
-                            alert('money_withdrawing_remarks: ' + trnxRemarks);
+                            // alert('3');
+                            // alert('money_withdraw_amount: ' + amountToSend);
+                            // alert('bankAccountId: ' + bankAccountId);
+                            // alert('hashedPINEnteredByUser: ' + hashedString);
+                            // alert('money_withdrawing_remarks: ' + trnxRemarks);
 
                             var dataToSend = JSON.stringify({ money_withdraw_amount: amountToSend, bankAccountId: bankAccountId, hashedPINEnteredByUser: hashedString, money_withdrawing_remarks: trnxRemarks });
-                            alert('4');
+                            // alert('4');
 
-                            alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+                            // alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
                             xhrTransferMoneyW2B.send(dataToSend);
                             xhrTransferMoneyW2B.onload = function () {
-                                alert('5');
+                                // alert('5');
 
 
                                 if (xhrTransferMoneyW2B.status === 200) {
-                                    alert('ststus: 200');
-
-                                    //alert('debug'+ xhrTransferMoneyW2B.status);       // Debugging: Log data being sent to server
+                                    // alert('status: 200');
+                                    // console.log('status: 200');
+                                    // console.log('debug', xhrTransferMoneyW2B.status); // Debugging: Log data being sent to server
+                                    // alert('debug'+ xhrTransferMoneyW2B.status);       // Debugging: Log data being sent to server
 
                                     var response = JSON.parse(xhrTransferMoneyW2B.responseText);
 
-                                    //alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+                                    // alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
 
                                     if (!response.hasOwnProperty('error') && response.success) {
                                         //alert('Success: Transaction Id = ' + response.trnxId);
@@ -439,19 +470,20 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
 
                                         dwnldRec = document.getElementById('dwnld_receipt_btn');
-                                        dwnldRec = document.getElementById('downloadBtn');
+                                        dwnldRec = document.getElementById('dwnld_receipt_btn');
 
-                                        var downloadBtn = document.getElementById('downloadBtn');
-                                        downloadBtn.addEventListener('click', function () {
+                                        var dwnld_receipt_btn = document.getElementById('dwnld_receipt_btn');
+                                        dwnld_receipt_btn.addEventListener('click', function () {
                                             // Get transaction ID and amount from input fields
                                             var transactionId = response.trnxId;
                                             var amount = response.money_withdraw_amount;
 
                                             // Make sure transaction ID and amount are not empty
-                                            if (transactionId.trim() === '' || amount.trim() === '') {
-                                                //alert('Please enter transaction ID and amount.');
-                                                return;
-                                            }
+
+                                            // if (transactionId.trim() === '' || amount.trim() === '') {
+                                            //     //alert('Please enter transaction ID and amount.');
+                                            //     return;
+                                            // }
 
                                             // Create a new XMLHttpRequest object
                                             var xhr = new XMLHttpRequest();
@@ -505,10 +537,10 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
                         });
                     } else {
-                        alert("Transaction validation failed.");
+                        showModal("Error:", "Failed to validate transaction.");
                     }
                 } else {
-                    alert("Failed to validate transaction.");
+                    showModal("Error:", "Failed to validate transaction.");                    
                 }
             };
         });

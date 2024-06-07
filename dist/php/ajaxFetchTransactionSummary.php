@@ -149,7 +149,9 @@ $response = [
     'averageCurrent' => $averageCurrent,
     'percentageChange' => $percentageChange,
     'dataValues' => $processedData,
+    // 'dataValues' => "56, 45, 62, 73",
     'labels' => $labels,
+    // 'labels' => "67894",
 ];
 
 header('Content-Type: application/json');

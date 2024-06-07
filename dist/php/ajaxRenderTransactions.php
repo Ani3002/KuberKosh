@@ -29,12 +29,17 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         foreach ($transactions as $index => $transaction): ?>
             <?php
             $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, (extractParticularsParts($transaction['Particulars'], 3)));
+            // If $userIdViaWalletAddress is empty, set it to the user ID from session
+            if (empty($userIdViaWalletAddress)) {
+                $userIdViaWalletAddress = $userId;
+            }
+
             $profilePicLink = "assets/profilePics/$userIdViaWalletAddress.png";
             ?>
             <div class="card card2 transaction-card">
                 <div class="card-header transaction-header">
                     <div class="d-flex align-items-center">
-                        <img src="<?php echo $profilePicLink; ?>" class="rounded-circle me-2" width = "35px" height = "35px">
+                        <img src="<?php echo $profilePicLink; ?>" class="rounded-circle me-2" width="35px" height="35px">
                         <div>
                             <div class="fw-bold">
                                 <?php echo htmlspecialchars(extractParticularsParts($transaction['Particulars'], 2)); ?>

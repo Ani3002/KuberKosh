@@ -36,6 +36,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($transactionId != $Trnx_id)
     {
         http_response_code(400); // Bad Request
+        echo $userId;
+        echo "<br>";
+        echo $wallet_id;
+        echo "<br>";
+        echo $Trnx_id;
+        echo "<br>";
+
+        // return ;
         echo "Transaction ID invalid.";
         exit();
     }

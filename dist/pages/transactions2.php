@@ -1,3 +1,22 @@
+<!-- Modal -->
+<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger fw-semibold" id="failedModalLabel">Failed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="failedModalMessage" class="modal-body text-light fw-normal">
+                Failed.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div class="card transactions_div_card transactions_div_main mt-8">
     <div class="d-flex justify-content-between mx-1 mt-1 mb-1 align-items-center">
         <h4>Transaction History</h4>
@@ -102,7 +121,13 @@
                         var response = JSON.parse(xhr.responseText);
                         displayTransactions(response.page);
                     } else {
-                        alert('Error occurred while fetching transactions. Please try again.');
+                        var modalElement = document.getElementById('failedModal');
+                        var failedModalLabel = document.getElementById('failedModalLabel');
+                        failedModalLabel.textContent = "Failed";
+                        var failedModalMessage = document.getElementById('failedModalMessage');
+                        failedModalMessage.textContent = "Error occurred while fetching transactions. Please try again.";
+                        var myModal = new bootstrap.Modal(modalElement);
+                        myModal.show();
                     }
                 };
             }

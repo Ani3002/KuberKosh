@@ -300,6 +300,41 @@ xrdp
 
 
 
+// MODAL MODAL
+.modal-content {
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.200);
+  backdrop-filter: blur(10px);
+  border: 5px solid rgba(0, 0, 0, 0.300);
+}
+
+.modal-header {
+  background: rgba(0, 0, 0, 0.200);
+
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  color: white;
+}
+
+.modal-body {
+  background: rgba(0, 0, 0, 0.200);
+
+  color: white;
+}
+
+.modal-footer {
+  background: rgba(0, 0, 0, 0.200);
+
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+}
+
+.btn-close {
+  color: rgb(60, 56, 97);
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
 
 
 

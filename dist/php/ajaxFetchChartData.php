@@ -18,8 +18,12 @@ function fetchDataForDateRange($connect_wallet_transactions_db, $wallet_id, $sta
     $data = [];
     while ($row = $result->fetch_assoc()) {
         $type = extractParticularsParts($row['Particulars'], 6);
+        $mode = extractParticularsParts($row['Particulars'], 0);
         if ($type === 'unknown_user') {
             continue;  // Skip this iteration if the type is 'unknown_user'
+        }
+        if ($mode === 'W2B'){
+            continue;
         }
         if ($row['debit'] > 0) {  // Include only debit transactions
             if (!isset($data[$type])) {

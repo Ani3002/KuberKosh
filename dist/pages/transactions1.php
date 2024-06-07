@@ -12,10 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <script src="js/jquery-3.5.1.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <!-- <script src="js/bootstrap.min.js"></script> -->
     <script src="js/moment.min.js"></script>
     <script src="js/daterangepicker.min.js"></script>
     <link rel="stylesheet" href="css/daterangepicker.css">
-
+    <link rel="stylesheet" href="css/main.css">
+    
     <style>
         body {
             background-color: #121212;

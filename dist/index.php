@@ -86,7 +86,9 @@ if ((isset($_GET['home']))) {
     // viewPage('collapsableSideBar');
     // viewPage('navBar');
     viewPage('verifySession');
-
+    viewPage('test1');
+    viewPage('collapsableSideBar');
+    viewPage('navBar');
     viewPage('test');
 } elseif (isset($_GET['withdraw-money'])) {
     // for send money page

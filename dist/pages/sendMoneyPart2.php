@@ -13,6 +13,25 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 <!-- Background Image Added -->
 <!-- Collapsable Side Bar will be inserted here through index.php -->
 
+<!-- Modal -->
+<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-danger fw-semibold" id="failedModalLabel">Failed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div id="failedModalMessage" class="modal-body text-light fw-normal">
+                Failed.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="assumedBody">
   <div id="sendDiv" class="card card1 align-to-center position-relative">
   <img id = "receiverProfilePic" src="https://bit.ly/3Us0eCl" class="rounded-circle receiver-profile-pic " alt="receivers profile pic" width = "100px" height="100px">
@@ -343,6 +362,19 @@ function replaceDivWithConfirmationDiv() {
 
   var amountToSend;
 
+
+  function showModal(label, message) {
+    var modalElement = document.getElementById('failedModal');
+    var failedModalLabel = document.getElementById('failedModalLabel');
+    failedModalLabel.textContent = label;
+    var failedModalMessage = document.getElementById('failedModalMessage');
+    failedModalMessage.textContent = message;
+    var myModal = new bootstrap.Modal(modalElement);
+    myModal.show();
+}
+
+
+
   verifyWalletAddressButton.addEventListener('click', function() 
   {
     event.preventDefault(); // Prevent form submission
@@ -352,7 +384,8 @@ function replaceDivWithConfirmationDiv() {
     // Client-side validation
     if (!walletAddress) 
     {
-        alert('Please enter Receiver Wallet Address');
+        showModal("Failed", "Please enter Receiver Wallet Address");
+        
         return;
     }
 
@@ -386,19 +419,22 @@ function replaceDivWithConfirmationDiv() {
           receiverProfilePic.src = 'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_640.png';
           verified_name.textContent = 'Error: Wallet address invalid';
           verified_name.style.color = 'red'; // Change the color to red
-          alert('Error: Wallet address invalid');
+          showModal("Error:", "Wallet address invalid");
+
         }
         else 
         {
           receiverProfilePic.src = 'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_640.png';
           verified_name.textContent = 'Unknown Error';
           verified_name.style.color = 'red'; // Change the color to red
-          alert('Unknown Error');
+          showModal("Error:", "Unknown Error");
+
         }
       } 
       else 
       {
-        alert('Error occurred while checking wallet address. Please try again1.');
+        showModal("Error:", "Error occurred while checking wallet address. Please try again.");
+
       }
     };
   });
@@ -421,7 +457,7 @@ function replaceDivWithConfirmationDiv() {
     // Client-side validation receivers wallet address
     if (!walletAddress) 
     {
-      alert('Please enter Receiver Wallet Address');
+      showModal("Failed:", "Please enter Receiver Wallet Address");
       return;
     }
 
@@ -433,7 +469,8 @@ function replaceDivWithConfirmationDiv() {
     // Client-side validation of receivers wallet address verification
     if (!receiverName) 
     {
-      alert('Please Valid Wallet Address');
+      showModal("Failed:", "Please Valid Wallet Address");
+
       return;
     }
 
@@ -443,11 +480,12 @@ function replaceDivWithConfirmationDiv() {
 
     // Client-side validation of money_send_amount
     if (!money_send_amount) {
-      alert('Please enter amount to send');
+      showModal("Failed:", "Please enter amount to send");
+
       return;
     }
     else if (!/^\d+$/.test(money_send_amount)) {
-      alert('Please enter a valid integer amount');
+      showModal("Failed:", "Please enter a valid integer amount");
       return;
     }
 
@@ -489,7 +527,7 @@ function replaceDivWithConfirmationDiv() {
           xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
           
           var dataToSend = JSON.stringify({ amountToSend: amountToSend });
-          alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
+          // alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
           xhrValidateTransferAmount.send(dataToSend);
           
           xhrValidateTransferAmount.onload = function()
@@ -497,7 +535,7 @@ function replaceDivWithConfirmationDiv() {
             if (xhrValidateTransferAmount.status === 200) 
             {
               var response = JSON.parse(xhrValidateTransferAmount.responseText);
-              alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
+              // alert('Response from server' + JSON.stringify(response)); // Debugging: Log response from server
 
               // if (!response.hasOwnProperty('error') && response.valid && response.walletBalance >= amountToSend)
               if (!response.hasOwnProperty('error') && response.valid )
@@ -780,7 +818,8 @@ function replaceDivWithConfirmationDiv() {
                                 });
                             } else {
                                 // Web Share API not supported, provide alternative method
-                                alert('Web Share API is not supported in this browser.');
+                                showModal("Error:", "Web Share API is not supported in this browser.");
+
                             }
                         });
 
@@ -810,16 +849,18 @@ function replaceDivWithConfirmationDiv() {
                         trnxMessage.style.color = 'red'; // Change the color to green
 
 
-                        alert('Error:' + response.error);
+                        // alert('Error:' + response.error);
+                        showModal("Error:", response.error);
+
                       }
                       else 
                       {
-                        alert('Unknown Error');
+                        showModal("Error:", "Unknown Error");
                       }
                     } 
                     else 
                     {
-                      alert('Error occurred while verifying details with server. Please try again.');
+                      showModal("Error:", "Error occurred while verifying details with server. Please try again.");
                     }
                   };
                 });
@@ -828,16 +869,18 @@ function replaceDivWithConfirmationDiv() {
               }
               else if (response.hasOwnProperty('error')) 
               {
-                alert('Error:' + response.error);
+                // alert('Error:' + response.error);
+                showModal("Error:", response.error);
+
               }
               else 
               {
-                alert('Unknown Error');
+                showModal("Error:", "Unknown Error");
               }
             } 
             else 
             {
-              alert('Error occurred while verifying details with server. Please try again.');
+              showModal("Error:", "Error occurred while verifying details with server. Please try again.");
             }
           }
         }
@@ -846,19 +889,21 @@ function replaceDivWithConfirmationDiv() {
           receiverProfilePic.src = 'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_640.png';
           verified_name.textContent = 'Error: Wallet address invalid';
           verified_name.style.color = 'red'; // Change the color to red
-          alert('Error: Wallet address invalid');
+          showModal("Error:", "Wallet address invalid");
         }
         else 
         {
           receiverProfilePic.src = 'https://cdn.pixabay.com/photo/2017/02/12/21/29/false-2061132_640.png';
           verified_name.textContent = 'Unknown Error';
           verified_name.style.color = 'red'; // Change the color to red
-          alert('Unknown Error');
+          showModal("Error:", "Unknown Error");
+          
         }
       } 
       else 
       {
-        alert('Error occurred while checking wallet address. Please try again.2');
+        showModal("Error:", "Error occurred while checking wallet address. Please try again.");
+
       }
     }
   });
