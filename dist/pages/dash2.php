@@ -48,9 +48,13 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     <?php echo $_SESSION["first_name"] . ' ' . $_SESSION['last_name'] ?>
                 </h5>
                 <h5 id="walletAddressLabel" class="label">Wallet Address</h5>
-                <h5 id="dashWalletAddress" class="dashLabelContent">
-                    <?php echo fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address']; ?>
-                </h5>
+                <!-- <h5 id="dashWalletAddress" class="dashLabelContent">
+                    <?php
+                    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
+                    echo !empty($walletDetails['wallet_address']) ? $walletDetails['wallet_address'] : 'Not Found';
+                    ?>
+                </h5> -->
+
             </div>
             <div>
                 <h5 id="bankNameLabel" class="label">Bank Name</h5>

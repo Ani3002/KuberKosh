@@ -477,6 +477,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                                             // Get transaction ID and amount from input fields
                                             var transactionId = response.trnxId;
                                             var amount = response.money_withdraw_amount;
+                                            var BankName = response.bankName;
+                                            var accountNo = response.account_number;
 
                                             // Make sure transaction ID and amount are not empty
 
@@ -525,9 +527,36 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                                             var formData = new FormData();
                                             formData.append('transactionId', transactionId);
                                             formData.append('amount', amount);
+                                            formData.append('BankName', BankName);
+                                            formData.append('accountNo', accountNo);
+
                                             xhr.send(formData);
                                         });
 
+                                        var shareBtn = document.getElementById('shareBtn');
+
+                                        // Share button event listener
+                                        shareBtn.addEventListener('click', function (event) {
+                                            event.preventDefault(); // Prevent the default action of the anchor tag
+
+                                            // Check if Web Share API is supported
+                                            if (navigator.share) {
+                                                navigator.share({
+                                                    title: 'Transaction Receipt',
+                                                    text: 'Here is your transaction receipt.',
+                                                    files: [blob], // Pass the blob file to share
+                                                }).then(() => {
+                                                    showModal("Success:", "Receipt shared successfully.");
+                                                    console.log('Receipt shared successfully.');
+                                                }).catch((error) => {
+                                                    showModal("Error:", error);
+                                                    console.error('Error sharing receipt:', error);
+                                                });
+                                            } else {
+                                                // Web Share API not supported, provide alternative method
+                                                showModal("Error:", "Web Share API is not supported in this browser.");
+                                            }
+                                        });
 
 
                                     }
@@ -540,7 +569,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                         showModal("Error:", "Failed to validate transaction.");
                     }
                 } else {
-                    showModal("Error:", "Failed to validate transaction.");                    
+                    showModal("Error:", "Failed to validate transaction.");
                 }
             };
         });
