@@ -126,7 +126,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     <h5 id="ob">Overview Balance</h5>
                     <div class="d-flex">
                         <h5 id="dateRange">Last Week:</h5>
-                        <span id="dateRangeAmnt">$5000.00</span>
+                        <span id="dateRangeAmnt">₹0.00</span>
                     </div>
                 </div>
                 <div>
@@ -138,8 +138,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                         <option value="6_months">6 Months</option>
                     </select>
                     <div class="d-flex">
-                        <h5 id="presentAmnt">$6000.00</h5>
-                        <span id="percentageChange">6 %</span>
+                        <h5 id="presentAmnt">₹0.00</h5>
+                        <span id="percentageChange">0 %</span>
                     </div>
                 </div>
             </div>

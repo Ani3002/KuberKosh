@@ -34,7 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $userIdViaWalletAddress = $userId;
             }
 
-            $profilePicLink = "assets/profilePics/$userIdViaWalletAddress.png";
+            $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $wallet_address); // Make sure this variable is defined properly
+            $profilePicPath = "assets/profilePics/$userIdViaWalletAddress.png";
+
+            if (file_exists($profilePicPath)) {
+                $profilePicLink = $profilePicPath;
+            } else {
+                $profilePicLink = "assets/profilePics/Logo.png";
+            }
+
+
             ?>
             <div class="card card2 transaction-card">
                 <div class="card-header transaction-header">

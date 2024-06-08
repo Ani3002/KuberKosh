@@ -892,7 +892,16 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
     $receiverName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
     $senderEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $senderUserId);
+    if (empty($$senderEndBalanceBeforeTrnx))
+    {
+        $senderEndBalanceBeforeTrnx=0;
+    }
     $receiverEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $receiverUserId);
+
+    if (empty($$receiverEndBalanceBeforeTrnx))
+    {
+        $receiverEndBalanceBeforeTrnx=0;
+    }
 
     $senderEndBalanceAfterTrnx = $senderEndBalanceBeforeTrnx - $amountToSend;
     $receiverEndBalanceAfterTrnx = $receiverEndBalanceBeforeTrnx + $amountToSend;
