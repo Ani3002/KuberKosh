@@ -1,9 +1,6 @@
 <?php
 include 'php/google-auth.php';
 
-
-
-
 global $connect_kuberkosh_db;
 
 // Redirect if the user is not logged in
