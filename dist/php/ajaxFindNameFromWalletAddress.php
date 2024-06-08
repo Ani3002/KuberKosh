@@ -30,6 +30,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         // Check if the name is found
         if (!empty($name)) {
             $profilePicLink = (fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress));
+            $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $walletAddress );
+
+            $profilePicPath = "../assets/profilePics/$userIdViaWalletAddress.png";
+            if (file_exists($profilePicPath)) {
+                $profilePicLink = "assets/profilePics/$userIdViaWalletAddress.png";
+            }
+
             $response = array('name' => $name, 'profilePicLink' => $profilePicLink);
             // $response = array('name' => $name, 'walletAddress' => $walletAddress, 'profilePicLink' => $profilePicLink);
         } else {

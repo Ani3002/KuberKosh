@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 </head>
 
-<body>
 
+<body>
 <!-- Nav_Bar Begins Here --------------------------- -->
   <nav class="navbar nav-home mx-4 navbar-expand-lg bg-transparent">
       <a class="navbar-brand" href="index.php?landing">
