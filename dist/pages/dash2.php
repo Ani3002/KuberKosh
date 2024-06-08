@@ -1,666 +1,666 @@
-<?php
-include_once 'php/database.php'; // Include the database.php file
-include_once 'php/functions.php';
-
-global $connect_kuberkosh_db;
-global $connect_wallet_transactions_db;
-
-$userId = $_SESSION['user_id']; // Works only if a user session exists
-
-
-$userBanks = getUserBanks($connect_kuberkosh_db, $userId);
-?>
-
-
-<!-- Modal -->
-<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-danger fw-semibold" id="failedModalLabel">Failed</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div id="failedModalMessage" class="modal-body text-light fw-normal">
-                Failed.
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-<div id="assumedBody" class="container">
-    <div id="dashDivOne" class="card dashDivCard1 position-relative">
-        <div class="d-flex">
-            <h5 id="wd">Wallet Details</h5>
-            <h5 id="sa">Spend Analysis</h5>
-        </div>
-        <div class="d-flex gap-0">
-            <div>
-                <h5 id="nameLabel" class="label">Name</h5>
-                <h5 id="dashUserName" class="dashLabelContent">
-                    <?php echo $_SESSION["first_name"] . ' ' . $_SESSION['last_name'] ?>
-                </h5>
-                <h5 id="walletAddressLabel" class="label">Wallet Address</h5>
-                <h5 id="dashWalletAddress" class="dashLabelContent">
-                    <?php
-                    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
-                    echo !empty($walletDetails['wallet_address']) ? $walletDetails['wallet_address'] : 'Not Found';
-                    ?>
-                </h5>
-
-            </div>
-            <div>
-                <h5 id="bankNameLabel" class="label">Bank Name</h5>
-                <h5 id="bankName" class="dashLabelContent"></h5>
-                <h5 id="bankAccNoLabel" class="label">Account Number</h5>
-                <h5 id="bankAccNo" class="dashLabelContent"></h5>
-            </div>
-            <div id="dashBankSelectDiv">
-                <select id="dashBankSelect" name="bank_account_id" class="dashLabelContent">
-                    <?php
-                    if (!empty($userBanks)) {
-                        foreach ($userBanks as $bank) {
-                            echo '<option value="' . $bank['bank_account_id'] . '">' . $bank['bank_info'] . '</option>';
-                        }
-                    } else {
-                        echo '<option value="">No banks registered</option>';
-                    }
-                    ?>
-                </select>
-                <h5 id="dashCheckBankBal" class="dashLabelContent">Bank Balance</h5>
-                <div class="d-flex">
-                    <div>
-                        <input id="dashBankBal" type="password" class="hiddenBalance" value="" placeholder="balance">
-                    </div>
-                    <span id="dashEyeBtnBank" class="eye-button" onmousedown="showBankBalance()"
-                        onmouseup="hideBankBalance()" onmouseleave="hideBankBalance()">
-                        👁️
-                    </span>
-                </div>
-                <h5 id="dashCheckBal" class="dashLabelContent">Wallet Balance</h5>
-                <div class="d-flex">
-                    <div>
-                        <input id="dashWalletBal" type="password" class="hiddenBalance" value="<?php
-                        $walletBalance = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId);
-                        echo !empty($walletBalance) ? $walletBalance : 'Not Found';
-                        ?>" placeholder="balance">
-                    </div>
-
-                    <span id="dashEyeBtn" class="eye-button" onmousedown="showWalletBalance()"
-                        onmouseup="hideWalletBalance()" onmouseleave="hideWalletBalance()">
-                        👁️
-                    </span>
-                </div>
-            </div>
-
-
-            <div id="doughnutChartDiv" style="flex; width: 150px; height: 150px;">
-                <canvas id="doughnutChart"></canvas>
-            </div>
-
-
-
-            <div id="chartLegend" class="custom-legend">
-                <div class="custom-legend-item">
-                    <div class="custom-legend-box"></div>
-                    <div>
-                        <div class="custom-legend-label"></div>
-                        <div class="custom-legend-label"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="d-flex">
-        <div id="dashDivTwo" class="card dashDivCard2 align-to-center position-relative">
-            <div id="a21" class="d-flex gap-1">
-                <div>
-                    <h5 id="ob">Overview Balance</h5>
-                    <div class="d-flex">
-                        <h5 id="dateRange">Last Week:</h5>
-                        <span id="dateRangeAmnt">₹0.00</span>
-                    </div>
-                </div>
-                <div>
-                    <select id="dashDateSelect" name="bank_account_id" class="dashLabelContent">
-                        <option value="1_week">1 Week</option>
-                        <option value="2_weeks">2 Weeks</option>
-                        <option value="1_month">1 Month</option>
-                        <option value="2_months">2 Months</option>
-                        <option value="6_months">6 Months</option>
-                    </select>
-                    <div class="d-flex">
-                        <h5 id="presentAmnt">₹0.00</h5>
-                        <span id="percentageChange">0 %</span>
-                    </div>
-                </div>
-            </div>
-            <div class="chart-container">
-                <canvas id="overviewBalanceChart"></canvas>
-            </div>
-        </div>
-
-
-
-        <div id="dashDivThree" class="card dashDivCard3 align-to-center position-relative">
-
-            <h5 id="recentTransactions">Recent Transactions</h5>
-            <div id="cardWrapperDiv">
-
-                <div class="card card2 transaction-card">
-                    <div class="card-header transaction-header">
-                        <div class="d-flex align-items-center dashTransactions">
-                            <img src="<?php //if $transaction['credit']  src= "img/up.svg"    if transaction debit    down.svg ?>"
-                                class="rounded-circle me-1" width="35px" height="35px">
-                            <div class="d-flex gap-1">
-                                <div id="dashTrnxType" class="fw-bold">
-                                </div>
-                                <span id="dashTrnxTime" class="fw-normal">
-                                </span>
-                                <span id="dashTrnxDate" class="fw-normal">
-                                </span>
-                                <span id="dashTrnxAmnt" class="fw-normal">
-                                </span>
-                                <span id="dashTrnxStatus" class="fw-normal">
-                                </span>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-    </div>
-</div>
-
-
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Function to fetch transactions
-        function sendAjaxRequest(start, end) {
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'php/ajaxRenderDashTransactions.php', true);
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            var dataToSend = JSON.stringify({ startDate: start, endDate: end });
-            xhr.send(dataToSend);
-
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    displayTransactions(response.page);
-                } else {
-                    var modalElement = document.getElementById('failedModal');
-                    var failedModalLabel = document.getElementById('failedModalLabel');
-                    failedModalLabel.textContent = "Failed";
-                    var failedModalMessage = document.getElementById('failedModalMessage');
-                    failedModalMessage.textContent = "Error occurred while fetching transactions. Please try again.";
-                    var myModal = new bootstrap.Modal(modalElement);
-                    myModal.show();
-                }
-            };
-        }
-
-
-
-        // Function to display transactions
-        function displayTransactions(htmlContent) {
-            document.getElementById('cardWrapperDiv').innerHTML = htmlContent;
-        }
-
-        // Calculate the date range (1 week)
-        function getDateRange() {
-            var endDate = new Date();
-            var startDate = new Date();
-            startDate.setDate(endDate.getDate() - 7);
-
-            var formatDate = date => date.toISOString().split('T')[0];
-            return { start: formatDate(startDate), end: formatDate(endDate) };
-        }
-
-        // Fetch transactions for the last week
-        var dateRange = getDateRange();
-        sendAjaxRequest(dateRange.start, dateRange.end);
-    });
-</script>
-
-
-<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
-<script>
-    function showWalletBalance() {
-        document.getElementById("dashWalletBal").type = "text";
-    }
-
-    function hideWalletBalance() {
-        document.getElementById("dashWalletBal").type = "password";
-    }
-
-    function showBankBalance() {
-        document.getElementById("dashBankBal").type = "text";
-    }
-
-    function hideBankBalance() {
-        document.getElementById("dashBankBal").type = "password";
-    }
-
-    document.getElementById('sa').addEventListener('click', function () {
-        window.location.href = '#'; // Replace with your target URL
-    });
-
-    // Function to fetch and update bank details
-    function updateBankDetails() {
-        var dashBankSelect = document.getElementById('dashBankSelect');
-        var bankAccountId = dashBankSelect.value;
-
-        var xhrGetBankDetails = new XMLHttpRequest();
-        xhrGetBankDetails.open('POST', 'php/ajaxGetBankDetails.php');
-        xhrGetBankDetails.setRequestHeader('Content-Type', 'application/json');
-        var dataToSend = JSON.stringify({ bankAccountId: bankAccountId });
-        xhrGetBankDetails.send(dataToSend);
-        xhrGetBankDetails.onload = function () {
-            if (xhrGetBankDetails.status === 200) {
-                var response = JSON.parse(xhrGetBankDetails.responseText);
-
-                // Strip the comma and everything after it
-                var bankName = response.bankName.split(',')[0];
-
-                document.getElementById('bankName').innerText = bankName;
-                document.getElementById('bankAccNo').innerText = response.accountNumber;
-                document.getElementById('dashBankBal').value = response.accountBalance;
-            }
-        }
-    }
-
-    // Add event listener to monitor changes in the dashBankSelect dropdown
-    document.getElementById('dashBankSelect').addEventListener('change', updateBankDetails);
-    // Run the function on page load
-    window.onload = updateBankDetails;
-</script>
-
-<script>
-    function fetchChartData() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'php/ajaxFetchChartData.php', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                var response = JSON.parse(xhr.responseText);
-                updateDoughnutChart(response.labels, response.data);
-                generateCustomLegend(doughnutChart);
-            }
-        };
-        xhr.send();
-    }
-
-    function updateDoughnutChart(labels, data) {
-        doughnutChart.data.labels = labels;
-        doughnutChart.data.datasets[0].data = data;
-        doughnutChart.update();
-    }
-
-    function generateCustomLegend(chart) {
-        const legendContainer = document.getElementById('chartLegend');
-        const items = chart.data.labels.map((label, index) => {
-            return `
-                    <div class="custom-legend-item">
-                        <div class="custom-legend-box" style="background-color:${chart.data.datasets[0].backgroundColor[index]}"></div>
-                        <div>
-                            <div class="custom-legend-label">${label}</div>
-                            <div class="custom-legend-label"> ${chart.data.datasets[0].data[index]}%</div>
-                        </div>
-                    </div>
-                `;
-        }).join('');
-        legendContainer.innerHTML = items;
-    }
-
-    // Initialize Doughnut Chart
-    var ctxDoughnut = document.getElementById('doughnutChart').getContext('2d');
-    var doughnutChart = new Chart(ctxDoughnut, {
-        type: 'doughnut',
-        data: {
-            labels: [], // Initial empty labels
-            datasets: [{
-                data: [], // Initial empty data
-                backgroundColor: ['#4CAF50', '#FFC107', '#2196F3', '#F44336', '#9C27B0', '#849599'],
-                hoverBackgroundColor: ['#66BB6A', '#FFCA28', '#42A5F5', '#EF5350', '#AB47BC', '##97abaf']
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '45%',
-            plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false
-                }
-            }
-        }
-    });
-
-    // Fetch chart data and update the chart
-    fetchChartData();
-</script>
-
-<script>
-    const totalValue = 100;
-    let chartInstance;
-
-    function updateChart(dataValues, labels) {
-        const fillData = dataValues;
-        const backgroundData = dataValues.map(value => totalValue);
-
-        const data = {
-            labels: labels,
-            datasets: [
-                {
-                    label: 'Filled',
-                    data: fillData,
-                    backgroundColor: 'rgba(73, 77, 173, 1)',
-                    borderColor: 'rgba(73, 77, 173, 1)',
-                    borderWidth: 0,
-                    barThickness: 10,
-                    borderRadius: {
-                        topLeft: 10,
-                        topRight: 10,
-                        bottomLeft: 10,
-                        bottomRight: 10
-                    },
-                },
-                {
-                    label: 'Empty',
-                    data: backgroundData,
-                    backgroundColor: '#FFFFFF',
-                    borderColor: '#FFFFFF',
-                    borderWidth: 0,
-                    barThickness: 10,
-                    borderRadius: {
-                        topLeft: 10,
-                        topRight: 10
-                    },
-                }
-            ]
-        };
-
-        const config = {
-            type: 'bar',
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        stacked: false,
-                        ticks: {
-                            color: '#FFF'
-                        },
-                        grid: {
-                            color: 'rgba(0, 0, 0, 0)'
-                        }
-                    },
-                    x: {
-                        stacked: true,
-                        ticks: {
-                            color: '#FFF'
-                        },
-                        grid: {
-                            display: false
-                        }
-                    }
-                },
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    title: {
-                        display: false,
-                        text: 'Overview Balance',
-                        color: '#FFF',
-                        font: {
-                            size: 20
-                        }
-                    }
-                }
-            }
-        };
-
-
-        // function updateChart() {
-
-
-        //     const totalValue = 100;
-        //     const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
-        //     const fillData = dataValues;
-        //     const backgroundData = dataValues.map(value => totalValue);
-
-        //     const data = {
-        //         labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-        //         datasets: [
-        //             {
-        //                 label: 'Filled',
-        //                 data: fillData,
-        //                 backgroundColor: 'rgba(73, 77, 173, 1)',
-        //                 borderColor: 'rgba(73, 77, 173, 1)',
-        //                 borderWidth: 0,
-        //                 barThickness: 10,
-        //                 borderRadius: {
-        //                     topLeft: 10,
-        //                     topRight: 10,
-        //                     bottomLeft: 10,
-        //                     bottomRight: 10
-        //                 },
-        //             },
-        //             {
-        //                 label: 'Empty',
-        //                 data: backgroundData,
-        //                 backgroundColor: '#FFFFFF',
-        //                 borderColor: '#FFFFFF',
-        //                 borderWidth: 0,
-        //                 barThickness: 10,
-        //                 borderRadius: {
-        //                     topLeft: 10,
-        //                     topRight: 10
-        //                 },
-        //             }
-        //         ]
-        //     };
-
-        //     const config = {
-        //         type: 'bar',
-        //         data: data,
-        //         options: {
-        //             scales: {
-        //                 y: {
-        //                     beginAtZero: true,
-        //                     stacked: false,
-        //                     ticks: {
-        //                         color: '#FFF'
-        //                     },
-        //                     grid: {
-        //                         color: 'rgba(0, 0, 0, 0)'
-        //                     }
-        //                 },
-        //                 x: {
-        //                     stacked: true,
-        //                     ticks: {
-        //                         color: '#FFF'
-        //                     },
-        //                     grid: {
-        //                         display: false
-        //                     }
-        //                 }
-        //             },
-        //             plugins: {
-        //                 legend: {
-        //                     display: false
-        //                 },
-        //                 title: {
-        //                     display: false,
-        //                     text: 'Overview Balance',
-        //                     color: '#FFF',
-        //                     font: {
-        //                         size: 20
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-
-
-        const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
-
-        if (chartInstance) {
-            chartInstance.destroy();
-        }
-
-        chartInstance = new Chart(ctxBar, config);
-    }
-
-    document.getElementById('dashDateSelect').addEventListener('change', function () {
-        const dateRange = this.value;
-
-        var xhrFetchTransactionSummary = new XMLHttpRequest();
-        xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
-        xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
-        var dataToSend = JSON.stringify({ dateRange: dateRange });
-        xhrFetchTransactionSummary.send(dataToSend);
-
-        xhrFetchTransactionSummary.onload = function () {
-            if (xhrFetchTransactionSummary.status === 200) {
-                const response = JSON.parse(xhrFetchTransactionSummary.responseText);
-                const { averagePrevious, averageCurrent, percentageChange, dataValues, labels } = response;
-
-                document.getElementById('dateRange').innerText = dateRange;
-                document.getElementById('dateRangeAmnt').innerText = `₹${averagePrevious.toFixed(2)}`;
-                document.getElementById('presentAmnt').innerText = `₹${averageCurrent.toFixed(2)}`;
-                document.getElementById('percentageChange').innerText = `${percentageChange.toFixed(2)} %`;
-
-                updateChart(dataValues, labels);
-                // updateChart();
-            } else {
-                var modalElement = document.getElementById('failedModal');
-                var failedModalLabel = document.getElementById('failedModalLabel');
-                failedModalLabel.textContent = "Failed";
-                var failedModalMessage = document.getElementById('failedModalMessage');
-                failedModalMessage.textContent = "Failed to fetch data.";
-                var myModal = new bootstrap.Modal(modalElement);
-                myModal.show();
-            }
-        };
-    });
-
-    // Trigger initial load
-    document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  
-</script>
-
-
-
-
-
-<!-- <script>
-
-
-
-
-
-
-
-
-
-
-// Initialize Bar Chart
-
-
-// const totalValue = 100;
-// const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
-// const fillData = dataValues;
-// const backgroundData = dataValues.map(value => totalValue);
-
-// const data = {
-// labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-// datasets: [
-// {
-// label: 'Filled',
-// data: fillData,
-// backgroundColor: 'rgba(73, 77, 173, 1)',
-// borderColor: 'rgba(73, 77, 173, 1)',
-// borderWidth: 0,
-// barThickness: 10,
-// borderRadius: {
-// topLeft: 10,
-// topRight: 10,
-// bottomLeft: 10,
-// bottomRight: 10
-// },
-// },
-// {
-// label: 'Empty',
-// data: backgroundData,
-// backgroundColor: '#FFFFFF',
-// borderColor: '#FFFFFF',
-// borderWidth: 0,
-// barThickness: 10,
-// borderRadius: {
-// topLeft: 10,
-// topRight: 10
-// },
-// }
-// ]
-// };
-
-// const config = {
-// type: 'bar',
-// data: data,
-// options: {
-// scales: {
-// y: {
-// beginAtZero: true,
-// stacked: false,
-// ticks: {
-// color: '#FFF'
-// },
-// grid: {
-// color: 'rgba(0, 0, 0, 0)'
-// }
-// },
-// x: {
-// stacked: true,
-// ticks: {
-// color: '#FFF'
-// },
-// grid: {
-// display: false
-// }
-// }
-// },
-// plugins: {
-// legend: {
-// display: false
-// },
-// title: {
-// display: false,
-// text: 'Overview Balance',
-// color: '#FFF',
-// font: {
-// size: 20
-// }
-// }
-// }
-// }
-// };
-
-// const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
-// const overviewBalanceChart = new Chart(ctxBar, config);
-</script> -->
+60 63 112 104 112 
+105 110 99 108 117 100 101 95 111 110 99 101  39 112 104 112 47 100 97 116 97 98 97 115 101 46 112 104 112 39 59  47 47  73 110 99 108 117 100 101  116 104 101  100 97 116 97 98 97 115 101 46 112 104 112  102 105 108 101 
+105 110 99 108 117 100 101 95 111 110 99 101  39 112 104 112 47 102 117 110 99 116 105 111 110 115 46 112 104 112 39 59 
+
+103 108 111 98 97 108  36 99 111 110 110 101 99 116 95 107 117 98 101 114 107 111 115 104 95 100 98 59 
+103 108 111 98 97 108  36 99 111 110 110 101 99 116 95 119 97 108 108 101 116 95 116 114 97 110 115 97 99 116 105 111 110 115 95 100 98 59 
+
+36 117 115 101 114 73 100  61  36 95 83 69 83 83 73 79 78 91 39 117 115 101 114 95 105 100 39 93 59  47 47  87 111 114 107 115  111 110 108 121  105 102  97  117 115 101 114  115 101 115 115 105 111 110  101 120 105 115 116 115 
+
+
+36 117 115 101 114 66 97 110 107 115  61  103 101 116 85 115 101 114 66 97 110 107 115 40 36 99 111 110 110 101 99 116 95 107 117 98 101 114 107 111 115 104 95 100 98 44  36 117 115 101 114 73 100 41 59 
+63 62 
+
+
+60 33 45 45  77 111 100 97 108  45 45 62 
+60 100 105 118  99 108 97 115 115 61 34 109 111 100 97 108  102 97 100 101 34  105 100 61 34 102 97 105 108 101 100 77 111 100 97 108 34  116 97 98 105 110 100 101 120 61 34 49 34  97 114 105 97 45 108 97 98 101 108 108 101 100 98 121 61 34 102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 34  97 114 105 97 45 104 105 100 100 101 110 61 34 116 114 117 101 34 62 
+    60 100 105 118  99 108 97 115 115 61 34 109 111 100 97 108 45 100 105 97 108 111 103 34  114 111 108 101 61 34 100 111 99 117 109 101 110 116 34 62 
+        60 100 105 118  99 108 97 115 115 61 34 109 111 100 97 108 45 99 111 110 116 101 110 116 34 62 
+            60 100 105 118  99 108 97 115 115 61 34 109 111 100 97 108 45 104 101 97 100 101 114 34 62 
+                60 104 53  99 108 97 115 115 61 34 109 111 100 97 108 45 116 105 116 108 101  116 101 120 116 45 100 97 110 103 101 114  102 119 45 115 101 109 105 98 111 108 100 34  105 100 61 34 102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 34 62 70 97 105 108 101 100 60 47 104 53 62 
+                60 98 117 116 116 111 110  116 121 112 101 61 34 98 117 116 116 111 110 34  99 108 97 115 115 61 34 98 116 110 45 99 108 111 115 101 34  100 97 116 97 45 98 115 45 100 105 115 109 105 115 115 61 34 109 111 100 97 108 34  97 114 105 97 45 108 97 98 101 108 61 34 67 108 111 115 101 34 62 60 47 98 117 116 116 111 110 62 
+            60 47 100 105 118 62 
+            60 100 105 118  105 100 61 34 102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101 34  99 108 97 115 115 61 34 109 111 100 97 108 45 98 111 100 121  116 101 120 116 45 108 105 103 104 116  102 119 45 110 111 114 109 97 108 34 62 
+                70 97 105 108 101 100 46 
+            60 47 100 105 118 62 
+            60 100 105 118  99 108 97 115 115 61 34 109 111 100 97 108 45 102 111 111 116 101 114 34 62 
+                60 98 117 116 116 111 110  116 121 112 101 61 34 98 117 116 116 111 110 34  99 108 97 115 115 61 34 98 116 110  98 116 110 45 115 117 99 99 101 115 115 34  100 97 116 97 45 98 115 45 100 105 115 109 105 115 115 61 34 109 111 100 97 108 34 62 79 107 60 47 98 117 116 116 111 110 62 
+            60 47 100 105 118 62 
+        60 47 100 105 118 62 
+    60 47 100 105 118 62 
+60 47 100 105 118 62 
+
+
+
+
+
+
+60 100 105 118  105 100 61 34 97 115 115 117 109 101 100 66 111 100 121 34  99 108 97 115 115 61 34 99 111 110 116 97 105 110 101 114 34 62 
+    60 100 105 118  105 100 61 34 100 97 115 104 68 105 118 79 110 101 34  99 108 97 115 115 61 34 99 97 114 100  100 97 115 104 68 105 118 67 97 114 100 49  112 111 115 105 116 105 111 110 45 114 101 108 97 116 105 118 101 34 62 
+        60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+            60 104 53  105 100 61 34 119 100 34 62 87 97 108 108 101 116  68 101 116 97 105 108 115 60 47 104 53 62 
+            60 104 53  105 100 61 34 115 97 34 62 83 112 101 110 100  65 110 97 108 121 115 105 115 60 47 104 53 62 
+        60 47 100 105 118 62 
+        60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120  103 97 112 45 48 34 62 
+            60 100 105 118 62 
+                60 104 53  105 100 61 34 110 97 109 101 76 97 98 101 108 34  99 108 97 115 115 61 34 108 97 98 101 108 34 62 78 97 109 101 60 47 104 53 62 
+                60 104 53  105 100 61 34 100 97 115 104 85 115 101 114 78 97 109 101 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 
+                    60 63 112 104 112  101 99 104 111  36 95 83 69 83 83 73 79 78 91 34 102 105 114 115 116 95 110 97 109 101 34 93  46  39  39  46  36 95 83 69 83 83 73 79 78 91 39 108 97 115 116 95 110 97 109 101 39 93  63 62 
+                60 47 104 53 62 
+                60 104 53  105 100 61 34 119 97 108 108 101 116 65 100 100 114 101 115 115 76 97 98 101 108 34  99 108 97 115 115 61 34 108 97 98 101 108 34 62 87 97 108 108 101 116  65 100 100 114 101 115 115 60 47 104 53 62 
+                60 104 53  105 100 61 34 100 97 115 104 87 97 108 108 101 116 65 100 100 114 101 115 115 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 
+                    60 63 112 104 112 
+                    36 119 97 108 108 101 116 68 101 116 97 105 108 115  61  102 101 116 99 104 87 97 108 108 101 116 68 101 116 97 105 108 115 40 36 99 111 110 110 101 99 116 95 107 117 98 101 114 107 111 115 104 95 100 98 44  36 117 115 101 114 73 100 41 59 
+                    101 99 104 111  33 101 109 112 116 121 40 36 119 97 108 108 101 116 68 101 116 97 105 108 115 91 39 119 97 108 108 101 116 95 97 100 100 114 101 115 115 39 93 41  63  36 119 97 108 108 101 116 68 101 116 97 105 108 115 91 39 119 97 108 108 101 116 95 97 100 100 114 101 115 115 39 93  58  39 78 111 116  70 111 117 110 100 39 59 
+                    63 62 
+                60 47 104 53 62 
+
+            60 47 100 105 118 62 
+            60 100 105 118 62 
+                60 104 53  105 100 61 34 98 97 110 107 78 97 109 101 76 97 98 101 108 34  99 108 97 115 115 61 34 108 97 98 101 108 34 62 66 97 110 107  78 97 109 101 60 47 104 53 62 
+                60 104 53  105 100 61 34 98 97 110 107 78 97 109 101 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 60 47 104 53 62 
+                60 104 53  105 100 61 34 98 97 110 107 65 99 99 78 111 76 97 98 101 108 34  99 108 97 115 115 61 34 108 97 98 101 108 34 62 65 99 99 111 117 110 116  78 117 109 98 101 114 60 47 104 53 62 
+                60 104 53  105 100 61 34 98 97 110 107 65 99 99 78 111 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 60 47 104 53 62 
+            60 47 100 105 118 62 
+            60 100 105 118  105 100 61 34 100 97 115 104 66 97 110 107 83 101 108 101 99 116 68 105 118 34 62 
+                60 115 101 108 101 99 116  105 100 61 34 100 97 115 104 66 97 110 107 83 101 108 101 99 116 34  110 97 109 101 61 34 98 97 110 107 95 97 99 99 111 117 110 116 95 105 100 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 
+                    60 63 112 104 112 
+                    105 102  40 33 101 109 112 116 121 40 36 117 115 101 114 66 97 110 107 115 41 41  123 
+                        102 111 114 101 97 99 104  40 36 117 115 101 114 66 97 110 107 115  97 115  36 98 97 110 107 41  123 
+                            101 99 104 111  39 60 111 112 116 105 111 110  118 97 108 117 101 61 34 39  46  36 98 97 110 107 91 39 98 97 110 107 95 97 99 99 111 117 110 116 95 105 100 39 93  46  39 34 62 39  46  36 98 97 110 107 91 39 98 97 110 107 95 105 110 102 111 39 93  46  39 60 47 111 112 116 105 111 110 62 39 59 
+                        125 
+                    125  101 108 115 101  123 
+                        101 99 104 111  39 60 111 112 116 105 111 110  118 97 108 117 101 61 34 34 62 78 111  98 97 110 107 115  114 101 103 105 115 116 101 114 101 100 60 47 111 112 116 105 111 110 62 39 59 
+                    125 
+                    63 62 
+                60 47 115 101 108 101 99 116 62 
+                60 104 53  105 100 61 34 100 97 115 104 67 104 101 99 107 66 97 110 107 66 97 108 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 66 97 110 107  66 97 108 97 110 99 101 60 47 104 53 62 
+                60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+                    60 100 105 118 62 
+                        60 105 110 112 117 116  105 100 61 34 100 97 115 104 66 97 110 107 66 97 108 34  116 121 112 101 61 34 112 97 115 115 119 111 114 100 34  99 108 97 115 115 61 34 104 105 100 100 101 110 66 97 108 97 110 99 101 34  118 97 108 117 101 61 34 34  112 108 97 99 101 104 111 108 100 101 114 61 34 98 97 108 97 110 99 101 34 62 
+                    60 47 100 105 118 62 
+                    60 115 112 97 110  105 100 61 34 100 97 115 104 69 121 101 66 116 110 66 97 110 107 34  99 108 97 115 115 61 34 101 121 101 45 98 117 116 116 111 110 34  111 110 109 111 117 115 101 100 111 119 110 61 34 115 104 111 119 66 97 110 107 66 97 108 97 110 99 101 40 41 34 
+                        111 110 109 111 117 115 101 117 112 61 34 104 105 100 101 66 97 110 107 66 97 108 97 110 99 101 40 41 34  111 110 109 111 117 115 101 108 101 97 118 101 61 34 104 105 100 101 66 97 110 107 66 97 108 97 110 99 101 40 41 34 62 
+                        128065 65039 
+                    60 47 115 112 97 110 62 
+                60 47 100 105 118 62 
+                60 104 53  105 100 61 34 100 97 115 104 67 104 101 99 107 66 97 108 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 87 97 108 108 101 116  66 97 108 97 110 99 101 60 47 104 53 62 
+                60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+                    60 100 105 118 62 
+                        60 105 110 112 117 116  105 100 61 34 100 97 115 104 87 97 108 108 101 116 66 97 108 34  116 121 112 101 61 34 112 97 115 115 119 111 114 100 34  99 108 97 115 115 61 34 104 105 100 100 101 110 66 97 108 97 110 99 101 34  118 97 108 117 101 61 34 60 63 112 104 112 
+                        36 119 97 108 108 101 116 66 97 108 97 110 99 101  61  102 101 116 99 104 87 97 108 108 101 116 66 97 108 97 110 99 101 40 36 99 111 110 110 101 99 116 95 107 117 98 101 114 107 111 115 104 95 100 98 44  36 99 111 110 110 101 99 116 95 119 97 108 108 101 116 95 116 114 97 110 115 97 99 116 105 111 110 115 95 100 98 44  36 117 115 101 114 73 100 41 59 
+                        101 99 104 111  33 101 109 112 116 121 40 36 119 97 108 108 101 116 66 97 108 97 110 99 101 41  63  36 119 97 108 108 101 116 66 97 108 97 110 99 101  58  39 78 111 116  70 111 117 110 100 39 59 
+                        63 62 34  112 108 97 99 101 104 111 108 100 101 114 61 34 98 97 108 97 110 99 101 34 62 
+                    60 47 100 105 118 62 
+
+                    60 115 112 97 110  105 100 61 34 100 97 115 104 69 121 101 66 116 110 34  99 108 97 115 115 61 34 101 121 101 45 98 117 116 116 111 110 34  111 110 109 111 117 115 101 100 111 119 110 61 34 115 104 111 119 87 97 108 108 101 116 66 97 108 97 110 99 101 40 41 34 
+                        111 110 109 111 117 115 101 117 112 61 34 104 105 100 101 87 97 108 108 101 116 66 97 108 97 110 99 101 40 41 34  111 110 109 111 117 115 101 108 101 97 118 101 61 34 104 105 100 101 87 97 108 108 101 116 66 97 108 97 110 99 101 40 41 34 62 
+                        128065 65039 
+                    60 47 115 112 97 110 62 
+                60 47 100 105 118 62 
+            60 47 100 105 118 62 
+
+
+            60 100 105 118  105 100 61 34 100 111 117 103 104 110 117 116 67 104 97 114 116 68 105 118 34  115 116 121 108 101 61 34 102 108 101 120 59  119 105 100 116 104 58  49 53 48 112 120 59  104 101 105 103 104 116 58  49 53 48 112 120 59 34 62 
+                60 99 97 110 118 97 115  105 100 61 34 100 111 117 103 104 110 117 116 67 104 97 114 116 34 62 60 47 99 97 110 118 97 115 62 
+            60 47 100 105 118 62 
+
+
+
+            60 100 105 118  105 100 61 34 99 104 97 114 116 76 101 103 101 110 100 34  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 34 62 
+                60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 105 116 101 109 34 62 
+                    60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 98 111 120 34 62 60 47 100 105 118 62 
+                    60 100 105 118 62 
+                        60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 108 97 98 101 108 34 62 60 47 100 105 118 62 
+                        60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 108 97 98 101 108 34 62 60 47 100 105 118 62 
+                    60 47 100 105 118 62 
+                60 47 100 105 118 62 
+            60 47 100 105 118 62 
+        60 47 100 105 118 62 
+    60 47 100 105 118 62 
+
+    60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+        60 100 105 118  105 100 61 34 100 97 115 104 68 105 118 84 119 111 34  99 108 97 115 115 61 34 99 97 114 100  100 97 115 104 68 105 118 67 97 114 100 50  97 108 105 103 110 45 116 111 45 99 101 110 116 101 114  112 111 115 105 116 105 111 110 45 114 101 108 97 116 105 118 101 34 62 
+            60 100 105 118  105 100 61 34 97 50 49 34  99 108 97 115 115 61 34 100 45 102 108 101 120  103 97 112 45 49 34 62 
+                60 100 105 118 62 
+                    60 104 53  105 100 61 34 111 98 34 62 79 118 101 114 118 105 101 119  66 97 108 97 110 99 101 60 47 104 53 62 
+                    60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+                        60 104 53  105 100 61 34 100 97 116 101 82 97 110 103 101 34 62 76 97 115 116  87 101 101 107 58 60 47 104 53 62 
+                        60 115 112 97 110  105 100 61 34 100 97 116 101 82 97 110 103 101 65 109 110 116 34 62 8377 48 46 48 48 60 47 115 112 97 110 62 
+                    60 47 100 105 118 62 
+                60 47 100 105 118 62 
+                60 100 105 118 62 
+                    60 115 101 108 101 99 116  105 100 61 34 100 97 115 104 68 97 116 101 83 101 108 101 99 116 34  110 97 109 101 61 34 98 97 110 107 95 97 99 99 111 117 110 116 95 105 100 34  99 108 97 115 115 61 34 100 97 115 104 76 97 98 101 108 67 111 110 116 101 110 116 34 62 
+                        60 111 112 116 105 111 110  118 97 108 117 101 61 34 49 95 119 101 101 107 34 62 49  87 101 101 107 60 47 111 112 116 105 111 110 62 
+                        60 111 112 116 105 111 110  118 97 108 117 101 61 34 50 95 119 101 101 107 115 34 62 50  87 101 101 107 115 60 47 111 112 116 105 111 110 62 
+                        60 111 112 116 105 111 110  118 97 108 117 101 61 34 49 95 109 111 110 116 104 34 62 49  77 111 110 116 104 60 47 111 112 116 105 111 110 62 
+                        60 111 112 116 105 111 110  118 97 108 117 101 61 34 50 95 109 111 110 116 104 115 34 62 50  77 111 110 116 104 115 60 47 111 112 116 105 111 110 62 
+                        60 111 112 116 105 111 110  118 97 108 117 101 61 34 54 95 109 111 110 116 104 115 34 62 54  77 111 110 116 104 115 60 47 111 112 116 105 111 110 62 
+                    60 47 115 101 108 101 99 116 62 
+                    60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120 34 62 
+                        60 104 53  105 100 61 34 112 114 101 115 101 110 116 65 109 110 116 34 62 8377 48 46 48 48 60 47 104 53 62 
+                        60 115 112 97 110  105 100 61 34 112 101 114 99 101 110 116 97 103 101 67 104 97 110 103 101 34 62 48  37 60 47 115 112 97 110 62 
+                    60 47 100 105 118 62 
+                60 47 100 105 118 62 
+            60 47 100 105 118 62 
+            60 100 105 118  99 108 97 115 115 61 34 99 104 97 114 116 45 99 111 110 116 97 105 110 101 114 34 62 
+                60 99 97 110 118 97 115  105 100 61 34 111 118 101 114 118 105 101 119 66 97 108 97 110 99 101 67 104 97 114 116 34 62 60 47 99 97 110 118 97 115 62 
+            60 47 100 105 118 62 
+        60 47 100 105 118 62 
+
+
+
+        60 100 105 118  105 100 61 34 100 97 115 104 68 105 118 84 104 114 101 101 34  99 108 97 115 115 61 34 99 97 114 100  100 97 115 104 68 105 118 67 97 114 100 51  97 108 105 103 110 45 116 111 45 99 101 110 116 101 114  112 111 115 105 116 105 111 110 45 114 101 108 97 116 105 118 101 34 62 
+
+            60 104 53  105 100 61 34 114 101 99 101 110 116 84 114 97 110 115 97 99 116 105 111 110 115 34 62 82 101 99 101 110 116  84 114 97 110 115 97 99 116 105 111 110 115 60 47 104 53 62 
+            60 100 105 118  105 100 61 34 99 97 114 100 87 114 97 112 112 101 114 68 105 118 34 62 
+
+                60 100 105 118  99 108 97 115 115 61 34 99 97 114 100  99 97 114 100 50  116 114 97 110 115 97 99 116 105 111 110 45 99 97 114 100 34 62 
+                    60 100 105 118  99 108 97 115 115 61 34 99 97 114 100 45 104 101 97 100 101 114  116 114 97 110 115 97 99 116 105 111 110 45 104 101 97 100 101 114 34 62 
+                        60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120  97 108 105 103 110 45 105 116 101 109 115 45 99 101 110 116 101 114  100 97 115 104 84 114 97 110 115 97 99 116 105 111 110 115 34 62 
+                            60 105 109 103  115 114 99 61 34 60 63 112 104 112  47 47 105 102  36 116 114 97 110 115 97 99 116 105 111 110 91 39 99 114 101 100 105 116 39 93   115 114 99 61  34 105 109 103 47 117 112 46 115 118 103 34     105 102  116 114 97 110 115 97 99 116 105 111 110  100 101 98 105 116     100 111 119 110 46 115 118 103  63 62 34 
+                                99 108 97 115 115 61 34 114 111 117 110 100 101 100 45 99 105 114 99 108 101  109 101 45 49 34  119 105 100 116 104 61 34 51 53 112 120 34  104 101 105 103 104 116 61 34 51 53 112 120 34 62 
+                            60 100 105 118  99 108 97 115 115 61 34 100 45 102 108 101 120  103 97 112 45 49 34 62 
+                                60 100 105 118  105 100 61 34 100 97 115 104 84 114 110 120 84 121 112 101 34  99 108 97 115 115 61 34 102 119 45 98 111 108 100 34 62 
+                                60 47 100 105 118 62 
+                                60 115 112 97 110  105 100 61 34 100 97 115 104 84 114 110 120 84 105 109 101 34  99 108 97 115 115 61 34 102 119 45 110 111 114 109 97 108 34 62 
+                                60 47 115 112 97 110 62 
+                                60 115 112 97 110  105 100 61 34 100 97 115 104 84 114 110 120 68 97 116 101 34  99 108 97 115 115 61 34 102 119 45 110 111 114 109 97 108 34 62 
+                                60 47 115 112 97 110 62 
+                                60 115 112 97 110  105 100 61 34 100 97 115 104 84 114 110 120 65 109 110 116 34  99 108 97 115 115 61 34 102 119 45 110 111 114 109 97 108 34 62 
+                                60 47 115 112 97 110 62 
+                                60 115 112 97 110  105 100 61 34 100 97 115 104 84 114 110 120 83 116 97 116 117 115 34  99 108 97 115 115 61 34 102 119 45 110 111 114 109 97 108 34 62 
+                                60 47 115 112 97 110 62 
+                            60 47 100 105 118 62 
+                        60 47 100 105 118 62 
+
+                    60 47 100 105 118 62 
+                60 47 100 105 118 62 
+            60 47 100 105 118 62 
+
+
+        60 47 100 105 118 62 
+    60 47 100 105 118 62 
+60 47 100 105 118 62 
+
+
+
+
+60 115 99 114 105 112 116 62 
+    100 111 99 117 109 101 110 116 46 97 100 100 69 118 101 110 116 76 105 115 116 101 110 101 114 40 39 68 79 77 67 111 110 116 101 110 116 76 111 97 100 101 100 39 44  102 117 110 99 116 105 111 110  40 41  123 
+        47 47  70 117 110 99 116 105 111 110  116 111  102 101 116 99 104  116 114 97 110 115 97 99 116 105 111 110 115 
+        102 117 110 99 116 105 111 110  115 101 110 100 65 106 97 120 82 101 113 117 101 115 116 40 115 116 97 114 116 44  101 110 100 41  123 
+            118 97 114  120 104 114  61  110 101 119  88 77 76 72 116 116 112 82 101 113 117 101 115 116 40 41 59 
+            120 104 114 46 111 112 101 110 40 39 80 79 83 84 39 44  39 112 104 112 47 97 106 97 120 82 101 110 100 101 114 68 97 115 104 84 114 97 110 115 97 99 116 105 111 110 115 46 112 104 112 39 44  116 114 117 101 41 59 
+            120 104 114 46 115 101 116 82 101 113 117 101 115 116 72 101 97 100 101 114 40 39 67 111 110 116 101 110 116 45 84 121 112 101 39 44  39 97 112 112 108 105 99 97 116 105 111 110 47 106 115 111 110 39 41 59 
+            118 97 114  100 97 116 97 84 111 83 101 110 100  61  74 83 79 78 46 115 116 114 105 110 103 105 102 121 40 123  115 116 97 114 116 68 97 116 101 58  115 116 97 114 116 44  101 110 100 68 97 116 101 58  101 110 100  125 41 59 
+            120 104 114 46 115 101 110 100 40 100 97 116 97 84 111 83 101 110 100 41 59 
+
+            120 104 114 46 111 110 108 111 97 100  61  102 117 110 99 116 105 111 110  40 41  123 
+                105 102  40 120 104 114 46 115 116 97 116 117 115  61 61 61  50 48 48 41  123 
+                    118 97 114  114 101 115 112 111 110 115 101  61  74 83 79 78 46 112 97 114 115 101 40 120 104 114 46 114 101 115 112 111 110 115 101 84 101 120 116 41 59 
+                    100 105 115 112 108 97 121 84 114 97 110 115 97 99 116 105 111 110 115 40 114 101 115 112 111 110 115 101 46 112 97 103 101 41 59 
+                125  101 108 115 101  123 
+                    118 97 114  109 111 100 97 108 69 108 101 109 101 110 116  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 39 41 59 
+                    118 97 114  102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 39 41 59 
+                    102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 46 116 101 120 116 67 111 110 116 101 110 116  61  34 70 97 105 108 101 100 34 59 
+                    118 97 114  102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101 39 41 59 
+                    102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101 46 116 101 120 116 67 111 110 116 101 110 116  61  34 69 114 114 111 114  111 99 99 117 114 114 101 100  119 104 105 108 101  102 101 116 99 104 105 110 103  116 114 97 110 115 97 99 116 105 111 110 115 46  80 108 101 97 115 101  116 114 121  97 103 97 105 110 46 34 59 
+                    118 97 114  109 121 77 111 100 97 108  61  110 101 119  98 111 111 116 115 116 114 97 112 46 77 111 100 97 108 40 109 111 100 97 108 69 108 101 109 101 110 116 41 59 
+                    109 121 77 111 100 97 108 46 115 104 111 119 40 41 59 
+                125 
+            125 59 
+        125 
+
+
+
+        47 47  70 117 110 99 116 105 111 110  116 111  100 105 115 112 108 97 121  116 114 97 110 115 97 99 116 105 111 110 115 
+        102 117 110 99 116 105 111 110  100 105 115 112 108 97 121 84 114 97 110 115 97 99 116 105 111 110 115 40 104 116 109 108 67 111 110 116 101 110 116 41  123 
+            100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 99 97 114 100 87 114 97 112 112 101 114 68 105 118 39 41 46 105 110 110 101 114 72 84 77 76  61  104 116 109 108 67 111 110 116 101 110 116 59 
+        125 
+
+        47 47  67 97 108 99 117 108 97 116 101  116 104 101  100 97 116 101  114 97 110 103 101  40 49  119 101 101 107 41 
+        102 117 110 99 116 105 111 110  103 101 116 68 97 116 101 82 97 110 103 101 40 41  123 
+            118 97 114  101 110 100 68 97 116 101  61  110 101 119  68 97 116 101 40 41 59 
+            118 97 114  115 116 97 114 116 68 97 116 101  61  110 101 119  68 97 116 101 40 41 59 
+            115 116 97 114 116 68 97 116 101 46 115 101 116 68 97 116 101 40 101 110 100 68 97 116 101 46 103 101 116 68 97 116 101 40 41  45  55 41 59 
+
+            118 97 114  102 111 114 109 97 116 68 97 116 101  61  100 97 116 101  61 62  100 97 116 101 46 116 111 73 83 79 83 116 114 105 110 103 40 41 46 115 112 108 105 116 40 39 84 39 41 91 48 93 59 
+            114 101 116 117 114 110  123  115 116 97 114 116 58  102 111 114 109 97 116 68 97 116 101 40 115 116 97 114 116 68 97 116 101 41 44  101 110 100 58  102 111 114 109 97 116 68 97 116 101 40 101 110 100 68 97 116 101 41  125 59 
+        125 
+
+        47 47  70 101 116 99 104  116 114 97 110 115 97 99 116 105 111 110 115  102 111 114  116 104 101  108 97 115 116  119 101 101 107 
+        118 97 114  100 97 116 101 82 97 110 103 101  61  103 101 116 68 97 116 101 82 97 110 103 101 40 41 59 
+        115 101 110 100 65 106 97 120 82 101 113 117 101 115 116 40 100 97 116 101 82 97 110 103 101 46 115 116 97 114 116 44  100 97 116 101 82 97 110 103 101 46 101 110 100 41 59 
+    125 41 59 
+60 47 115 99 114 105 112 116 62 
+
+
+60 33 45 45  60 115 99 114 105 112 116  115 114 99 61 34 104 116 116 112 115 58 47 47 99 100 110 46 106 115 100 101 108 105 118 114 46 110 101 116 47 110 112 109 47 99 104 97 114 116 46 106 115 34 62 60 47 115 99 114 105 112 116 62  45 45 62 
+60 115 99 114 105 112 116 62 
+    102 117 110 99 116 105 111 110  115 104 111 119 87 97 108 108 101 116 66 97 108 97 110 99 101 40 41  123 
+        100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 34 100 97 115 104 87 97 108 108 101 116 66 97 108 34 41 46 116 121 112 101  61  34 116 101 120 116 34 59 
+    125 
+
+    102 117 110 99 116 105 111 110  104 105 100 101 87 97 108 108 101 116 66 97 108 97 110 99 101 40 41  123 
+        100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 34 100 97 115 104 87 97 108 108 101 116 66 97 108 34 41 46 116 121 112 101  61  34 112 97 115 115 119 111 114 100 34 59 
+    125 
+
+    102 117 110 99 116 105 111 110  115 104 111 119 66 97 110 107 66 97 108 97 110 99 101 40 41  123 
+        100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 34 100 97 115 104 66 97 110 107 66 97 108 34 41 46 116 121 112 101  61  34 116 101 120 116 34 59 
+    125 
+
+    102 117 110 99 116 105 111 110  104 105 100 101 66 97 110 107 66 97 108 97 110 99 101 40 41  123 
+        100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 34 100 97 115 104 66 97 110 107 66 97 108 34 41 46 116 121 112 101  61  34 112 97 115 115 119 111 114 100 34 59 
+    125 
+
+    100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 115 97 39 41 46 97 100 100 69 118 101 110 116 76 105 115 116 101 110 101 114 40 39 99 108 105 99 107 39 44  102 117 110 99 116 105 111 110  40 41  123 
+        119 105 110 100 111 119 46 108 111 99 97 116 105 111 110 46 104 114 101 102  61  39 35 39 59  47 47  82 101 112 108 97 99 101  119 105 116 104  121 111 117 114  116 97 114 103 101 116  85 82 76 
+    125 41 59 
+
+    47 47  70 117 110 99 116 105 111 110  116 111  102 101 116 99 104  97 110 100  117 112 100 97 116 101  98 97 110 107  100 101 116 97 105 108 115 
+    102 117 110 99 116 105 111 110  117 112 100 97 116 101 66 97 110 107 68 101 116 97 105 108 115 40 41  123 
+        118 97 114  100 97 115 104 66 97 110 107 83 101 108 101 99 116  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 115 104 66 97 110 107 83 101 108 101 99 116 39 41 59 
+        118 97 114  98 97 110 107 65 99 99 111 117 110 116 73 100  61  100 97 115 104 66 97 110 107 83 101 108 101 99 116 46 118 97 108 117 101 59 
+
+        118 97 114  120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115  61  110 101 119  88 77 76 72 116 116 112 82 101 113 117 101 115 116 40 41 59 
+        120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 111 112 101 110 40 39 80 79 83 84 39 44  39 112 104 112 47 97 106 97 120 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 112 104 112 39 41 59 
+        120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 115 101 116 82 101 113 117 101 115 116 72 101 97 100 101 114 40 39 67 111 110 116 101 110 116 45 84 121 112 101 39 44  39 97 112 112 108 105 99 97 116 105 111 110 47 106 115 111 110 39 41 59 
+        118 97 114  100 97 116 97 84 111 83 101 110 100  61  74 83 79 78 46 115 116 114 105 110 103 105 102 121 40 123  98 97 110 107 65 99 99 111 117 110 116 73 100 58  98 97 110 107 65 99 99 111 117 110 116 73 100  125 41 59 
+        120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 115 101 110 100 40 100 97 116 97 84 111 83 101 110 100 41 59 
+        120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 111 110 108 111 97 100  61  102 117 110 99 116 105 111 110  40 41  123 
+            105 102  40 120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 115 116 97 116 117 115  61 61 61  50 48 48 41  123 
+                118 97 114  114 101 115 112 111 110 115 101  61  74 83 79 78 46 112 97 114 115 101 40 120 104 114 71 101 116 66 97 110 107 68 101 116 97 105 108 115 46 114 101 115 112 111 110 115 101 84 101 120 116 41 59 
+
+                47 47  83 116 114 105 112  116 104 101  99 111 109 109 97  97 110 100  101 118 101 114 121 116 104 105 110 103  97 102 116 101 114  105 116 
+                118 97 114  98 97 110 107 78 97 109 101  61  114 101 115 112 111 110 115 101 46 98 97 110 107 78 97 109 101 46 115 112 108 105 116 40 39 44 39 41 91 48 93 59 
+
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 98 97 110 107 78 97 109 101 39 41 46 105 110 110 101 114 84 101 120 116  61  98 97 110 107 78 97 109 101 59 
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 98 97 110 107 65 99 99 78 111 39 41 46 105 110 110 101 114 84 101 120 116  61  114 101 115 112 111 110 115 101 46 97 99 99 111 117 110 116 78 117 109 98 101 114 59 
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 115 104 66 97 110 107 66 97 108 39 41 46 118 97 108 117 101  61  114 101 115 112 111 110 115 101 46 97 99 99 111 117 110 116 66 97 108 97 110 99 101 59 
+            125 
+        125 
+    125 
+
+    47 47  65 100 100  101 118 101 110 116  108 105 115 116 101 110 101 114  116 111  109 111 110 105 116 111 114  99 104 97 110 103 101 115  105 110  116 104 101  100 97 115 104 66 97 110 107 83 101 108 101 99 116  100 114 111 112 100 111 119 110 
+    100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 115 104 66 97 110 107 83 101 108 101 99 116 39 41 46 97 100 100 69 118 101 110 116 76 105 115 116 101 110 101 114 40 39 99 104 97 110 103 101 39 44  117 112 100 97 116 101 66 97 110 107 68 101 116 97 105 108 115 41 59 
+    47 47  82 117 110  116 104 101  102 117 110 99 116 105 111 110  111 110  112 97 103 101  108 111 97 100 
+    119 105 110 100 111 119 46 111 110 108 111 97 100  61  117 112 100 97 116 101 66 97 110 107 68 101 116 97 105 108 115 59 
+60 47 115 99 114 105 112 116 62 
+
+60 115 99 114 105 112 116 62 
+    102 117 110 99 116 105 111 110  102 101 116 99 104 67 104 97 114 116 68 97 116 97 40 41  123 
+        118 97 114  120 104 114  61  110 101 119  88 77 76 72 116 116 112 82 101 113 117 101 115 116 40 41 59 
+        120 104 114 46 111 112 101 110 40 39 71 69 84 39 44  39 112 104 112 47 97 106 97 120 70 101 116 99 104 67 104 97 114 116 68 97 116 97 46 112 104 112 39 44  116 114 117 101 41 59 
+        120 104 114 46 111 110 108 111 97 100  61  102 117 110 99 116 105 111 110  40 41  123 
+            105 102  40 120 104 114 46 115 116 97 116 117 115  61 61 61  50 48 48 41  123 
+                118 97 114  114 101 115 112 111 110 115 101  61  74 83 79 78 46 112 97 114 115 101 40 120 104 114 46 114 101 115 112 111 110 115 101 84 101 120 116 41 59 
+                117 112 100 97 116 101 68 111 117 103 104 110 117 116 67 104 97 114 116 40 114 101 115 112 111 110 115 101 46 108 97 98 101 108 115 44  114 101 115 112 111 110 115 101 46 100 97 116 97 41 59 
+                103 101 110 101 114 97 116 101 67 117 115 116 111 109 76 101 103 101 110 100 40 100 111 117 103 104 110 117 116 67 104 97 114 116 41 59 
+            125 
+        125 59 
+        120 104 114 46 115 101 110 100 40 41 59 
+    125 
+
+    102 117 110 99 116 105 111 110  117 112 100 97 116 101 68 111 117 103 104 110 117 116 67 104 97 114 116 40 108 97 98 101 108 115 44  100 97 116 97 41  123 
+        100 111 117 103 104 110 117 116 67 104 97 114 116 46 100 97 116 97 46 108 97 98 101 108 115  61  108 97 98 101 108 115 59 
+        100 111 117 103 104 110 117 116 67 104 97 114 116 46 100 97 116 97 46 100 97 116 97 115 101 116 115 91 48 93 46 100 97 116 97  61  100 97 116 97 59 
+        100 111 117 103 104 110 117 116 67 104 97 114 116 46 117 112 100 97 116 101 40 41 59 
+    125 
+
+    102 117 110 99 116 105 111 110  103 101 110 101 114 97 116 101 67 117 115 116 111 109 76 101 103 101 110 100 40 99 104 97 114 116 41  123 
+        99 111 110 115 116  108 101 103 101 110 100 67 111 110 116 97 105 110 101 114  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 99 104 97 114 116 76 101 103 101 110 100 39 41 59 
+        99 111 110 115 116  105 116 101 109 115  61  99 104 97 114 116 46 100 97 116 97 46 108 97 98 101 108 115 46 109 97 112 40 40 108 97 98 101 108 44  105 110 100 101 120 41  61 62  123 
+            114 101 116 117 114 110  96 
+                    60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 105 116 101 109 34 62 
+                        60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 98 111 120 34  115 116 121 108 101 61 34 98 97 99 107 103 114 111 117 110 100 45 99 111 108 111 114 58 36 123 99 104 97 114 116 46 100 97 116 97 46 100 97 116 97 115 101 116 115 91 48 93 46 98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 91 105 110 100 101 120 93 125 34 62 60 47 100 105 118 62 
+                        60 100 105 118 62 
+                            60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 108 97 98 101 108 34 62 36 123 108 97 98 101 108 125 60 47 100 105 118 62 
+                            60 100 105 118  99 108 97 115 115 61 34 99 117 115 116 111 109 45 108 101 103 101 110 100 45 108 97 98 101 108 34 62  36 123 99 104 97 114 116 46 100 97 116 97 46 100 97 116 97 115 101 116 115 91 48 93 46 100 97 116 97 91 105 110 100 101 120 93 125 37 60 47 100 105 118 62 
+                        60 47 100 105 118 62 
+                    60 47 100 105 118 62 
+                96 59 
+        125 41 46 106 111 105 110 40 39 39 41 59 
+        108 101 103 101 110 100 67 111 110 116 97 105 110 101 114 46 105 110 110 101 114 72 84 77 76  61  105 116 101 109 115 59 
+    125 
+
+    47 47  73 110 105 116 105 97 108 105 122 101  68 111 117 103 104 110 117 116  67 104 97 114 116 
+    118 97 114  99 116 120 68 111 117 103 104 110 117 116  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 111 117 103 104 110 117 116 67 104 97 114 116 39 41 46 103 101 116 67 111 110 116 101 120 116 40 39 50 100 39 41 59 
+    118 97 114  100 111 117 103 104 110 117 116 67 104 97 114 116  61  110 101 119  67 104 97 114 116 40 99 116 120 68 111 117 103 104 110 117 116 44  123 
+        116 121 112 101 58  39 100 111 117 103 104 110 117 116 39 44 
+        100 97 116 97 58  123 
+            108 97 98 101 108 115 58  91 93 44  47 47  73 110 105 116 105 97 108  101 109 112 116 121  108 97 98 101 108 115 
+            100 97 116 97 115 101 116 115 58  91 123 
+                100 97 116 97 58  91 93 44  47 47  73 110 105 116 105 97 108  101 109 112 116 121  100 97 116 97 
+                98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  91 39 35 52 67 65 70 53 48 39 44  39 35 70 70 67 49 48 55 39 44  39 35 50 49 57 54 70 51 39 44  39 35 70 52 52 51 51 54 39 44  39 35 57 67 50 55 66 48 39 44  39 35 56 52 57 53 57 57 39 93 44 
+                104 111 118 101 114 66 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  91 39 35 54 54 66 66 54 65 39 44  39 35 70 70 67 65 50 56 39 44  39 35 52 50 65 53 70 53 39 44  39 35 69 70 53 51 53 48 39 44  39 35 65 66 52 55 66 67 39 44  39 35 35 57 55 97 98 97 102 39 93 
+            125 93 
+        125 44 
+        111 112 116 105 111 110 115 58  123 
+            114 101 115 112 111 110 115 105 118 101 58  116 114 117 101 44 
+            109 97 105 110 116 97 105 110 65 115 112 101 99 116 82 97 116 105 111 58  102 97 108 115 101 44 
+            99 117 116 111 117 116 58  39 52 53 37 39 44 
+            112 108 117 103 105 110 115 58  123 
+                108 101 103 101 110 100 58  123 
+                    100 105 115 112 108 97 121 58  102 97 108 115 101 
+                125 44 
+                116 105 116 108 101 58  123 
+                    100 105 115 112 108 97 121 58  102 97 108 115 101 
+                125 
+            125 
+        125 
+    125 41 59 
+
+    47 47  70 101 116 99 104  99 104 97 114 116  100 97 116 97  97 110 100  117 112 100 97 116 101  116 104 101  99 104 97 114 116 
+    102 101 116 99 104 67 104 97 114 116 68 97 116 97 40 41 59 
+60 47 115 99 114 105 112 116 62 
+
+60 115 99 114 105 112 116 62 
+    99 111 110 115 116  116 111 116 97 108 86 97 108 117 101  61  49 48 48 59 
+    108 101 116  99 104 97 114 116 73 110 115 116 97 110 99 101 59 
+
+    102 117 110 99 116 105 111 110  117 112 100 97 116 101 67 104 97 114 116 40 100 97 116 97 86 97 108 117 101 115 44  108 97 98 101 108 115 41  123 
+        99 111 110 115 116  102 105 108 108 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 59 
+        99 111 110 115 116  98 97 99 107 103 114 111 117 110 100 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 46 109 97 112 40 118 97 108 117 101  61 62  116 111 116 97 108 86 97 108 117 101 41 59 
+
+        99 111 110 115 116  100 97 116 97  61  123 
+            108 97 98 101 108 115 58  108 97 98 101 108 115 44 
+            100 97 116 97 115 101 116 115 58  91 
+                123 
+                    108 97 98 101 108 58  39 70 105 108 108 101 100 39 44 
+                    100 97 116 97 58  102 105 108 108 68 97 116 97 44 
+                    98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+                    98 111 114 100 101 114 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+                    98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+                    98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+                    98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+                        116 111 112 76 101 102 116 58  49 48 44 
+                        116 111 112 82 105 103 104 116 58  49 48 44 
+                        98 111 116 116 111 109 76 101 102 116 58  49 48 44 
+                        98 111 116 116 111 109 82 105 103 104 116 58  49 48 
+                    125 44 
+                125 44 
+                123 
+                    108 97 98 101 108 58  39 69 109 112 116 121 39 44 
+                    100 97 116 97 58  98 97 99 107 103 114 111 117 110 100 68 97 116 97 44 
+                    98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+                    98 111 114 100 101 114 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+                    98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+                    98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+                    98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+                        116 111 112 76 101 102 116 58  49 48 44 
+                        116 111 112 82 105 103 104 116 58  49 48 
+                    125 44 
+                125 
+            93 
+        125 59 
+
+        99 111 110 115 116  99 111 110 102 105 103  61  123 
+            116 121 112 101 58  39 98 97 114 39 44 
+            100 97 116 97 58  100 97 116 97 44 
+            111 112 116 105 111 110 115 58  123 
+                115 99 97 108 101 115 58  123 
+                    121 58  123 
+                        98 101 103 105 110 65 116 90 101 114 111 58  116 114 117 101 44 
+                        115 116 97 99 107 101 100 58  102 97 108 115 101 44 
+                        116 105 99 107 115 58  123 
+                            99 111 108 111 114 58  39 35 70 70 70 39 
+                        125 44 
+                        103 114 105 100 58  123 
+                            99 111 108 111 114 58  39 114 103 98 97 40 48 44  48 44  48 44  48 41 39 
+                        125 
+                    125 44 
+                    120 58  123 
+                        115 116 97 99 107 101 100 58  116 114 117 101 44 
+                        116 105 99 107 115 58  123 
+                            99 111 108 111 114 58  39 35 70 70 70 39 
+                        125 44 
+                        103 114 105 100 58  123 
+                            100 105 115 112 108 97 121 58  102 97 108 115 101 
+                        125 
+                    125 
+                125 44 
+                112 108 117 103 105 110 115 58  123 
+                    108 101 103 101 110 100 58  123 
+                        100 105 115 112 108 97 121 58  102 97 108 115 101 
+                    125 44 
+                    116 105 116 108 101 58  123 
+                        100 105 115 112 108 97 121 58  102 97 108 115 101 44 
+                        116 101 120 116 58  39 79 118 101 114 118 105 101 119  66 97 108 97 110 99 101 39 44 
+                        99 111 108 111 114 58  39 35 70 70 70 39 44 
+                        102 111 110 116 58  123 
+                            115 105 122 101 58  50 48 
+                        125 
+                    125 
+                125 
+            125 
+        125 59 
+
+
+        47 47  102 117 110 99 116 105 111 110  117 112 100 97 116 101 67 104 97 114 116 40 41  123 
+
+
+        47 47      99 111 110 115 116  116 111 116 97 108 86 97 108 117 101  61  49 48 48 59 
+        47 47      99 111 110 115 116  100 97 116 97 86 97 108 117 101 115  61  91 53 54 44  52 53 44  54 50 44  55 51 44  56 56 44  53 54 44  49 48 44  54 51 44  50 48 44  56 44  54 50 44  55 51 44  57 48 93 59 
+        47 47      99 111 110 115 116  102 105 108 108 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 59 
+        47 47      99 111 110 115 116  98 97 99 107 103 114 111 117 110 100 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 46 109 97 112 40 118 97 108 117 101  61 62  116 111 116 97 108 86 97 108 117 101 41 59 
+
+        47 47      99 111 110 115 116  100 97 116 97  61  123 
+        47 47          108 97 98 101 108 115 58  91 39 48 54 39 44  39 48 55 39 44  39 48 56 39 44  39 48 57 39 44  39 49 48 39 44  39 49 49 39 44  39 49 50 39 44  39 49 51 39 44  39 49 52 39 44  39 49 53 39 44  39 49 54 39 44  39 49 55 39 44  39 49 56 39 93 44 
+        47 47          100 97 116 97 115 101 116 115 58  91 
+        47 47              123 
+        47 47                  108 97 98 101 108 58  39 70 105 108 108 101 100 39 44 
+        47 47                  100 97 116 97 58  102 105 108 108 68 97 116 97 44 
+        47 47                  98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+        47 47                  98 111 114 100 101 114 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+        47 47                  98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+        47 47                  98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+        47 47                  98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+        47 47                      116 111 112 76 101 102 116 58  49 48 44 
+        47 47                      116 111 112 82 105 103 104 116 58  49 48 44 
+        47 47                      98 111 116 116 111 109 76 101 102 116 58  49 48 44 
+        47 47                      98 111 116 116 111 109 82 105 103 104 116 58  49 48 
+        47 47                  125 44 
+        47 47              125 44 
+        47 47              123 
+        47 47                  108 97 98 101 108 58  39 69 109 112 116 121 39 44 
+        47 47                  100 97 116 97 58  98 97 99 107 103 114 111 117 110 100 68 97 116 97 44 
+        47 47                  98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+        47 47                  98 111 114 100 101 114 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+        47 47                  98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+        47 47                  98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+        47 47                  98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+        47 47                      116 111 112 76 101 102 116 58  49 48 44 
+        47 47                      116 111 112 82 105 103 104 116 58  49 48 
+        47 47                  125 44 
+        47 47              125 
+        47 47          93 
+        47 47      125 59 
+
+        47 47      99 111 110 115 116  99 111 110 102 105 103  61  123 
+        47 47          116 121 112 101 58  39 98 97 114 39 44 
+        47 47          100 97 116 97 58  100 97 116 97 44 
+        47 47          111 112 116 105 111 110 115 58  123 
+        47 47              115 99 97 108 101 115 58  123 
+        47 47                  121 58  123 
+        47 47                      98 101 103 105 110 65 116 90 101 114 111 58  116 114 117 101 44 
+        47 47                      115 116 97 99 107 101 100 58  102 97 108 115 101 44 
+        47 47                      116 105 99 107 115 58  123 
+        47 47                          99 111 108 111 114 58  39 35 70 70 70 39 
+        47 47                      125 44 
+        47 47                      103 114 105 100 58  123 
+        47 47                          99 111 108 111 114 58  39 114 103 98 97 40 48 44  48 44  48 44  48 41 39 
+        47 47                      125 
+        47 47                  125 44 
+        47 47                  120 58  123 
+        47 47                      115 116 97 99 107 101 100 58  116 114 117 101 44 
+        47 47                      116 105 99 107 115 58  123 
+        47 47                          99 111 108 111 114 58  39 35 70 70 70 39 
+        47 47                      125 44 
+        47 47                      103 114 105 100 58  123 
+        47 47                          100 105 115 112 108 97 121 58  102 97 108 115 101 
+        47 47                      125 
+        47 47                  125 
+        47 47              125 44 
+        47 47              112 108 117 103 105 110 115 58  123 
+        47 47                  108 101 103 101 110 100 58  123 
+        47 47                      100 105 115 112 108 97 121 58  102 97 108 115 101 
+        47 47                  125 44 
+        47 47                  116 105 116 108 101 58  123 
+        47 47                      100 105 115 112 108 97 121 58  102 97 108 115 101 44 
+        47 47                      116 101 120 116 58  39 79 118 101 114 118 105 101 119  66 97 108 97 110 99 101 39 44 
+        47 47                      99 111 108 111 114 58  39 35 70 70 70 39 44 
+        47 47                      102 111 110 116 58  123 
+        47 47                          115 105 122 101 58  50 48 
+        47 47                      125 
+        47 47                  125 
+        47 47              125 
+        47 47          125 
+        47 47      125 59 
+
+
+        99 111 110 115 116  99 116 120 66 97 114  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 111 118 101 114 118 105 101 119 66 97 108 97 110 99 101 67 104 97 114 116 39 41 46 103 101 116 67 111 110 116 101 120 116 40 39 50 100 39 41 59 
+
+        105 102  40 99 104 97 114 116 73 110 115 116 97 110 99 101 41  123 
+            99 104 97 114 116 73 110 115 116 97 110 99 101 46 100 101 115 116 114 111 121 40 41 59 
+        125 
+
+        99 104 97 114 116 73 110 115 116 97 110 99 101  61  110 101 119  67 104 97 114 116 40 99 116 120 66 97 114 44  99 111 110 102 105 103 41 59 
+    125 
+
+    100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 115 104 68 97 116 101 83 101 108 101 99 116 39 41 46 97 100 100 69 118 101 110 116 76 105 115 116 101 110 101 114 40 39 99 104 97 110 103 101 39 44  102 117 110 99 116 105 111 110  40 41  123 
+        99 111 110 115 116  100 97 116 101 82 97 110 103 101  61  116 104 105 115 46 118 97 108 117 101 59 
+
+        118 97 114  120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121  61  110 101 119  88 77 76 72 116 116 112 82 101 113 117 101 115 116 40 41 59 
+        120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 111 112 101 110 40 39 80 79 83 84 39 44  39 112 104 112 47 97 106 97 120 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 112 104 112 39 41 59 
+        120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 115 101 116 82 101 113 117 101 115 116 72 101 97 100 101 114 40 39 67 111 110 116 101 110 116 45 84 121 112 101 39 44  39 97 112 112 108 105 99 97 116 105 111 110 47 106 115 111 110 39 41 59 
+        118 97 114  100 97 116 97 84 111 83 101 110 100  61  74 83 79 78 46 115 116 114 105 110 103 105 102 121 40 123  100 97 116 101 82 97 110 103 101 58  100 97 116 101 82 97 110 103 101  125 41 59 
+        120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 115 101 110 100 40 100 97 116 97 84 111 83 101 110 100 41 59 
+
+        120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 111 110 108 111 97 100  61  102 117 110 99 116 105 111 110  40 41  123 
+            105 102  40 120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 115 116 97 116 117 115  61 61 61  50 48 48 41  123 
+                99 111 110 115 116  114 101 115 112 111 110 115 101  61  74 83 79 78 46 112 97 114 115 101 40 120 104 114 70 101 116 99 104 84 114 97 110 115 97 99 116 105 111 110 83 117 109 109 97 114 121 46 114 101 115 112 111 110 115 101 84 101 120 116 41 59 
+                99 111 110 115 116  123  97 118 101 114 97 103 101 80 114 101 118 105 111 117 115 44  97 118 101 114 97 103 101 67 117 114 114 101 110 116 44  112 101 114 99 101 110 116 97 103 101 67 104 97 110 103 101 44  100 97 116 97 86 97 108 117 101 115 44  108 97 98 101 108 115  125  61  114 101 115 112 111 110 115 101 59 
+
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 116 101 82 97 110 103 101 39 41 46 105 110 110 101 114 84 101 120 116  61  100 97 116 101 82 97 110 103 101 59 
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 116 101 82 97 110 103 101 65 109 110 116 39 41 46 105 110 110 101 114 84 101 120 116  61  96 8377 36 123 97 118 101 114 97 103 101 80 114 101 118 105 111 117 115 46 116 111 70 105 120 101 100 40 50 41 125 96 59 
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 112 114 101 115 101 110 116 65 109 110 116 39 41 46 105 110 110 101 114 84 101 120 116  61  96 8377 36 123 97 118 101 114 97 103 101 67 117 114 114 101 110 116 46 116 111 70 105 120 101 100 40 50 41 125 96 59 
+                100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 112 101 114 99 101 110 116 97 103 101 67 104 97 110 103 101 39 41 46 105 110 110 101 114 84 101 120 116  61  96 36 123 112 101 114 99 101 110 116 97 103 101 67 104 97 110 103 101 46 116 111 70 105 120 101 100 40 50 41 125  37 96 59 
+
+                117 112 100 97 116 101 67 104 97 114 116 40 100 97 116 97 86 97 108 117 101 115 44  108 97 98 101 108 115 41 59 
+                47 47  117 112 100 97 116 101 67 104 97 114 116 40 41 59 
+            125  101 108 115 101  123 
+                118 97 114  109 111 100 97 108 69 108 101 109 101 110 116  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 39 41 59 
+                118 97 114  102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 39 41 59 
+                102 97 105 108 101 100 77 111 100 97 108 76 97 98 101 108 46 116 101 120 116 67 111 110 116 101 110 116  61  34 70 97 105 108 101 100 34 59 
+                118 97 114  102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101 39 41 59 
+                102 97 105 108 101 100 77 111 100 97 108 77 101 115 115 97 103 101 46 116 101 120 116 67 111 110 116 101 110 116  61  34 70 97 105 108 101 100  116 111  102 101 116 99 104  100 97 116 97 46 34 59 
+                118 97 114  109 121 77 111 100 97 108  61  110 101 119  98 111 111 116 115 116 114 97 112 46 77 111 100 97 108 40 109 111 100 97 108 69 108 101 109 101 110 116 41 59 
+                109 121 77 111 100 97 108 46 115 104 111 119 40 41 59 
+            125 
+        125 59 
+    125 41 59 
+
+    47 47  84 114 105 103 103 101 114  105 110 105 116 105 97 108  108 111 97 100 
+    100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 100 97 115 104 68 97 116 101 83 101 108 101 99 116 39 41 46 100 105 115 112 97 116 99 104 69 118 101 110 116 40 110 101 119  69 118 101 110 116 40 39 99 104 97 110 103 101 39 41 41 59   
+60 47 115 99 114 105 112 116 62 
+
+
+
+
+
+60 33 45 45  60 115 99 114 105 112 116 62 
+
+
+
+
+
+
+
+
+
+
+47 47  73 110 105 116 105 97 108 105 122 101  66 97 114  67 104 97 114 116 
+
+
+47 47  99 111 110 115 116  116 111 116 97 108 86 97 108 117 101  61  49 48 48 59 
+47 47  99 111 110 115 116  100 97 116 97 86 97 108 117 101 115  61  91 53 54 44  52 53 44  54 50 44  55 51 44  56 56 44  53 54 44  49 48 44  54 51 44  50 48 44  56 44  54 50 44  55 51 44  57 48 93 59 
+47 47  99 111 110 115 116  102 105 108 108 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 59 
+47 47  99 111 110 115 116  98 97 99 107 103 114 111 117 110 100 68 97 116 97  61  100 97 116 97 86 97 108 117 101 115 46 109 97 112 40 118 97 108 117 101  61 62  116 111 116 97 108 86 97 108 117 101 41 59 
+
+47 47  99 111 110 115 116  100 97 116 97  61  123 
+47 47  108 97 98 101 108 115 58  91 39 48 54 39 44  39 48 55 39 44  39 48 56 39 44  39 48 57 39 44  39 49 48 39 44  39 49 49 39 44  39 49 50 39 44  39 49 51 39 44  39 49 52 39 44  39 49 53 39 44  39 49 54 39 44  39 49 55 39 44  39 49 56 39 93 44 
+47 47  100 97 116 97 115 101 116 115 58  91 
+47 47  123 
+47 47  108 97 98 101 108 58  39 70 105 108 108 101 100 39 44 
+47 47  100 97 116 97 58  102 105 108 108 68 97 116 97 44 
+47 47  98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+47 47  98 111 114 100 101 114 67 111 108 111 114 58  39 114 103 98 97 40 55 51 44  55 55 44  49 55 51 44  49 41 39 44 
+47 47  98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+47 47  98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+47 47  98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+47 47  116 111 112 76 101 102 116 58  49 48 44 
+47 47  116 111 112 82 105 103 104 116 58  49 48 44 
+47 47  98 111 116 116 111 109 76 101 102 116 58  49 48 44 
+47 47  98 111 116 116 111 109 82 105 103 104 116 58  49 48 
+47 47  125 44 
+47 47  125 44 
+47 47  123 
+47 47  108 97 98 101 108 58  39 69 109 112 116 121 39 44 
+47 47  100 97 116 97 58  98 97 99 107 103 114 111 117 110 100 68 97 116 97 44 
+47 47  98 97 99 107 103 114 111 117 110 100 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+47 47  98 111 114 100 101 114 67 111 108 111 114 58  39 35 70 70 70 70 70 70 39 44 
+47 47  98 111 114 100 101 114 87 105 100 116 104 58  48 44 
+47 47  98 97 114 84 104 105 99 107 110 101 115 115 58  49 48 44 
+47 47  98 111 114 100 101 114 82 97 100 105 117 115 58  123 
+47 47  116 111 112 76 101 102 116 58  49 48 44 
+47 47  116 111 112 82 105 103 104 116 58  49 48 
+47 47  125 44 
+47 47  125 
+47 47  93 
+47 47  125 59 
+
+47 47  99 111 110 115 116  99 111 110 102 105 103  61  123 
+47 47  116 121 112 101 58  39 98 97 114 39 44 
+47 47  100 97 116 97 58  100 97 116 97 44 
+47 47  111 112 116 105 111 110 115 58  123 
+47 47  115 99 97 108 101 115 58  123 
+47 47  121 58  123 
+47 47  98 101 103 105 110 65 116 90 101 114 111 58  116 114 117 101 44 
+47 47  115 116 97 99 107 101 100 58  102 97 108 115 101 44 
+47 47  116 105 99 107 115 58  123 
+47 47  99 111 108 111 114 58  39 35 70 70 70 39 
+47 47  125 44 
+47 47  103 114 105 100 58  123 
+47 47  99 111 108 111 114 58  39 114 103 98 97 40 48 44  48 44  48 44  48 41 39 
+47 47  125 
+47 47  125 44 
+47 47  120 58  123 
+47 47  115 116 97 99 107 101 100 58  116 114 117 101 44 
+47 47  116 105 99 107 115 58  123 
+47 47  99 111 108 111 114 58  39 35 70 70 70 39 
+47 47  125 44 
+47 47  103 114 105 100 58  123 
+47 47  100 105 115 112 108 97 121 58  102 97 108 115 101 
+47 47  125 
+47 47  125 
+47 47  125 44 
+47 47  112 108 117 103 105 110 115 58  123 
+47 47  108 101 103 101 110 100 58  123 
+47 47  100 105 115 112 108 97 121 58  102 97 108 115 101 
+47 47  125 44 
+47 47  116 105 116 108 101 58  123 
+47 47  100 105 115 112 108 97 121 58  102 97 108 115 101 44 
+47 47  116 101 120 116 58  39 79 118 101 114 118 105 101 119  66 97 108 97 110 99 101 39 44 
+47 47  99 111 108 111 114 58  39 35 70 70 70 39 44 
+47 47  102 111 110 116 58  123 
+47 47  115 105 122 101 58  50 48 
+47 47  125 
+47 47  125 
+47 47  125 
+47 47  125 
+47 47  125 59 
+
+47 47  99 111 110 115 116  99 116 120 66 97 114  61  100 111 99 117 109 101 110 116 46 103 101 116 69 108 101 109 101 110 116 66 121 73 100 40 39 111 118 101 114 118 105 101 119 66 97 108 97 110 99 101 67 104 97 114 116 39 41 46 103 101 116 67 111 110 116 101 120 116 40 39 50 100 39 41 59 
+47 47  99 111 110 115 116  111 118 101 114 118 105 101 119 66 97 108 97 110 99 101 67 104 97 114 116  61  110 101 119  67 104 97 114 116 40 99 116 120 66 97 114 44  99 111 110 102 105 103 41 59 
+60 47 115 99 114 105 112 116 62  45 45 62 
