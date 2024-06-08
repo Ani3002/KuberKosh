@@ -426,9 +426,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 
           wallet_verify.src = "/img/verifyWalletAddress2.svg";
 
-          // <?php
-              $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, );
-          // ?>
+
           // $profilePicPath = "../assets/profilePics/$userIdViaWalletAddress.png";
 
           //   if (file_exists($profilePicPath)) {
