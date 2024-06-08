@@ -10,7 +10,15 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
 $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
 $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
-$wallet_id = $walletDetails['wallet_id'];
+
+$wallet_id;
+
+// Check if wallet_id is present in the wallet details
+if (!empty($walletDetails) && empty($walletDetails['wallet_id'])) {
+    $wallet_id = $walletDetails['wallet_id'];
+}
+
+// $wallet_id = $walletDetails['wallet_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['addMoneyButton'])) {
     // Get the selected bank_account_id from the form submission

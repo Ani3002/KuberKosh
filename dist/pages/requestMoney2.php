@@ -5,7 +5,16 @@ require_once "php/database.php";
 global $connect_kuberkosh_db;
 
 $userId = $_SESSION['user_id']; // Works only if a user session exists
-$walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address'];
+
+$walletAddress;
+
+if (!empty(fetchWalletDetails($connect_kuberkosh_db, $userId)) && empty(fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address'])) {
+    $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address'];
+}
+
+// $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address'];
+
+
 ?>
 
 
@@ -78,7 +87,7 @@ $walletAddress = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_addr
             <!-- Receiving Address -->
             <div class="form-field__control mb-1" id="money_sending_address_div">
                 <input id="receiver_address" type="text" class="form-field__input" placeholder="walletaddress@kkosh"
-                    value="<?php echo htmlspecialchars($walletAddress); ?>">
+                    value="<?php echo !empty($walletAddress) ? $walletAddress : 'Not Found'?>">
                 <label for="receiver_address" class="form-field__label">Your address (Kuber Kosh Address)</label>
                 <span class="input-group-text" id="money_send_address_verify_span">
                     <button class="btn" id="verifyWalletAddressButton" width="35px" hight="35px">

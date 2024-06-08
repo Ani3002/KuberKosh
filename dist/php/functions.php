@@ -798,31 +798,71 @@ function fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletA
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
 // Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. Function to fetch WalletBalance via WallerId. 
+// function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId)
+// {
+
+//     // $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
+
+//     // $wallet_id = $walletDetails['wallet_id'];
+
+//     $wallet_id = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_id'];
+
+
+//     if (empty($wallet_id))
+//     {
+//         return null;
+//     }
+//     if (!empty($wallet_id))
+//     {
+//         if (!tableExists($connect_wallet_transactions_db, $wallet_id)) {
+//             createWalletTable($connect_wallet_transactions_db, $wallet_id);
+//         }
+    
+//         $query = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
+    
+//         $result = $connect_wallet_transactions_db->query($query);
+    
+//         if ($result && $result->num_rows > 0) {
+//             $row = $result->fetch_assoc();
+//             $end_balance = $row['end_balance'];
+//             return $end_balance;
+//         } else {
+//             return null;
+//         }
+//     }
+
+
+    
+// }
+
+
 function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId)
 {
+    $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
+    
+    // Check if wallet_id is present in the wallet details
+    if (empty($walletDetails) || empty($walletDetails['wallet_id'])) {
+        return 'Not Found';
+    }
 
-    // $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
-
-    // $wallet_id = $walletDetails['wallet_id'];
-
-    $wallet_id = fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_id'];
+    $wallet_id = $walletDetails['wallet_id'];
 
     if (!tableExists($connect_wallet_transactions_db, $wallet_id)) {
         createWalletTable($connect_wallet_transactions_db, $wallet_id);
     }
 
     $query = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
-
     $result = $connect_wallet_transactions_db->query($query);
 
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
-        $end_balance = $row['end_balance'];
-        return $end_balance;
+        return $row['end_balance'];
     } else {
-        return null;
+        return 'Not Found';
     }
 }
+
+
 
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 

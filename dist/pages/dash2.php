@@ -48,12 +48,12 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     <?php echo $_SESSION["first_name"] . ' ' . $_SESSION['last_name'] ?>
                 </h5>
                 <h5 id="walletAddressLabel" class="label">Wallet Address</h5>
-                <!-- <h5 id="dashWalletAddress" class="dashLabelContent">
+                <h5 id="dashWalletAddress" class="dashLabelContent">
                     <?php
                     $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
                     echo !empty($walletDetails['wallet_address']) ? $walletDetails['wallet_address'] : 'Not Found';
                     ?>
-                </h5> -->
+                </h5>
 
             </div>
             <div>
@@ -87,10 +87,12 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                 <h5 id="dashCheckBal" class="dashLabelContent">Wallet Balance</h5>
                 <div class="d-flex">
                     <div>
-                        <input id="dashWalletBal" type="password" class="hiddenBalance"
-                            value="<?php echo fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId); ?> "
-                            placeholder="balance">
+                        <input id="dashWalletBal" type="password" class="hiddenBalance" value="<?php
+                        $walletBalance = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId);
+                        echo !empty($walletBalance) ? $walletBalance : 'Not Found';
+                        ?>" placeholder="balance">
                     </div>
+
                     <span id="dashEyeBtn" class="eye-button" onmousedown="showWalletBalance()"
                         onmouseup="hideWalletBalance()" onmouseleave="hideWalletBalance()">
                         👁️
