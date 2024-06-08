@@ -133,6 +133,9 @@ if (!empty($walletDetails['wallet_address'])) {
 
     // Encode the new wallet details as JSON
     $jsonWalletDetails = json_encode($newWalletDetails);
+
+
+    
 }
 
 

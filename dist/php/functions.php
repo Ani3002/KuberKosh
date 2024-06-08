@@ -840,15 +840,25 @@ function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_
 {
     $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
     
+    $waller_id = null;
+    // $wallet_id = $walletDetails['wallet_id'];
+
     // Check if wallet_id is present in the wallet details
     if (empty($walletDetails) || empty($walletDetails['wallet_id'])) {
         return 'Not Found';
     }
-
-    $wallet_id = $walletDetails['wallet_id'];
+    else
+    {
+        $wallet_id = $walletDetails['wallet_id'];
+    }
 
     if (!tableExists($connect_wallet_transactions_db, $wallet_id)) {
         createWalletTable($connect_wallet_transactions_db, $wallet_id);
+    }
+
+    // Check if wallet_id is present in the wallet details
+    if (empty($walletDetails) || empty($walletDetails['wallet_id'])) {
+        return 'Not Found';
     }
 
     $query = "SELECT end_balance FROM `$wallet_id` ORDER BY trnx_no DESC LIMIT 1";
@@ -857,11 +867,11 @@ function fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_
     if ($result && $result->num_rows > 0) {
         $row = $result->fetch_assoc();
         return $row['end_balance'];
-    } else {
+    }
+    else {
         return 'Not Found';
     }
 }
-
 
 
 // Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. Function to transferMoneyW2W. 
@@ -888,23 +898,31 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
 
     $receiverProfilePic = fetchProfilePictureLinkViaWalletAddress($connect_kuberkosh_db, $walletAddress);
 
-    $senderName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
-    $receiverName = fetchNameViaWalletAddress($connect_kuberkosh_db, $walletAddress);
+    $senderName = fetchNameViaWalletAddress($connect_kuberkosh_db, $senderWalletAddress);
+    $receiverName = fetchNameViaWalletAddress($connect_kuberkosh_db, $receiverWalletAddress);
 
     $senderEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $senderUserId);
-    if (empty($$senderEndBalanceBeforeTrnx))
-    {
-        $senderEndBalanceBeforeTrnx=0;
-    }
-    $receiverEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $receiverUserId);
+    $receiverEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $receiverUserId) ?: 0;
 
-    if (empty($$receiverEndBalanceBeforeTrnx))
-    {
-        $receiverEndBalanceBeforeTrnx=0;
-    }
+    // $receiverEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $receiverUserId);
+
+
 
     $senderEndBalanceAfterTrnx = $senderEndBalanceBeforeTrnx - $amountToSend;
     $receiverEndBalanceAfterTrnx = $receiverEndBalanceBeforeTrnx + $amountToSend;
+
+
+
+
+    if($senderEndBalanceAfterTrnx <= 0)
+    {
+        $response = array('success' => false, 'error' => "Insufficient Wallet Balance");
+        $status = 'Failed';
+
+        return $response;
+
+    }
+
 
     $currentDate = date('Y-m-d');
     $currentDateTime = date('YmdHis');
@@ -991,8 +1009,7 @@ function transferMoneyW2W($walletAddress, $amountToSend, $senderRemarks, $trnxPu
         $senderError = $senderStmt->error;
         $receiverError = $receiverStmt->error;
 
-        // Log errors or handle them as needed
-        // For simplicity, let's concatenate the errors
+
         $error = "Sender Error: $senderError, Receiver Error: $receiverError";
 
         $response = array('success' => false, 'error' => $error);
@@ -1167,9 +1184,14 @@ function createWalletTable($connect_wallet_transactions_db, $tableName)
               PRIMARY KEY (`trnx_no`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci";
 
-    // Execute query
-    $connect_wallet_transactions_db->query($sql);
+    if ($connect_wallet_transactions_db->query($sql) === TRUE) { 
+        $initialInsertSql = "INSERT INTO `$tableName` (`Date`, `Particulars`, `Trnx_id`, `end_balance`) VALUES (CURDATE(), 'Initial Balance', 'initial_trnx_id', 0)";   //
+        
+        if ($connect_wallet_transactions_db->query($initialInsertSql) === TRUE) {
+        } 
+    }
 }
+
 
 
 

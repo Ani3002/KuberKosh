@@ -28,19 +28,23 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!empty($transactions)):
         foreach ($transactions as $index => $transaction): ?>
             <?php
+
+            if ($transaction['Trnx_id'] === 'initial_trnx_id') {
+                continue;
+            }
             $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, (extractParticularsParts($transaction['Particulars'], 3)));
             // If $userIdViaWalletAddress is empty, set it to the user ID from session
             if (empty($userIdViaWalletAddress)) {
                 $userIdViaWalletAddress = $userId;
             }
 
-            $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $wallet_address); // Make sure this variable is defined properly
-            $profilePicPath = "assets/profilePics/$userIdViaWalletAddress.png";
+            // $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, $wallet_address); // Make sure this variable is defined properly
+            $profilePicPath = "../assets/profilePics/$userIdViaWalletAddress.png";
 
             if (file_exists($profilePicPath)) {
-                $profilePicLink = $profilePicPath;
+                $profilePicLink = "assets/profilePics/$userIdViaWalletAddress.png";
             } else {
-                $profilePicLink = "assets/profilePics/Logo.png";
+                $profilePicLink = "img/Logo.png";
             }
 
 

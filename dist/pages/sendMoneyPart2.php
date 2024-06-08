@@ -425,6 +425,18 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
           //alert('Name: ' + response.name);                          // Debugging: Log response from server
 
           wallet_verify.src = "/img/verifyWalletAddress2.svg";
+
+          // <?php
+              $userIdViaWalletAddress = fetchUserIdViaWalletAddress($connect_kuberkosh_db, );
+          // ?>
+          // $profilePicPath = "../assets/profilePics/$userIdViaWalletAddress.png";
+
+          //   if (file_exists($profilePicPath)) {
+          //       $profilePicLink = "assets/profilePics/$userIdViaWalletAddress.png";
+          //   } else {
+          //       $profilePicLink = "img/Logo.png";
+          //   }
+
           receiverProfilePic.src = response.profilePicLink;
           verified_name.textContent = response.name;
           verified_name.style.color = '#4ECB71'; // Change the color to green

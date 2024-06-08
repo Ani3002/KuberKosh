@@ -255,7 +255,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     }
 
     document.getElementById('sa').addEventListener('click', function () {
-        window.location.href = 'https://google.com'; // Replace with your target URL
+        window.location.href = '#'; // Replace with your target URL
     });
 
     // Function to fetch and update bank details

@@ -26,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (!empty($transactions)):
         foreach ($transactions as $transaction):
+            if ($transaction['Trnx_id'] === 'initial_trnx_id') {
+                continue;
+            }
             $type = htmlspecialchars(extractParticularsParts($transaction['Particulars'], 0));
             $datetime = htmlspecialchars(extractParticularsParts($transaction['Particulars'], 5));
             $time = date('H:i', strtotime($datetime));
