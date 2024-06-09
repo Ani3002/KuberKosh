@@ -10,7 +10,7 @@
           <a class="nav-link active mx-3 text-light font-weight-300" aria-current="page" href="#">About</a>
           <a class="nav-link active text-light font-weight-300" aria-current="page" href="#">Features</a>
           <a class="nav-link active mx-3 text-light font-weight-300" aria-current="page" href="#">Support</a>        
-          <a href="index.php?language" class="btn btn-sm btn-language btn-primary bg-gradient text-light font-weight-300" aria-disabled="true">  <img src="/img/Ellipse 2.svg" alt="language Image" width="30" height="30"> Language</a>
+          <!-- <a href="index.php?language" class="btn btn-sm btn-language btn-primary bg-gradient text-light font-weight-300" aria-disabled="true">  <img src="/img/Ellipse 2.svg" alt="language Image" width="30" height="30"> Language</a> -->
         </div>
         <div class = "notification-icon" style = "padding-right: 30px;">
           <img src="/img/bell.webp" alt="notification icon" width = "30px" height = "30px">

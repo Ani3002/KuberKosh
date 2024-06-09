@@ -54,11 +54,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <div class="d-flex align-items-center dashTransactions">
                         <img src="<?php echo $imgSrc; ?>" class="rounded-circle me-1" width="35px" height="35px">
                         <div class="d-flex gap-1">
-                            <div class="fw-bold"><?php echo $typeLabel; ?></div>
+                            <div class="fw-bold" style="width: 6rem;"><?php echo $typeLabel; ?></div>
                             <span class="fw-normal"><?php echo $time; ?></span>
                             <!-- <span class="fw-normal"><?php echo date('H:i', strtotime(htmlspecialchars(extractParticularsParts($transaction['Particulars'], 5) ?? ''))); ?></span> -->
-                            <span class="fw-normal"><?php echo $date; ?></span>
-                            <span class="fw-normal <?php echo $amountClass; ?>"><?php echo $amount; ?></span>
+                            <span class="fw-normal" style="width: 4rem;"><?php echo $date; ?></span>
+                            <span class="fw-normal <?php echo $amountClass; ?>"  style="width: 4rem;"><?php echo $amount; ?></span>
                             <span class="fw-normal text-success"><?php echo $status; ?></span>
                         </div>
                     </div>

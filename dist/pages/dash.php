@@ -56,7 +56,7 @@
             width: 13.25rem;
             color: white;
             /* Change text color to purple */
-            font-family: Inter, sans-serif;
+            font-family: Inter;
             font-size: 1.25rem;
             font-style: normal;
             font-weight: 600;
@@ -224,7 +224,7 @@
             width: 14.65044rem;
             height: 1.5rem;
             color: var(--background-mode, #FFF);
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 1.25rem;
             font-style: normal;
             font-weight: 500;
@@ -246,7 +246,7 @@
 
         #dateRange {
             color: var(--background-mode, #FFF);
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
@@ -256,7 +256,7 @@
         #dateRangeAmnt {
             margin: 0 0 0 5px;
             color: var(--background-mode, #37D159);
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 16px;
             font-style: normal;
             font-weight: 400;
@@ -269,7 +269,7 @@
             /* height: 36px; */
             flex-shrink: 0;
             color: var(--background-mode, #FFF);
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
@@ -279,7 +279,7 @@
         #percentageChange {
             margin: 2 0 0 10px;
             color: #37D159;
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 15px;
             font-style: normal;
             font-weight: 400;
@@ -290,7 +290,7 @@
             margin: 5 0 5 0px;
 
             #color: var(--background-mode, #FFF);
-            font-family: Poppins;
+            font-family: Inter;
             font-size: 20px;
             font-style: normal;
             font-weight: 500;

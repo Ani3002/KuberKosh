@@ -5,7 +5,12 @@ require_once ('php/functions.php');
 if ((isset($_GET['home']))) {
     //for home page
     viewPage('home');
-} elseif (isset($_GET['login'])) {
+}
+if ((isset($_GET['home1']))) {
+    //for home page
+    viewPage('home1');
+}
+ elseif (isset($_GET['login'])) {
     // for login page
     viewPage('auth');
 

@@ -14,7 +14,7 @@ $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
 $wallet_id;
 
 // Check if wallet_id is present in the wallet details
-if (!empty($walletDetails) && empty($walletDetails['wallet_id'])) {
+if (!empty($walletDetails) && !empty($walletDetails['wallet_id'])) {
     $wallet_id = $walletDetails['wallet_id'];
 }
 
