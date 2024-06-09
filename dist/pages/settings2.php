@@ -144,92 +144,103 @@ if (!empty($walletDetails['wallet_address'])) {
 
 ?>
 
-
-    <!-- Main content -->
-    <!-- Tab links -->
-    <div class="content tab-card align-to-center">
-
-        <div class="tab  position-relative">
-            
-            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'userDetails')" id="defaultOpen">User
-                Detials</button>
-            <button class="tablinks" onclick="showSettingsDetails(event, 'bankSettings')">Bank Settings</button>
-            <button class="tablinks" onclick="showSettingsDetails(event, 'walletSettings')">Wallet Settings</button>
-            <button class="tablinks" onclick="showSettingsDetails(event, 'changePassword')">Change Password</button>
-            <button class="tablinks" onclick="showSettingsDetails(event, 'manage2FA')">Manage 2FA</button>
-
+    <div class="content tab-card align-to-center container">
+        <div class="tab position-relative nav nav-tabs">
+            <button class="tablinks nav-link active" onclick="showSettingsDetails(event, 'userDetails')" id="defaultOpen">User Details</button>
+            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'bankSettings')">Bank Settings</button>
+            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'walletSettings')">Wallet Settings</button>
+            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'changePassword')">Change Password</button>
+            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'manage2FA')">Manage 2FA</button>
         </div>
 
         <!-- Tab content -->
-        <div id="userDetails" class="tabcontent">
+        <div id="userDetails" class="tabcontent active">
             <h3>User Details</h3>
             <p>User details will be here</p>
         </div>
 
         <div id="bankSettings" class="tabcontent">
-            <h3>Linked Accounts</h3>
+            <h3 class="text-primary">Linked Accounts</h3>
 
-            <div id="LinkedAccounts">
-                <!-- Bank details will be populated here dynamically -->
-            </div>
+                <div id="LinkedAccounts" class="mb-4">
+                </div>
 
             <h3>Link New Bank to KuberKosh</h3>
 
             <form method="post" action="">
-                <div id="selectIFSC">
+                <div id="selectIFSC" class="form-group">
                     <p>Select your Bank name and Bank Branch:</p>
-                    <select id='bankSelect' name="regBank_id">
+                    <select id='bankSelect' name="regBank_id" class="form-control">
                     </select>
 
-                    <select id='branchSelect' name="branch">
+                    <select id='branchSelect' name="branch" class="form-control mt-2">
                     </select>
-                    <input type="text" name="ifsc" id="ifscInput" placeholder="Enter IFSC Manually">
                 </div>
-                <div id="selectACNO">
+                <div id="selectACNO" class="form-group">
                     <p>Enter your bank account number:</p>
-                    <input type="text" name="acno" id="acnoInput" placeholder="Enter Bank Account Number">
+                    <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">
                 </div>
-                <input type="submit" name="submitBankSettings" value="Submit">
+                <input type="submit" name="submitBankSettings" value="Submit" class="btn btn-primary">
             </form>
         </div>
+
+        <!-- <div id="bankSettings" class="tabcontent">
+            <h3 class="text-primary">Linked Accounts</h3>
+
+            <div id="LinkedAccounts" class="mb-4">
+            </div>
+
+            <h3 class="text-primary">Link New Bank to KuberKosh</h3>
+
+            <form method="post" action="" class="p-3 bg-light rounded">
+                <div id="selectIFSC" class="form-group">
+                    <label for="bankSelect">Select your Bank name and Bank Branch:</label>
+                    <select id='bankSelect' name="regBank_id" class="form-control mb-2">
+                    </select>
+
+                    <select id='branchSelect' name="branch" class="form-control mb-2">
+                    </select>
+                </div>
+                <div id="selectACNO" class="form-group">
+                    <label for="acnoInput">Enter your bank account number:</label>
+                    <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">
+                </div>
+                <input type="submit" name="submitBankSettings" value="Submit" class="btn btn-primary mt-2">
+            </form>
+        </div> -->
 
         <div id="walletSettings" class="tabcontent">
             <p id="walletAddress"></p>
-            <button id="changeWalletAddressBtn">Change Wallet Address</button>
-            <form id="changeWalletAddressForm" style="display: none;">
-                <input type="text" id="inputNewWalletAddress" placeholder="Enter new wallet address">
-                <button type="submit">Submit</button>
+            <button id="changeWalletAddressBtn" class="btn btn-secondary">Change Wallet Address</button>
+            <form id="changeWalletAddressForm" class="mt-2" style="display: none;">
+                <input type="text" id="inputNewWalletAddress" class="form-control" placeholder="Enter new wallet address">
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
 
             <p id="walletPIN"></p>
-            <button id="changeWalletPINBtn">Change Wallet PIN</button>
-            <form id="changeWalletPINForm" style="display: none;">
-                <input type="password" id="inputCurrentPIN" placeholder="Enter current wallet PIN"><br>
-                <input type="password" id="inputNewPIN" placeholder="Enter new wallet PIN"><br>
-                <input type="password" id="inputConfirmNewPIN" placeholder="Confirm new wallet PIN"><br>
-                <button type="submit">Submit</button>
+            <button id="changeWalletPINBtn" class="btn btn-secondary mt-2">Change Wallet PIN</button>
+            <form id="changeWalletPINForm" class="mt-2" style="display: none;">
+                <input type="password" id="inputCurrentPIN" class="form-control" placeholder="Enter current wallet PIN"><br>
+                <input type="password" id="inputNewPIN" class="form-control mt-2" placeholder="Enter new wallet PIN"><br>
+                <input type="password" id="inputConfirmNewPIN" class="form-control mt-2" placeholder="Confirm new wallet PIN"><br>
+                <button type="submit" class="btn btn-primary mt-2">Submit</button>
             </form>
-
         </div>
-
 
         <div id="changePassword" class="tabcontent">
-            <h3>changePassword</h3>
-            <p>changePassword details will be here</p>
+            <h3>Change Password</h3>
+            <p>Change Password details will be here</p>
         </div>
 
-        <!-- <div id="manage2FA" class="tabcontent">
-            <h3>manage2FA</h3>
-            <p>manage2FA will be here</p>
-        </div> -->
-
         <div id="manage2FA" class="tabcontent">
-    <h3>Manage 2FA</h3>
-    <p id="totpStatus">Status: TOTP is disabled</p>
-    <button id="enableTOTPBtn" onclick="enableTOTP()">Enable TOTP</button>
-    <button id="disableTOTPBtn" onclick="disableTOTP()" style="display: none;">Disable TOTP</button>
-    <div id="totpContainer" style="display: none;">
-        <!-- QR code and OTP verification input field will be dynamically loaded here -->
+            <h3>Manage 2FA</h3>
+            <p id="totpStatus">Status: TOTP is disabled</p>
+            <button id="enableTOTPBtn" class="btn btn-secondary" onclick="enableTOTP()">Enable TOTP</button>
+            <button id="disableTOTPBtn" class="btn btn-danger" onclick="disableTOTP()" style="display: none;">Disable TOTP</button>
+            <div id="totpContainer" style="display: none;">
+                <!-- QR code and OTP verification input field will be dynamically loaded here -->
+            </div>
+        </div>
     </div>
 
     <script>
