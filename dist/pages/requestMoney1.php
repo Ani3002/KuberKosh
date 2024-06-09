@@ -17,6 +17,7 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="moment.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 
 
     <style>

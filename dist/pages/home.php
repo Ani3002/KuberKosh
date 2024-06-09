@@ -149,6 +149,8 @@
           consectetur adipisicing elit. Nemo, aspernatur expedita a dicta quis, fugiat quos consectetur voluptatem,
           earum recusandae aliquid eaque provident ipsam odit fugit sunt obcaecati blanditiis in.</p>
           <a class="btn  bg-gradient text-light font-weight-600 mt-1" aria-disabled="true">Get Started</a>
+          <a class="btn bg-gradient text-light font-weight-600 mt-1" href="https://kuberkosh.anirbanrouth.in/index.php?login">Get Started</a>
+
 </span>
       </div>
     </div>
