@@ -36,20 +36,35 @@ $bankAccountDetails = getBankAccountDetails($connect_kuberkosh_db, $bankUserId);
 
 // Check if bank account details are available
 if (!empty($bankAccountDetails)) {
-    $html = '<ul>'; // Start unordered list
-    foreach ($bankAccountDetails as $account) {
-        $bankName = $account['bank_name'];
-        $accountNumber = $account['account_number'];
-        $ifscCode = $account['ifsc_code'];
+    $html = '<table class="table table-bordered table-striped">';
+    $html .= '<thead class="thead-dark">';
+    $html .= '<tr>';
+    $html .= '<th scope="col">Bank Name</th>';
+    $html .= '<th scope="col">Account Number</th>';
+    $html .= '<th scope="col">IFSC Code</th>';
+    $html .= '</tr>';
+    $html .= '</thead>';
+    $html .= '<tbody>';
 
-        // Construct list item with bank details
-        $html .= "<li>Bank Name: $bankName, Account Number: $accountNumber, IFSC Code: $ifscCode</li>";
+    foreach ($bankAccountDetails as $account) {
+        $bankName = htmlspecialchars($account['bank_name']);
+        $accountNumber = htmlspecialchars($account['account_number']);
+        $ifscCode = htmlspecialchars($account['ifsc_code']);
+
+        $html .= "<tr>";
+        $html .= "<td>$bankName</td>";
+        $html .= "<td>$accountNumber</td>";
+        $html .= "<td>$ifscCode</td>";
+        $html .= "</tr>";
     }
-    $html .= '</ul>'; // End unordered list
+
+    $html .= '</tbody>';
+    $html .= '</table>';
 } else {
     // No bank account details found
     $html = '<p>No bank account details available.</p>';
 }
+
 
 // echo '<script>alert("bankAccountId: ' . $bankAccountId . '");</script>';             // Debugging
 
@@ -75,30 +90,31 @@ if (isset($_POST['submitBankSettings'])) {
     $selectedBranch = $_POST['branch'];
     $enteredAccountNumber = $_POST['acno'];
 
+    // Validate the form inputs
+    if (!empty($selectedBankId) && !empty($selectedBranch) && !empty($enteredAccountNumber)) {
+        // Get the IFSC code based on the selected bank and branch
+        $ifsc = getIFSC($connect_kuberkosh_db, $selectedBankId, $selectedBranch);
 
-    // Get the IFSC code based on the selected bank and branch
-    $ifsc = getIFSC($connect_kuberkosh_db, $selectedBankId, $selectedBranch);
-
-    $bankName = getBankName($connect_kuberkosh_db, $selectedBankId);
-    echo '<script>alert("IFSC code:'. $bankName .'")</script>';
-
-    // Update the bank_accounts table with the retrieved IFSC code
-    $sql_updateIFSC = "INSERT INTO bank_accounts (bank_user_id, account_number, ifsc_code, bank_name, account_balance) VALUES ('$bankUserId', '$enteredAccountNumber', '$ifsc', '$bankName','0')";
-    if (mysqli_query($connect_kuberkosh_db, $sql_updateIFSC)) {
-        echo '';
-        echo "updated IFSC: " . $userId;
-    } else {
-        echo "Error updating IFSC: " . mysqli_error($connect_kuberkosh_db);
-    }
-
-    // If default account is empty, set the first bank account as default
-    $defaultBankAccountId = getDefaultBankAccountId($connect_kuberkosh_db, $userId);
-    if (empty($defaultBankAccountId)) {
-        // Update the Bank table with the entered account number as the default account
+        // Get the bank name based on the selected bank ID
+        $bankName = getBankName($connect_kuberkosh_db, $selectedBankId);
         
-        $bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
-        // echo '<script>alert("bankAccountId 2nd time: ' . $bankAccountId . '");</script>';                   //Debugging
-        updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId);
+        // Insert the new bank account into the database
+        $sql_updateIFSC = "INSERT INTO bank_accounts (bank_user_id, account_number, ifsc_code, bank_name, account_balance) VALUES ('$bankUserId', '$enteredAccountNumber', '$ifsc', '$bankName', 0)";
+        if (mysqli_query($connect_kuberkosh_db, $sql_updateIFSC)) {
+            // Check if there is a default bank account set for the user
+            $defaultBankAccountId = getDefaultBankAccountId($connect_kuberkosh_db, $userId);
+            if (empty($defaultBankAccountId)) {
+                // Get the newly inserted bank account ID
+                $bankAccountId = getBankAccountId($connect_kuberkosh_db, $bankUserId);
+                
+                // Update the default bank account ID for the user
+                updateDefaultBankAccountId($connect_kuberkosh_db, $bankAccountId, $userId);
+            }
+        } else {
+            echo "Error updating IFSC: " . mysqli_error($connect_kuberkosh_db);
+        }
+    } else {
+        echo '<script>alert("All fields are required.")</script>';
     }
 }
 
@@ -144,12 +160,32 @@ if (!empty($walletDetails['wallet_address'])) {
 
 ?>
 
+<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger fw-semibold" id="failedModalLabel">Failed</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="failedModalMessage" class="modal-body text-light fw-normal">
+        Failed.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
     <div class="content tab-card align-to-center container">
         <div class="tab position-relative nav nav-tabs">
             <button class="tablinks nav-link active" onclick="showSettingsDetails(event, 'userDetails')" id="defaultOpen">User Details</button>
             <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'bankSettings')">Bank Settings</button>
             <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'walletSettings')">Wallet Settings</button>
-            <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'changePassword')">Change Password</button>
+            <!-- <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'changePassword')">Change Password</button> -->
             <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'manage2FA')">Manage 2FA</button>
         </div>
 
@@ -165,72 +201,105 @@ if (!empty($walletDetails['wallet_address'])) {
                 <div id="LinkedAccounts" class="mb-4">
                 </div>
 
-            <h3>Link New Bank to KuberKosh</h3>
+                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#linkBankModal">
+        Link New Bank Account
+    </button> -->
 
-            <form method="post" action="">
-                <div id="selectIFSC" class="form-group">
-                    <p>Select your Bank name and Bank Branch:</p>
-                    <select id='bankSelect' name="regBank_id" class="form-control">
-                    </select>
+    <div style="margin: auto auto auto 770px">
+    <button type="button" class="btn btn-primary" id="linkBankBtn">
+        Link New Bank Account
+    </button>
+    </div>
 
-                    <select id='branchSelect' name="branch" class="form-control mt-2">
-                    </select>
+    
+<!-- Modal -->
+<div class="modal fade" id="linkBankModal" tabindex="-1" role="dialog" aria-labelledby="linkBankModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="linkBankModalLabel">Link New Bank to KuberKosh</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
                 </div>
-                <div id="selectACNO" class="form-group">
-                    <p>Enter your bank account number:</p>
-                    <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">
+                <div class="modal-body">
+                    <form id="linkBankForm" method="post">
+                        <div id="selectIFSC" class="form-group">
+                            <p>Select your Bank Name:</p>
+                            <select id='bankDropdown' name="regBank_id" class="form-control" style="    height: 45px;
+    width: 450px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 0 15 0 15px;
+    color: #fff;"></select>
+                            <p class="mt-1">Select your Bank Branch:</p>
+
+                            <select id='branchDropdown' name="branch" class="form-control" style="    height: 45px;
+    width: 450px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 0 15 0 15px;
+    color: #fff;"></select>
+                        </div>
+                        <div id="selectACNO" class="form-group" style="    height: 45px;
+    width: 450px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 0 15 0 15px;
+    color: #fff;">
+                            <p class="mt-1">Enter your bank account number:</p>
+                            <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">
+                        </div>
+                        <input type="submit" name="submitBankSettings" value="Submit" class="btn btn-primary mt-4">
+                    </form>
                 </div>
-                <input type="submit" name="submitBankSettings" value="Submit" class="btn btn-primary">
-            </form>
-        </div>
-
-        <!-- <div id="bankSettings" class="tabcontent">
-            <h3 class="text-primary">Linked Accounts</h3>
-
-            <div id="LinkedAccounts" class="mb-4">
             </div>
-
-            <h3 class="text-primary">Link New Bank to KuberKosh</h3>
-
-            <form method="post" action="" class="p-3 bg-light rounded">
-                <div id="selectIFSC" class="form-group">
-                    <label for="bankSelect">Select your Bank name and Bank Branch:</label>
-                    <select id='bankSelect' name="regBank_id" class="form-control mb-2">
-                    </select>
-
-                    <select id='branchSelect' name="branch" class="form-control mb-2">
-                    </select>
-                </div>
-                <div id="selectACNO" class="form-group">
-                    <label for="acnoInput">Enter your bank account number:</label>
-                    <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">
-                </div>
-                <input type="submit" name="submitBankSettings" value="Submit" class="btn btn-primary mt-2">
-            </form>
-        </div> -->
+        </div>
+    </div>
+</div>
 
         <div id="walletSettings" class="tabcontent">
-            <p id="walletAddress"></p>
-            <button id="changeWalletAddressBtn" class="btn btn-secondary">Change Wallet Address</button>
-            <form id="changeWalletAddressForm" class="mt-2" style="display: none;">
-                <input type="text" id="inputNewWalletAddress" class="form-control" placeholder="Enter new wallet address">
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-            </form>
+        <div id="walletAddressContainer">
+                    <p id="walletAddress" class="mb-2"></p>
+                    <button id="changeWalletAddressBtn" class="btn btn-secondary">Change Wallet Address</button>
+                    <form id="changeWalletAddressForm" class="mt-2" style="display: none;">
+                        <div class="input-group" style="    height: 45px;
+    width: 450px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 0 15 0 15px;
+    color: #fff;">
+                            <input type="text" id="inputNewWalletAddress" class="form-control" placeholder="Enter new wallet address">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                </div>
 
-            <p id="walletPIN"></p>
-            <button id="changeWalletPINBtn" class="btn btn-secondary mt-2">Change Wallet PIN</button>
-            <form id="changeWalletPINForm" class="mt-2" style="display: none;">
-                <input type="password" id="inputCurrentPIN" class="form-control" placeholder="Enter current wallet PIN"><br>
-                <input type="password" id="inputNewPIN" class="form-control mt-2" placeholder="Enter new wallet PIN"><br>
-                <input type="password" id="inputConfirmNewPIN" class="form-control mt-2" placeholder="Confirm new wallet PIN"><br>
-                <button type="submit" class="btn btn-primary mt-2">Submit</button>
-            </form>
+                <div id="walletPINContainer">
+                    <p id="walletPIN" class="mb-2"></p>
+                    <button id="changeWalletPINBtn" class="btn btn-secondary mt-2">Change Wallet PIN</button>
+                    <form id="changeWalletPINForm" class="mt-2" style="display: none;">
+                        <div class="mb-3">
+                            <input type="password" id="inputCurrentPIN" class="form-control" placeholder="Enter current wallet PIN">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" id="inputNewPIN" class="form-control" placeholder="Enter new wallet PIN">
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" id="inputConfirmNewPIN" class="form-control" placeholder="Confirm new wallet PIN">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
         </div>
 
-        <div id="changePassword" class="tabcontent">
+        <!-- <div id="changePassword" class="tabcontent">
             <h3>Change Password</h3>
             <p>Change Password details will be here</p>
-        </div>
+        </div> -->
 
         <div id="manage2FA" class="tabcontent">
             <h3>Manage 2FA</h3>
@@ -336,11 +405,11 @@ if (!empty($walletDetails['wallet_address'])) {
         // Initial check of TOTP status
         checkTOTPStatus();
     </script>
-</div>
+<!-- </div> -->
 
 
 
-    </div>
+    <!-- </div> -->
 
 
 
@@ -396,8 +465,17 @@ if (!empty($walletDetails['wallet_address'])) {
             evt.currentTarget.className += " active";
         }
 
+
+
+
+
+
+
+        
+        
+
         function loadBanks() {
-            var select = document.getElementById("bankSelect");
+            var select = document.getElementById("bankDropdown");
             select.onchange = updateBranches;
 
             // Add default "Select Bank" option
@@ -411,20 +489,20 @@ if (!empty($walletDetails['wallet_address'])) {
         }
 
         function updateBranches() {
-            var bankSelect = this;
+            var bankDropdown = this;
             var bankid = this.value;
 
 
-            var branchSelect = document.getElementById("branchSelect");
-            branchSelect.options.length = 0; //delete all options if any present
+            var branchDropdown = document.getElementById("branchDropdown");
+            branchDropdown.options.length = 0; //delete all options if any present
 
             // Add default "Select Location" option
-            branchSelect.options[0] = new Option("Select Location", "");
-            // branchSelect.options[0].disabled = true;
-            // branchSelect.options[0].selected = true;
+            branchDropdown.options[0] = new Option("Select Location", "");
+            // branchDropdown.options[0].disabled = true;
+            // branchDropdown.options[0].selected = true;
 
             for (var i = 0; i < branches[bankid].length; i++) {
-                branchSelect.options[i + 1] = new Option(branches[bankid][i].val, branches[bankid][i].branch_id);
+                branchDropdown.options[i + 1] = new Option(branches[bankid][i].val, branches[bankid][i].branch_id);
             }
         }
 
@@ -444,7 +522,79 @@ if (!empty($walletDetails['wallet_address'])) {
 
 
 
+        function checkLinkedAccounts(userId) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'php/ajaxCheckLinkedAccounts.php');
+    xhr.setRequestHeader('Content-Type', 'application/json');
 
+    var dataToSend = JSON.stringify({ bankUserId: bankUserId });
+    xhr.send(dataToSend);
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var response = JSON.parse(xhr.responseText);
+            if (response.success) {
+                if (response.linkedAccounts >= 6) {
+                    showModal("Failed:", "Cannot add more than 6 accounts");
+                } else {
+                    openAddBankAccountModal();
+                }
+            } else {
+                showModal("Failed:", "Failed to check linked accounts.");
+            }
+        } else {
+            showModal("Failed:", "An error occurred while processing your request.");
+        }
+    };
+}
+
+function showModal(label, message) {
+    var modalElement = document.getElementById('failedModal');
+    var failedModalLabel = document.getElementById('failedModalLabel');
+    failedModalLabel.textContent = label;
+    var failedModalMessage = document.getElementById('failedModalMessage');
+    failedModalMessage.textContent = message;
+    var myModal = new bootstrap.Modal(modalElement);
+    myModal.show();
+  }
+
+function openAddBankAccountModal() {
+    // Logic to open the modal containing the form to add a new bank account
+    var modal = document.getElementById('linkBankModal');
+    var myModal = new bootstrap.Modal(modal);
+    myModal.show();
+}
+
+document.getElementById('linkBankBtn').addEventListener('click', function() {
+    var userId = // Get user ID from session or wherever it's stored
+    checkLinkedAccounts(userId);
+});
+
+
+
+
+
+document.getElementById('linkBankForm').addEventListener('submit', function(event) {
+        var bankDropdown = document.getElementById('bankDropdown').value;
+        var branchDropdown = document.getElementById('branchDropdown').value;
+        var acnoInput = document.getElementById('acnoInput').value;
+
+        if (!bankDropdown) {
+            showModal('Failed', 'Please select your bank name.');
+            event.preventDefault();
+        } else if (!branchDropdown) {
+            showModal('Failed', 'Please select your bank branch.');
+            event.preventDefault();
+        } else if (!acnoInput) {
+            showModal('Failed', 'Please enter your bank account number.');
+            event.preventDefault();
+        } else if (isNaN(acnoInput)) {
+            showModal('Failed', 'The bank account number must be a number.');
+            event.preventDefault();
+        }
+    });
+
+        
 
 
 

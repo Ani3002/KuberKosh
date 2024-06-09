@@ -6,52 +6,55 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Settings</title>
-    <script src="js/bundle.js"></script>
+    <script src="js/bundle.js"></script>  <!-- // bootstrap is bought in with bundle.js -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
     <script src="js/jquery-3.5.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="moment.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <!-- <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet"> -->
-
+    <link rel="stylesheet" href="css/main.css">
     <style>
-        .modal-content {
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.200);
-            backdrop-filter: blur(10px);
-            border: 5px solid rgba(0, 0, 0, 0.300);
+    .tab-card {
+            margin: 20px;
         }
 
-        .modal-header {
-            background: rgba(0, 0, 0, 0.200);
-
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            color: white;
+        .tab {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
         }
 
-        .modal-body {
-            background: rgba(0, 0, 0, 0.200);
-
-            color: white;
+        .tab button {
+            background-color: #f1f1f1;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 5px 18px;
+            transition: 0.3s;
         }
 
-        .modal-footer {
-            background: rgba(0, 0, 0, 0.200);
-
-            border-bottom-right-radius: 10px;
-            border-bottom-left-radius: 10px;
-
+        .tab button:hover {
+            background-color: #ddd;
         }
 
-        .btn-close {
-            color: rgb(60, 56, 97);
-            background-color: #6c757d;
-            border-color: #6c757d;
+        .tab button.active {
+            background-color: #ccc;
         }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border-top: none;
+        }
+
+        .tabcontent.active {
+            display: block;
+        }
+
     </style>
 </head>
 
 <body>
     <!-- Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image   -->
-    <img class="bg-img" src="/img/Background.webp" alt="background image">
+    <img class = "bg-img" src="/img/Background.webp" alt="background image">
+
