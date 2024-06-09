@@ -103,6 +103,7 @@ if (!empty(fetchWalletDetails($connect_kuberkosh_db, $userId)) && !empty(fetchWa
     </div>
 </div>
 
+
 <script>
     // Function to generate QR code
     function generateQRCode(url) {
