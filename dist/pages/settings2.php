@@ -244,10 +244,10 @@ if (!empty($walletDetails['wallet_address'])) {
                         </div>
                         <div id="selectACNO" class="form-group" style="    height: 45px;
     width: 450px;
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    padding: 0 15 0 15px;
+    /* border-radius: 10px; */
+    /* background: rgba(255, 255, 255, 0.05); */
+    /* border: 1px solid rgba(255, 255, 255, 0.10); */
+    /* padding: 0 15 0 15px; */
     color: #fff;">
                             <p class="mt-1">Enter your bank account number:</p>
                             <input type="text" name="acno" id="acnoInput" class="form-control" placeholder="Enter Bank Account Number">

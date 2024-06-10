@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Settings</title>
-    <script src="js/bundle.js"></script> <!-- // bootstrap is bought in with bundle.js -->
+    <title>Withdraw Money</title>
+    <script src="js/bundle.js"></script>  <!-- // bootstrap is bought in with bundle.js -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
     <script src="js/jquery-3.5.1.min.js"></script>
@@ -15,7 +15,7 @@
     <script src="moment.min.js"></script>
     <link rel="stylesheet" href="css/main.css">
     <style>
-        .tab-card {
+    .tab-card {
             margin: 20px;
         }
 
@@ -50,38 +50,10 @@
         .tabcontent.active {
             display: block;
         }
-
-        .modal-content {
-            border-radius: 10px;
-            background: rgba(0, 0, 0, 0.500);
-            backdrop-filter: blur(10px);
-            border: 5px solid rgba(0, 0, 0, 0.600);
-        }
-
-        .modal-header {
-            background: rgba(0, 0, 0, 0.500);
-
-            border-top-left-radius: 10px;
-            border-top-right-radius: 10px;
-            color: white;
-        }
-
-        .modal-body {
-            background: rgba(0, 0, 0, 0.500);
-
-            color: white;
-        }
-
-        .modal-footer {
-            background: rgba(0, 0, 0, 0.500);
-
-            border-bottom-right-radius: 10px;
-            border-bottom-left-radius: 10px;
-
-        }
     </style>
 </head>
 
 <body>
     <!-- Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image  Backgroung Image   -->
-    <img class="bg-img" src="/img/Background.webp" alt="background image">
+    <img class = "bg-img" src="/img/Background.webp" alt="background image">
+

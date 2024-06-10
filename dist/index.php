@@ -99,7 +99,7 @@ if ((isset($_GET['home1']))) {
     // for send money page
     viewPage('verifySession');
 
-    viewPage('settings1');
+    viewPage('withdrawMoney1');
     viewPage('collapsableSideBar');
     viewPage('navBar');
     viewPage('withdrawMoney2');
