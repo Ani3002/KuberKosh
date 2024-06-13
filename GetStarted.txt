@@ -11,3 +11,19 @@ npm install
 npm start
 
 docker compose up --build
+
+
+
+List of Technologies Used:
+
+1. docker
+2. cloudflare for DNS(linking ip with domain name and puting that in DNS) , ddos protection, ssl
+3. github
+4. aws debian instance, ssh, sftp
+5. google OAuth
+6. TOTP
+7. tcpdf
+8. qrcodejs
+9. php, html, js, gulp, webpck, npm
+10. BurpSuite
+11. .........
