@@ -131,11 +131,11 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                 </div>
                 <div>
                     <select id="dashDateSelect" name="bank_account_id" class="dashLabelContent">
-                        <option value="1_week">1 Week</option>
-                        <option value="2_weeks">2 Weeks</option>
-                        <option value="1_month">1 Month</option>
-                        <option value="2_months">2 Months</option>
-                        <option value="6_months">6 Months</option>
+                        <option value="1 Week">1 Week</option>
+                        <option value="2 Weeks">2 Weeks</option>
+                        <option value="1 Month">1 Month</option>
+                        <option value="2 Months">2 Months</option>
+                        <option value="6 Months">6 Months</option>
                     </select>
                     <div class="d-flex">
                         <h5 id="presentAmnt">₹0.00</h5>
@@ -362,12 +362,13 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     function updateChart(dataValues, labels) {
         const fillData = dataValues;
         const backgroundData = dataValues.map(value => totalValue);
+        // const backgroundData = totalValue;
 
         const data = {
             labels: labels,
             datasets: [
                 {
-                    label: 'Filled',
+                    label: 'Balance',
                     data: fillData,
                     backgroundColor: 'rgba(73, 77, 173, 1)',
                     borderColor: 'rgba(73, 77, 173, 1)',
@@ -529,37 +530,45 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     }
 
     document.getElementById('dashDateSelect').addEventListener('change', function () {
-        const dateRange = this.value;
+    const dateRange = this.value;
 
-        var xhrFetchTransactionSummary = new XMLHttpRequest();
-        xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
-        xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
-        var dataToSend = JSON.stringify({ dateRange: dateRange });
-        xhrFetchTransactionSummary.send(dataToSend);
+    var xhrFetchTransactionSummary = new XMLHttpRequest();
+    xhrFetchTransactionSummary.open('POST', 'php/ajaxFetchTransactionSummary.php');
+    xhrFetchTransactionSummary.setRequestHeader('Content-Type', 'application/json');
+    var dataToSend = JSON.stringify({ dateRange: dateRange });
+    xhrFetchTransactionSummary.send(dataToSend);
 
-        xhrFetchTransactionSummary.onload = function () {
-            if (xhrFetchTransactionSummary.status === 200) {
-                const response = JSON.parse(xhrFetchTransactionSummary.responseText);
-                const { averagePrevious, averageCurrent, percentageChange, dataValues, labels } = response;
+    xhrFetchTransactionSummary.onload = function () {
+        if (xhrFetchTransactionSummary.status === 200) {
+            const response = JSON.parse(xhrFetchTransactionSummary.responseText);
+            const { averagePrevious, averageCurrent, percentageChange, dataValues, labels } = response;
 
-                document.getElementById('dateRange').innerText = dateRange;
-                document.getElementById('dateRangeAmnt').innerText = `₹${averagePrevious.toFixed(2)}`;
-                document.getElementById('presentAmnt').innerText = `₹${averageCurrent.toFixed(2)}`;
-                document.getElementById('percentageChange').innerText = `${percentageChange.toFixed(2)} %`;
+            document.getElementById('dateRange').innerText = dateRange;
+            document.getElementById('dateRangeAmnt').innerText = `₹${averagePrevious.toFixed(2)}`;
+            document.getElementById('presentAmnt').innerText = `₹${averageCurrent.toFixed(2)}`;
 
-                updateChart(dataValues, labels);
-                // updateChart();
+            // Update percentage change and color
+            const percentageChangeElement = document.getElementById('percentageChange');
+            percentageChangeElement.innerText = `${percentageChange.toFixed(2)} %`;
+            if (percentageChange < 0) {
+                percentageChangeElement.style.color = 'red';
             } else {
-                var modalElement = document.getElementById('failedModal');
-                var failedModalLabel = document.getElementById('failedModalLabel');
-                failedModalLabel.textContent = "Failed";
-                var failedModalMessage = document.getElementById('failedModalMessage');
-                failedModalMessage.textContent = "Failed to fetch data.";
-                var myModal = new bootstrap.Modal(modalElement);
-                myModal.show();
+                percentageChangeElement.style.color = ''; // Reset to default
             }
-        };
-    });
+
+            updateChart(dataValues, labels);
+        } else {
+            var modalElement = document.getElementById('failedModal');
+            var failedModalLabel = document.getElementById('failedModalLabel');
+            failedModalLabel.textContent = "Failed";
+            var failedModalMessage = document.getElementById('failedModalMessage');
+            failedModalMessage.textContent = "Failed to fetch data.";
+            var myModal = new bootstrap.Modal(modalElement);
+            myModal.show();
+        }
+    };
+});
+
 
     // Trigger initial load
     document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  

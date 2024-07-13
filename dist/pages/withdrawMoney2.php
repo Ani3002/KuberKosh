@@ -296,7 +296,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
             xhrValidateTransferAmount.open('POST', 'php/ajaxVerifyTransferAmount.php');
             xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
 
-            var dataToSend = JSON.stringify({ amountToSend: amountToSend });
+            var dataToSend = JSON.stringify({ amountToSend: amountToSend, type: 'W2B' });
             // alert('Data being sent to server: ' + dataToSend);
             xhrValidateTransferAmount.send(dataToSend);
 
@@ -566,7 +566,8 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
                         });
                     } else {
-                        showModal("Error:", "Failed to validate transaction.");
+                        $tmp6464554 =response.error;
+                        showModal("Error:", $tmp6464554);
                     }
                 } else {
                     showModal("Error:", "Failed to validate transaction.");

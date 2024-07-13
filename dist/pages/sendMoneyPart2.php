@@ -543,7 +543,7 @@ $userId = $_SESSION['user_id']; // Works only if a user session exists
           xhrValidateTransferAmount.open('POST', 'php/ajaxVerifyTransferAmount.php');
           xhrValidateTransferAmount.setRequestHeader('Content-Type', 'application/json');
 
-          var dataToSend = JSON.stringify({ amountToSend: amountToSend });
+          var dataToSend = JSON.stringify({ amountToSend: amountToSend, type: 'W2W'});
           // alert('Data being sent to server : ' + dataToSend); // Debugging: Log data being sent to server
           xhrValidateTransferAmount.send(dataToSend);
 

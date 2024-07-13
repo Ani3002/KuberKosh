@@ -17,7 +17,7 @@ services:
       - MYSQL_DATABASE=kuberkosh_db
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=password
-      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_ALLOW_EMPTY_PASSWORD=0
     volumes:
       - "/home/ani/Documents/Keeper/Code/vscode/HTML&CSS&JS/College/Project/KuberKosh/db:/docker-entrypoint-initdb.d"           #Sync db with dev. env. and docker so that we dont loose the database when docker is stopped.
       - "/home/ani/Documents/Keeper/Code/vscode/HTML&CSS&JS/College/Project/KuberKosh/db/data:/var/lib/mysql"                   # Persist MariaDB data
