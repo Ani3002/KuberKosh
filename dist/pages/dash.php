@@ -18,7 +18,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Login with Google in PHP</title>
+    <title>KuberKosh-Dashboard</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1' name='viewport' />
     <script src="js/bundle.js"></script>
     <script src="js/charts.js"></script>
