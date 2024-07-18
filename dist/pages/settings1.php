@@ -79,6 +79,60 @@
             border-bottom-left-radius: 10px;
 
         }
+
+    .trash-icon {
+        filter: invert(22%) sepia(99%) saturate(6158%) hue-rotate(353deg) brightness(96%) contrast(108%);
+        transition: filter 0.3s;
+    }
+
+    .btn-outline-danger:hover .trash-icon {
+        filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(235deg) brightness(100%) contrast(101%);
+    }
+
+
+
+
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: white;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #1c1c1c;
+            border-radius: 8px;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            flex: 1;
+        }
+        .form-group input {
+            flex: 2;
+            padding: 5px;
+            background-color: #2a2a2a;
+            border: none;
+            color: white;
+            border-radius: 4px;
+        }
+        .form-group .edit-link {
+            color: #00bcd4;
+            text-decoration: none;
+        }
+        .form-group .edit-link:hover {
+            text-decoration: underline;
+        }
+
+
     </style>
 </head>
 

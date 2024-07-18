@@ -80,6 +80,20 @@ function validateUser($user_data)
     return $return_data;
 }
 
+
+function getUserDetails($connect_kuberkosh_db, $userId)
+{
+    $query = "SELECT * FROM users WHERE user_id = '$userId'";
+    $result = $connect_kuberkosh_db->query($query);
+    if ($result && $result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        return $row; // Return all columns as an associative array
+    } else {
+        return array(); // Return an empty array if no data found
+    }
+}
+
+
 // For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.
 // For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.
 // For Checking whether Email Exists in db. For Checking whether Email Exists in db.For Checking whether Email Exists in db.For Checking whether Email Exists in db.

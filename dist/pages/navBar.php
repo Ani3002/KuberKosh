@@ -21,7 +21,7 @@
 
           <?php
                 echo '<h5 class="user-name font-weight-600 align-to-center" style = "padding-right: 10px;">' . $_SESSION["first_name"]. '</h5>';
-                //echo '<img src="' . $_SESSION['profile_picture'] . '" width="40" height="40" class="rounded-circle" />';
+                // echo '<img src="' . $_SESSION['profile_picture'] . '" width="40" height="40" class="rounded-circle" />';
           ?>
 
           <div class="action">
@@ -30,6 +30,7 @@
             <!-- <img src="../assets/avatar.jpg" /> -->
             <?php
               echo '<img src="' . $_SESSION['profile_picture'] . '" />';
+              // echo '<img src="' . $_SESSION['profile_picture'] . '" width="100" height="50" class="rounded-circle" />';
             ?>
           </div>
           <div class="menu">
