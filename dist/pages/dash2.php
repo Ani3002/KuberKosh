@@ -13,7 +13,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 
 
 <!-- Modal -->
-<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedModalLabel" aria-hidden="true">
+<div class="modal fade" id="failedModal" tabindex="1" aria-labelledby="failedLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -236,7 +236,6 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
 </script>
 
 
-<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 <script>
     function showWalletBalance() {
         document.getElementById("dashWalletBal").type = "text";
@@ -427,7 +426,7 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                     },
                     title: {
                         display: false,
-                        text: 'Overview Balance',
+                        text: 'Balance Trends',
                         color: '#FFF',
                         font: {
                             size: 20
@@ -436,89 +435,6 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
                 }
             }
         };
-
-
-        // function updateChart() {
-
-
-        //     const totalValue = 100;
-        //     const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
-        //     const fillData = dataValues;
-        //     const backgroundData = dataValues.map(value => totalValue);
-
-        //     const data = {
-        //         labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-        //         datasets: [
-        //             {
-        //                 label: 'Filled',
-        //                 data: fillData,
-        //                 backgroundColor: 'rgba(73, 77, 173, 1)',
-        //                 borderColor: 'rgba(73, 77, 173, 1)',
-        //                 borderWidth: 0,
-        //                 barThickness: 10,
-        //                 borderRadius: {
-        //                     topLeft: 10,
-        //                     topRight: 10,
-        //                     bottomLeft: 10,
-        //                     bottomRight: 10
-        //                 },
-        //             },
-        //             {
-        //                 label: 'Empty',
-        //                 data: backgroundData,
-        //                 backgroundColor: '#FFFFFF',
-        //                 borderColor: '#FFFFFF',
-        //                 borderWidth: 0,
-        //                 barThickness: 10,
-        //                 borderRadius: {
-        //                     topLeft: 10,
-        //                     topRight: 10
-        //                 },
-        //             }
-        //         ]
-        //     };
-
-        //     const config = {
-        //         type: 'bar',
-        //         data: data,
-        //         options: {
-        //             scales: {
-        //                 y: {
-        //                     beginAtZero: true,
-        //                     stacked: false,
-        //                     ticks: {
-        //                         color: '#FFF'
-        //                     },
-        //                     grid: {
-        //                         color: 'rgba(0, 0, 0, 0)'
-        //                     }
-        //                 },
-        //                 x: {
-        //                     stacked: true,
-        //                     ticks: {
-        //                         color: '#FFF'
-        //                     },
-        //                     grid: {
-        //                         display: false
-        //                     }
-        //                 }
-        //             },
-        //             plugins: {
-        //                 legend: {
-        //                     display: false
-        //                 },
-        //                 title: {
-        //                     display: false,
-        //                     text: 'Overview Balance',
-        //                     color: '#FFF',
-        //                     font: {
-        //                         size: 20
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //     };
-
 
         const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
 
@@ -573,103 +489,3 @@ $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
     // Trigger initial load
     document.getElementById('dashDateSelect').dispatchEvent(new Event('change'));  
 </script>
-
-
-
-
-
-<!-- <script>
-
-
-
-
-
-
-
-
-
-
-// Initialize Bar Chart
-
-
-// const totalValue = 100;
-// const dataValues = [56, 45, 62, 73, 88, 56, 10, 63, 20, 8, 62, 73, 90];
-// const fillData = dataValues;
-// const backgroundData = dataValues.map(value => totalValue);
-
-// const data = {
-// labels: ['06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18'],
-// datasets: [
-// {
-// label: 'Filled',
-// data: fillData,
-// backgroundColor: 'rgba(73, 77, 173, 1)',
-// borderColor: 'rgba(73, 77, 173, 1)',
-// borderWidth: 0,
-// barThickness: 10,
-// borderRadius: {
-// topLeft: 10,
-// topRight: 10,
-// bottomLeft: 10,
-// bottomRight: 10
-// },
-// },
-// {
-// label: 'Empty',
-// data: backgroundData,
-// backgroundColor: '#FFFFFF',
-// borderColor: '#FFFFFF',
-// borderWidth: 0,
-// barThickness: 10,
-// borderRadius: {
-// topLeft: 10,
-// topRight: 10
-// },
-// }
-// ]
-// };
-
-// const config = {
-// type: 'bar',
-// data: data,
-// options: {
-// scales: {
-// y: {
-// beginAtZero: true,
-// stacked: false,
-// ticks: {
-// color: '#FFF'
-// },
-// grid: {
-// color: 'rgba(0, 0, 0, 0)'
-// }
-// },
-// x: {
-// stacked: true,
-// ticks: {
-// color: '#FFF'
-// },
-// grid: {
-// display: false
-// }
-// }
-// },
-// plugins: {
-// legend: {
-// display: false
-// },
-// title: {
-// display: false,
-// text: 'Overview Balance',
-// color: '#FFF',
-// font: {
-// size: 20
-// }
-// }
-// }
-// }
-// };
-
-// const ctxBar = document.getElementById('overviewBalanceChart').getContext('2d');
-// const overviewBalanceChart = new Chart(ctxBar, config);
-</script> -->

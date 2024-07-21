@@ -95,41 +95,28 @@
 
 
 
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #121212;
-            color: white;
-        }
-        .form-container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-            background-color: #1c1c1c;
-            border-radius: 8px;
-        }
-        .form-group {
+        .form-group1 {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 15px;
         }
-        .form-group label {
+        .form-group1 label {
             flex: 1;
         }
-        .form-group input {
-            flex: 2;
+        .form-group1 input {
+            /* flex: 2; */
+            width: 600px;
+            margin-right: 50px;
             padding: 5px;
             background-color: #2a2a2a;
             border: none;
             color: white;
             border-radius: 4px;
         }
-        .form-group .edit-link {
+        .form-group1 .edit-link {
             color: #00bcd4;
             text-decoration: none;
-        }
-        .form-group .edit-link:hover {
-            text-decoration: underline;
         }
 
 

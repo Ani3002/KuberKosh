@@ -232,172 +232,175 @@ if (!empty($walletDetails['wallet_address'])) {
         <!-- <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'changePassword')">Change Password</button> -->
         <button class="tablinks nav-link" onclick="showSettingsDetails(event, 'manage2FA')">Manage 2FA</button>
     </div>
-<!-- HTML code -->
-<!-- Tab content -->
-<div id="userDetails" class="tabcontent active">
-    <h3 class="text-primary">User Details</h3>
-    <div class="form-grid">
-        <div class="form-group">
-            <label>NAME</label>
-            <input type="text" id="name" value="<?php echo $userDetails['first_name'], ' ', $userDetails['last_name']; ?>" readonly>
-        </div>
-        <div class="form-group">
-            <label>PAN</label>
-            <input type="text" id="pan" value="<?php echo $userDetails['pan']; ?>" readonly>
-            <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
-        </div>
-        <div class="form-group">
-            <label>DATE OF BIRTH (DD/MM/YYYY)</label>
-            <input type="text" id="dob" value="<?php echo date('d/m/Y', strtotime($userDetails['dob'])); ?>" readonly>
-            <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
-        </div>
-        <div class="form-group">
-            <label>GENDER</label>
-            <input type="text" id="gender" value="<?php echo $userDetails['gender']; ?>" readonly>
-            <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
-        </div>
-        <div class="form-group">
-            <label>MOBILE NUMBER</label>
-            <input type="text" id="mobile" value="<?php echo $userDetails['mobile']; ?>" readonly>
-            <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
-        </div>
-        <div class="form-group">
-            <label>EMAIL</label>
-            <input type="text" id="email" value="<?php echo $userDetails['email']; ?>" readonly>
-        </div>
-        <div class="form-group">
-            <label>SECONDARY EMAIL</label>
-            <input type="text" id="secondaryEmail" value="<?php echo $userDetails['secondary_email']; ?>" readonly>
-            <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
-        </div>
-        <div class="form-group">
-            <label>USER ID</label>
-            <input type="text" id="userId" value="<?php echo $userDetails['user_id']; ?>" readonly>
+    <!-- HTML code -->
+    <!-- Tab content -->
+    <div id="userDetails" class="tabcontent active">
+        <h3 class="text-primary">User Details</h3>
+        <div class="form-grid">
+            <div class="form-group1">
+                <label>NAME</label>
+                <input type="text" id="name"
+                    value="<?php echo $userDetails['first_name'], ' ', $userDetails['last_name']; ?>" readonly>
+            </div>
+            <div class="form-group1">
+                <label>PAN</label>
+                <input type="text" id="pan" value="<?php echo $userDetails['pan']; ?>" readonly>
+                <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
+            </div>
+            <div class="form-group1">
+                <label>DATE OF BIRTH (DD/MM/YYYY)</label>
+                <input type="text" id="dob"
+                    value="<?php echo isset($userDetails['dob']) && !is_null($userDetails['dob']) ? date('d/m/Y', strtotime($userDetails['dob'])) : ''; ?>"
+                    readonly>
+                <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
+            </div>
+            <div class="form-group1">
+                <label>GENDER</label>
+                <input type="text" id="gender" value="<?php echo $userDetails['gender']; ?>" readonly>
+                <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
+            </div>
+            <div class="form-group1">
+                <label>MOBILE NUMBER</label>
+                <input type="text" id="mobile" value="<?php echo $userDetails['mobile']; ?>" readonly>
+                <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
+            </div>
+            <div class="form-group1">
+                <label>EMAIL</label>
+                <input type="text" id="email" value="<?php echo $userDetails['email']; ?>" readonly>
+            </div>
+            <div class="form-group1">
+                <label>SECONDARY EMAIL</label>
+                <input type="text" id="secondaryEmail" value="<?php echo $userDetails['secondary_email']; ?>" readonly>
+                <span class="edit-link" onclick="toggleEdit(this)">EDIT</span>
+            </div>
+            <div class="form-group1">
+                <label>USER ID</label>
+                <input type="text" id="userId" value="<?php echo $userDetails['user_id']; ?>" readonly>
+            </div>
         </div>
     </div>
-</div>
 
-<script>
-    function updateUserDetails() {
-    // Collect the updated user details
-    const dobInput = document.getElementById('dob').value;
-    const formattedDOB = formatDOB(dobInput); // Format DOB to yyyy-mm-dd
+    <script>
+        function updateUserDetails() {
+            // Collect the updated user details
+            const dobInput = document.getElementById('dob').value;
+            const formattedDOB = formatDOB(dobInput); // Format DOB to yyyy-mm-dd
 
-    const userDetails = {
-        userId: document.getElementById('userId').value,
-        pan: document.getElementById('pan').value,
-        dob: formattedDOB, // Use formatted date of birth
-        gender: document.getElementById('gender').value,
-        mobile: document.getElementById('mobile').value,
-        secondaryEmail: document.getElementById('secondaryEmail').value,
-    };
+            const userDetails = {
+                userId: document.getElementById('userId').value,
+                pan: document.getElementById('pan').value,
+                dob: formattedDOB, // Use formatted date of birth
+                gender: document.getElementById('gender').value,
+                mobile: document.getElementById('mobile').value,
+                secondaryEmail: document.getElementById('secondaryEmail').value,
+            };
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', 'php/ajaxFuckYou_Kanishka_Chutiya.php');
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                // Handle the response from the server
-                console.log(xhr.responseText);
-                const response = JSON.parse(xhr.responseText);
-                if (response.success) {
-                    alert('User details updated successfully');
-                    setFieldsReadonly(true);
-                    resetEditLinks();
-                } else {
-                    showModal('Update Failed', response.message);
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'php/ajaxUserDetailsEdit.php');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // Handle the response from the server
+                        console.log(xhr.responseText);
+                        const response = JSON.parse(xhr.responseText);
+                        if (response.success) {
+                            showModal('Success', 'User details updated successfully');
+                            setFieldsReadonly(true);
+                            resetEditLinks();
+                        } else {
+                            showModal('Update Failed', response.message);
+                        }
+                    } else {
+                        showModal('Error', 'An error occurred while updating user details.');
+                    }
                 }
+            };
+            xhr.send(JSON.stringify(userDetails));
+        }
+
+        function formatDOB(dob) {
+            // Assuming dob is in dd/mm/yyyy format
+            const parts = dob.split('/');
+            if (parts.length !== 3) {
+                return ''; // Handle invalid format gracefully
+            }
+            const formattedDOB = parts[2] + '-' + parts[1] + '-' + parts[0]; // yyyy-mm-dd format
+            return formattedDOB;
+        }
+
+
+        function toggleEdit(element) {
+            const input = element.previousElementSibling;
+            if (input.readOnly) {
+                input.readOnly = false;
+                input.style.pointerEvents = 'auto';
+                element.textContent = 'SUBMIT';
             } else {
-                showModal('Error', 'An error occurred while updating user details.');
+                if (validateFields()) {
+                    updateUserDetails();
+                    input.readOnly = true;
+                    input.style.pointerEvents = 'none';
+                    element.textContent = 'EDIT';
+                }
             }
         }
-    };
-    xhr.send(JSON.stringify(userDetails));
-}
 
-function formatDOB(dob) {
-    // Assuming dob is in dd/mm/yyyy format
-    const parts = dob.split('/');
-    if (parts.length !== 3) {
-        return ''; // Handle invalid format gracefully
-    }
-    const formattedDOB = parts[2] + '-' + parts[1] + '-' + parts[0]; // yyyy-mm-dd format
-    return formattedDOB;
-}
+        function validateFields() {
+            const pan = document.getElementById('pan').value;
+            const dob = document.getElementById('dob').value;
+            const mobile = document.getElementById('mobile').value;
+            const secondaryEmail = document.getElementById('secondaryEmail').value;
 
-
-    function toggleEdit(element) {
-        const input = element.previousElementSibling;
-        if (input.readOnly) {
-            input.readOnly = false;
-            input.style.pointerEvents = 'auto';
-            element.textContent = 'SUBMIT';
-        } else {
-            if (validateFields()) {
-                updateUserDetails();
-                input.readOnly = true;
-                input.style.pointerEvents = 'none';
-                element.textContent = 'EDIT';
+            // PAN validation
+            if (pan && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan)) {
+                showModal('Invalid PAN', 'PAN should be 10 characters long and in capital letters.');
+                return false;
             }
-        }
-    }
 
-    function validateFields() {
-        const pan = document.getElementById('pan').value;
-        const dob = document.getElementById('dob').value;
-        const mobile = document.getElementById('mobile').value;
-        const secondaryEmail = document.getElementById('secondaryEmail').value;
+            // DOB validation (DD/MM/YYYY format)
+            if (dob && !/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
+                showModal('Invalid Date of Birth', 'Date of Birth should be in DD/MM/YYYY format.');
+                return false;
+            }
 
-        // PAN validation
-        if (pan && !/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(pan)) {
-            showModal('Invalid PAN', 'PAN should be 10 characters long and in capital letters.');
-            return false;
-        }
+            // Mobile validation
+            if (mobile && !/^\d{10}$/.test(mobile)) {
+                showModal('Invalid Mobile Number', 'Mobile number should be a valid 10-digit number.');
+                return false;
+            }
 
-        // DOB validation (DD/MM/YYYY format)
-        if (dob && !/^\d{2}\/\d{2}\/\d{4}$/.test(dob)) {
-            showModal('Invalid Date of Birth', 'Date of Birth should be in DD/MM/YYYY format.');
-            return false;
-        }
+            // Secondary Email validation
+            if (secondaryEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(secondaryEmail)) {
+                showModal('Invalid Secondary Email', 'Secondary email should be a valid email address.');
+                return false;
+            }
 
-        // Mobile validation
-        if (mobile && !/^\d{10}$/.test(mobile)) {
-            showModal('Invalid Mobile Number', 'Mobile number should be a valid 10-digit number.');
-            return false;
+            return true;
         }
 
-        // Secondary Email validation
-        if (secondaryEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(secondaryEmail)) {
-            showModal('Invalid Secondary Email', 'Secondary email should be a valid email address.');
-            return false;
+        function setFieldsReadonly(readOnly) {
+            document.getElementById('pan').readOnly = readOnly;
+            document.getElementById('dob').readOnly = readOnly;
+            document.getElementById('gender').readOnly = readOnly;
+            document.getElementById('mobile').readOnly = readOnly;
+            document.getElementById('secondaryEmail').readOnly = readOnly;
+
+            document.getElementById('pan').style.pointerEvents = readOnly ? 'none' : 'auto';
+            document.getElementById('dob').style.pointerEvents = readOnly ? 'none' : 'auto';
+            document.getElementById('gender').style.pointerEvents = readOnly ? 'none' : 'auto';
+            document.getElementById('mobile').style.pointerEvents = readOnly ? 'none' : 'auto';
+            document.getElementById('secondaryEmail').style.pointerEvents = readOnly ? 'none' : 'auto';
         }
 
-        return true;
-    }
+        function resetEditLinks() {
+            const editLinks = document.querySelectorAll('.edit-link');
+            editLinks.forEach(link => {
+                link.textContent = 'EDIT';
+            });
+        }
 
-    function setFieldsReadonly(readOnly) {
-        document.getElementById('pan').readOnly = readOnly;
-        document.getElementById('dob').readOnly = readOnly;
-        document.getElementById('gender').readOnly = readOnly;
-        document.getElementById('mobile').readOnly = readOnly;
-        document.getElementById('secondaryEmail').readOnly = readOnly;
-
-        document.getElementById('pan').style.pointerEvents = readOnly ? 'none' : 'auto';
-        document.getElementById('dob').style.pointerEvents = readOnly ? 'none' : 'auto';
-        document.getElementById('gender').style.pointerEvents = readOnly ? 'none' : 'auto';
-        document.getElementById('mobile').style.pointerEvents = readOnly ? 'none' : 'auto';
-        document.getElementById('secondaryEmail').style.pointerEvents = readOnly ? 'none' : 'auto';
-    }
-
-    function resetEditLinks() {
-        const editLinks = document.querySelectorAll('.edit-link');
-        editLinks.forEach(link => {
-            link.textContent = 'EDIT';
-        });
-    }
-
-</script>
+    </script>
 
 
 
@@ -816,7 +819,7 @@ function formatDOB(dob) {
 
 
 
-    
+
 
 
 
@@ -869,7 +872,6 @@ function formatDOB(dob) {
             alert('Please enter a new wallet address');
             return;
         }
-
         // Server-side validation via AJAX
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'php/ajaxCheckWalletAddress.php');

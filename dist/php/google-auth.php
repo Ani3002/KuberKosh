@@ -24,14 +24,14 @@ $google_client->addScope('profile');
 
 if(isset($_GET["code"]))
   {
-   $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);        // This line uses the fetchAccessTokenWithAuthCode method of the $google_client object to exchange the authorization code ($_GET["code"]) for an access token. The access token is a credential that allows the application to access the user's data.
+   $token = $google_client->fetchAccessTokenWithAuthCode($_GET["code"]);        
    if(!isset($token["error"]))
    {
-    $google_client->setAccessToken($token['access_token']);                     // Sets the obtained access token in the Google API client for subsequent requests.
-    $_SESSION['access_token']=$token['access_token'];                           // Stores the access token in the PHP session for later use.
-    $google_service = new Google_Service_Oauth2($google_client);                // Instantiates a Google Service object for the OAuth2 API using the Google API client. This service is specifically for user information.
-    $data = $google_service->userinfo->get();                                   // Calls the get method of the userinfo resource in the OAuth2 service to retrieve information about the authenticated user. The user information is stored in the $data variable.
-    $current_datetime = date('Y-m-d H:i:s');                                    // Retrives the corent date and time.
+    $google_client->setAccessToken($token['access_token']);                    
+    $_SESSION['access_token']=$token['access_token'];                         
+    $google_service = new Google_Service_Oauth2($google_client);              
+    $data = $google_service->userinfo->get();                                 
+    $current_datetime = date('Y-m-d H:i:s');                                  
 
    // print_r($data);
 
