@@ -8,16 +8,6 @@ global $connect_wallet_transactions_db;
 $userId = $_SESSION['user_id']; // Works only if a user session exists
 
 $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
-
-// if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['withdrawMoneyButton'])) {
-//     // Get the selected bank_account_id from the form submission
-//     $bankAccountId = $_POST['bank_account_id'];
-//     $money_withdraw_amount = $_POST['money_withdraw_amount'];
-//     $trnxRemarks = $_POST['money_withdrawing_remarks'];
-
-//     // Call the function to withdraw money from the wallet
-//     withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_withdraw_amount, $trnxRemarks, $userId);
-// }
 ?>
 
 

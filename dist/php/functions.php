@@ -1416,147 +1416,193 @@ function addMoneyToWallet($connect_kuberkosh_db, $connect_wallet_transactions_db
 
 
 
-function withdrawMoneyFromWallet($connect_kuberkosh_db, $connect_wallet_transactions_db, $bankAccountId, $money_withdraw_amount, $trnxRemarks, $userId)
+// Function to withdraw money from wallet to Bank
+function withdrawMoneyFromWallet($connect_kuberkosh_db,
+$connect_wallet_transactions_db, $bankAccountId,
+$money_withdraw_amount, $trnxRemarks, $userId)
 {
-    // Fetch the wallet balance
-    $current_balance = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $userId);
+// Fetch the wallet balance
+$current_balance = fetchWalletBalance($connect_kuberkosh_db,
+$connect_wallet_transactions_db, $userId);
 
-    $senderUserId = $_SESSION['user_id'];
-    $receiverUserId = $_SESSION['user_id'];
+$senderUserId = $_SESSION['user_id'];
+$receiverUserId = $_SESSION['user_id'];
 
-    $receiverBankAccountId = getBankAccountId($connect_kuberkosh_db, fetchBankUserId($connect_kuberkosh_db, $userId));
+$receiverBankAccountId = getBankAccountId(
+$connect_kuberkosh_db, fetchBankUserId(
+$connect_kuberkosh_db, $userId));
 
-    $senderWalletId = fetchWalletDetails($connect_kuberkosh_db, $senderUserId)['wallet_id'];
+$senderWalletId = fetchWalletDetails(
+$connect_kuberkosh_db, $senderUserId)['wallet_id'];
 
-    $senderName = fetchNameViaWalletAddress($connect_kuberkosh_db, fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address']);
-    $receiverName = fetchNameViaWalletAddress($connect_kuberkosh_db, fetchWalletDetails($connect_kuberkosh_db, $userId)['wallet_address']);
+$senderName = fetchNameViaWalletAddress(
+$connect_kuberkosh_db, fetchWalletDetails(
+$connect_kuberkosh_db, $userId)['wallet_address']);
+$receiverName = fetchNameViaWalletAddress(
+$connect_kuberkosh_db, fetchWalletDetails(
+$connect_kuberkosh_db, $userId)['wallet_address']);
 
-    $senderEndBalanceBeforeTrnx = fetchWalletBalance($connect_kuberkosh_db, $connect_wallet_transactions_db, $senderUserId);
+$senderEndBalanceBeforeTrnx = fetchWalletBalance(
+$connect_kuberkosh_db,
+$connect_wallet_transactions_db, $senderUserId);
 
-    $senderEndBalanceAfterTrnx = $senderEndBalanceBeforeTrnx - $money_withdraw_amount;
+$senderEndBalanceAfterTrnx =
+$senderEndBalanceBeforeTrnx - $money_withdraw_amount;
 
-    $currentDate = date('Y-m-d');
-    $currentDateTime = date('YmdHis');
+$currentDate = date('Y-m-d');
+$currentDateTime = date('YmdHis');
 
-    $trnxId = $senderUserId . $receiverUserId . $senderWalletId . $receiverBankAccountId . $senderName . $receiverName . $senderEndBalanceBeforeTrnx . $senderEndBalanceAfterTrnx . $currentDateTime;
-    $trnxId = hash("sha3-256", $trnxId);
+$trnxId = $senderUserId . $receiverUserId .
+$senderWalletId . $receiverBankAccountId .
+$senderName . $receiverName .
+$senderEndBalanceBeforeTrnx .
+$senderEndBalanceAfterTrnx . $currentDateTime;
+$trnxId = hash("sha3-256", $trnxId);
 
-    $trnxRemarks = $trnxRemarks ?? ''; // Ensure $trnxRemarks is not null
-    $senderParticulars = "W2B/DR/{$receiverName}//{$receiverBankAccountId}/{$currentDateTime}//{$trnxRemarks}";
+$trnxRemarks = $trnxRemarks ?? ''; // Ensure not null
+$senderParticulars = "W2B/DR/{$receiverName}//{
+$receiverBankAccountId}/{$currentDateTime}//{
+$trnxRemarks}";
 
 
-    // Validate and sanitize the input
-    if (!empty($bankAccountId) && is_numeric($bankAccountId) && !empty($money_withdraw_amount) && is_numeric($money_withdraw_amount)) {
-        $amount = (int) $money_withdraw_amount; // Convert to integer for safety
-        if ($current_balance !== null && $current_balance >= $amount) {
-            // Fetch wallet details
-            $walletDetails = fetchWalletDetails($connect_kuberkosh_db, $userId);
-            $wallet_id = $walletDetails['wallet_id'];
+// Validate and sanitize the input
+if (!empty($bankAccountId) && is_numeric(
+$bankAccountId) && !empty($money_withdraw_amount)
+&& is_numeric($money_withdraw_amount)) {
+$amount = (int) $money_withdraw_amount; /* Convert 
+to integer for safety */
+if ($current_balance !== null &&
+$current_balance >= $amount) {
+// Fetch wallet details
+$walletDetails = fetchWalletDetails(
+    $connect_kuberkosh_db, $userId);
+$wallet_id = $walletDetails['wallet_id'];
 
-            // Subtract money from the wallet
-            $new_balance = $current_balance - $amount;
+// Subtract money from the wallet
+$new_balance = $current_balance - $amount;
 
-            // Insert the new transaction into the wallet table using prepared statement
-            $insertQuery = "INSERT INTO `$wallet_id` (`Date`, `Particulars`, `Trnx_id`, `debit`, `end_balance`, `trnxPurpose`)
-                        VALUES (?, ?, ?, ?, ?, ?)";
-            $insertStmt = $connect_wallet_transactions_db->prepare($insertQuery);
-            $trnxPurpose = 'Transfer to Bank';
-            $insertStmt->bind_param("sssids", $currentDate, $senderParticulars, $trnxId, $amount, $new_balance, $trnxPurpose);
+// Insert the new transaction into the
+    // wallet table using prepared statement
+$insertQuery = "INSERT INTO `$wallet_id` (
+    `Date`, `Particulars`, `Trnx_id`, `debit`,
+        `end_balance`, `trnxPurpose`)
+            VALUES (?, ?, ?, ?, ?, ?)";
+$insertStmt = $connect_wallet_transactions_db
+->prepare($insertQuery);
+$trnxPurpose = 'Transfer to Bank';
+$insertStmt->bind_param("sssids", $currentDate,
+    $senderParticulars, $trnxId, $amount,
+    $new_balance, $trnxPurpose);
 
-            $insertSuccess = $insertStmt->execute();
+$insertSuccess = $insertStmt->execute();
 
-            $status = '';
-            $insertError = '';
-            $bankAccQueryError = '';
-            if ($insertSuccess) {
+$status = '';
+$insertError = '';
+$bankAccQueryError = '';
+if ($insertSuccess) {
 
-                $insertStmt->close();
-                // Add money to the selected bank account
-                // $bankAccQuery = "UPDATE bank_accounts SET account_balance = account_balance + $amount WHERE bank_account_id = $bankAccountId";
-                $bankAccQuery = "UPDATE bank_accounts SET account_balance = account_balance + $amount WHERE bank_account_id = $bankAccountId";
+    $insertStmt->close();
+    // Add money to the selected bank account
+    $bankAccQuery = "UPDATE bank_accounts SET
+        account_balance = account_balance + $amount
+        WHERE bank_account_id = $bankAccountId";
 
-                $bankAccQueryStmt = $connect_kuberkosh_db->query($bankAccQuery);
+    $bankAccQueryStmt = $connect_kuberkosh_db
+    ->query($bankAccQuery);
 
-                if ($bankAccQueryStmt) {
-                    // Fetch user banks to get the account number
-                    $userBanks = getUserBanks($connect_kuberkosh_db, $userId);
-                    $accountNumber = '';
-                    foreach ($userBanks as $bank) {
-                        if ($bank['bank_account_id'] == $bankAccountId) {
-                            $accountNumber = $bank['account_no'];
-                            $bankName = $bank['bank_info'];
-                            break;
-                        }
-                    }
-                    $response = array(
-                        'success' => true,
-                        'trnxId' => $trnxId,
-                        'money_withdraw_amount' => $money_withdraw_amount,
-                        'bankAccountId' => $bankAccountId,
-                        'account_number' => $accountNumber,
-                        'bankName' => $bankName,
-                        'trnxMessage' => 'Withdraw Successful'
-                    );
-                    // echo '<script>alert("Money withdrawn successfully!")</script>';
-                    return $response;
-
-                } else {
-                    $response = array('success' => false, 'error' => 'Transaction Error. If Money Debited from Wallet contact Support Team.');
-                    $status = 'Failed';
-                    $bankAccQueryError = $bankAccQueryStmt->error;
-
-                    // Get user's IP address
-                    $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
-
-                    // Insert transaction log into the database
-                    $insertLogQuery = "INSERT INTO `transaction_logs` (`user_id`, `sender_wallet_id`, `receiver_wallet_id`, `transaction_id`, `amount`, `status`, `sender_error`, `receiver_error`, `ip_address`)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                    $insertLogStmt = $connect_kuberkosh_db->prepare($insertLogQuery);
-                    $insertLogStmt->bind_param("iiissssss", $senderUserId, $senderWalletId, $bankAccountId, $trnxId, $money_withdraw_amount, $status, $bankAccQueryError, $bankAccQueryError, $userIP);
-                    $insertLogStmt->execute();
-                    $insertLogStmt->close();
-
-                    // echo '<script>alert("Error updating bank account balance.")</script>';
-                    return $response;
-                }
-            } else {
-                // Query execution failed for either sender or receiver
-                $insertError = $insertStmt->error;
-
-                $error = "Transaction Error. Money Not Debited from Wallet.";
-                $response = array('success' => false, 'error' => $error);
-                $status = 'Failed';
-
-                // Get user's IP address
-                $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
-
-                // Insert transaction log into the database
-                $insertLogQuery = "INSERT INTO `transaction_logs` (`user_id`, `sender_wallet_id`, `receiver_wallet_id`, `transaction_id`, `amount`, `status`, `sender_error`, `receiver_error`, `ip_address`)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-                $insertLogStmt = $connect_kuberkosh_db->prepare($insertLogQuery);
-                $insertLogStmt->bind_param("iiissssss", $senderUserId, $senderWalletId, $bankAccountId, $trnxId, $money_withdraw_amount, $status, $insertError, $insertError, $userIP);
-                $insertLogStmt->execute();
-                $insertLogStmt->close();
-
-                // echo '<script>alert("Transaction Error. Money Not Debited from Wallet.")</script>';
-                return $response;
+    if ($bankAccQueryStmt) {
+        // Fetch user banks to get the account number
+        $userBanks = getUserBanks(
+            $connect_kuberkosh_db, $userId);
+        $accountNumber = '';
+        foreach ($userBanks as $bank) {
+            if ($bank['bank_account_id'] == 
+            $bankAccountId) {
+                $accountNumber = $bank['account_no'];
+                $bankName = $bank['bank_info'];
+                break;
             }
-        } else {
-
-            $error = "Transaction Error. Insufficient wallet balance.";
-            $response = array('success' => false, 'error' => $error);
-            $status = 'Failed';
-            // echo '<script>alert("Insufficient wallet balance.")</script>';
-            return $response;
         }
+        $response = array(
+            'success' => true,
+            'trnxId' => $trnxId,
+            'money_withdraw_amount' => 
+            $money_withdraw_amount,
+            'bankAccountId' => $bankAccountId,
+            'account_number' => $accountNumber,
+            'bankName' => $bankName,
+            'trnxMessage' => 'Withdraw Successful'
+        );
+
+        return $response;
+
     } else {
-        $error = "Transaction Error. Invalid bank account ID or amount.";
-        $response = array('success' => false, 'error' => $error);
+        $response = array('success' => false, 
+        'error' => 'Transaction Error. If Money
+            Debited from Wallet contact Support Team.');
         $status = 'Failed';
-        // echo '<script>alert("Invalid bank account ID or amount.")</script>';
+        $bankAccQueryError = $bankAccQueryStmt->error;
+
+        // Get user's IP address
+        $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ??
+            $_SERVER['REMOTE_ADDR'];
+
+        // Insert transaction log into the database
+        $insertLogQuery = "INSERT INTO `transaction_logs`
+            (`user_id`, `sender_wallet_id`, `receiver_wallet_id`
+            , `transaction_id`, `amount`, `status`,
+            `sender_error`, `receiver_error`, `ip_address`)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insertLogStmt = $connect_kuberkosh_db->prepare(
+            $insertLogQuery);
+        $insertLogStmt->bind_param("iiissssss", 
+        $senderUserId, $senderWalletId, $bankAccountId,
+            $trnxId, $money_withdraw_amount, $status,
+            $bankAccQueryError, $bankAccQueryError, $userIP);
+        $insertLogStmt->execute();
+        $insertLogStmt->close();
+
         return $response;
     }
+} else {
+    // Query execution failed for either sender or receiver
+    $insertError = $insertStmt->error;
 
-}
+    $error = "Transaction Error. Money Not Debited from Wallet.";
+    $response = array('success' => false, 'error' => $error);
+    $status = 'Failed';
 
-?>
+    // Get user's IP address
+    $userIP = $_SERVER['HTTP_X_FORWARDED_FOR'] ??
+        $_SERVER['REMOTE_ADDR'];
+
+    // Insert transaction log into the database
+    $insertLogQuery = "INSERT INTO `transaction_logs`
+        (`user_id`, `sender_wallet_id`, `receiver_wallet_id`,
+        `transaction_id`, `amount`, `status`, `sender_error`,
+        `receiver_error`, `ip_address`)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $insertLogStmt = $connect_kuberkosh_db->prepare(
+        $insertLogQuery);
+    $insertLogStmt->bind_param("iiissssss", $senderUserId,
+        $senderWalletId, $bankAccountId, $trnxId,
+        $money_withdraw_amount, $status, $insertError,
+        $insertError, $userIP);
+    $insertLogStmt->execute();
+    $insertLogStmt->close();
+
+    return $response;}}
+     else {
+$error = "Transaction Error. Insufficient
+    wallet balance.";
+$response = array('success' => false,
+    'error' => $error);
+$status = 'Failed';
+return $response;
+}} else {
+$error = "Transaction Error. Invalid bank
+account ID or amount.";
+$response = array('success' => false, 'error' => $error);
+$status = 'Failed';
+return $response;
+}}?>

@@ -1,28 +1,51 @@
 <?php
+/* 
+This PHP script checks if TOTP (Time-based One-Time Password)
+authentication is enabled for a user. It establishes connections
+to two databases and redirects users based on their TOTP status.
+*/
 
-// Include the database connection script
-// include 'php/databaseVS.php';
-
+// Database connection parameters
 $servername = "db";
-// $servername = "172.18.0.3";
 $username = "admin";
 $password = "password";
 $database_kuberkosh_dbVS = "kuberkosh_db";
 $database_wallet_transactions_dbVS = "wallet_transactions_db";
 
-$connect_kuberkosh_dbVS = connectToDatabaseVS($servername, $username, $password, $database_kuberkosh_dbVS);
-$connect_wallet_transactions_dbVS = connectToDatabaseVS($servername, $username, $password, $database_wallet_transactions_dbVS);
+// Establish connections to databases
+$connect_kuberkosh_dbVS = connectToDatabaseVS(
+    $servername, 
+    $username, 
+    $password, 
+    $database_kuberkosh_dbVS
+);
+$connect_wallet_transactions_dbVS = connectToDatabaseVS(
+    $servername, 
+    $username, 
+    $password, 
+    $database_wallet_transactions_dbVS
+);
 
-// Function to connect to the database
-function connectToDatabaseVS($servername, $username, $password, $database) {
-    $conn = new mysqli($servername, $username, $password, $database);
+// Function to connect to a database
+function connectToDatabaseVS(
+    $servername, 
+    $username, 
+    $password, 
+    $database) 
+    {
+    $conn = new mysqli(
+        $servername, 
+        $username, 
+        $password, 
+        $database
+    );
     if ($conn->connect_error) {
         die("Failed to connect with MySQL: " . $conn->connect_error);
     }
     return $conn;
 }
 
-// Function to check if TOTP is enabled
+// Function to check if TOTP is enabled for a user
 function checkTOTPenabledVS($userId, $connect_kuberkosh_dbVS) {
     $query = "SELECT `secret_key` FROM `users` WHERE `user_id` = ?";
     
@@ -40,16 +63,20 @@ function checkTOTPenabledVS($userId, $connect_kuberkosh_dbVS) {
             $stmt->bind_result($secretKey);
             $stmt->fetch();
             
-            $TOTPenabled = !empty($secretKey);
+            $TOTPenabled = !empty($secretKey); // Check if secret key exists
             
             $stmt->close();
-            return json_encode(['TOTPenabled' => $TOTPenabled]);
+            return json_encode(
+                ['TOTPenabled' => $TOTPenabled]
+            );
         }
 
         $stmt->close();
     }
 
-    return json_encode(['TOTPenabled' => false]);
+    return json_encode(
+        ['TOTPenabled' => false]
+    ); // Return false if user not found or other error
 }
 
 // Check if the user ID is not set in the session
@@ -63,11 +90,14 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 
 // Check if TOTP is enabled for the user
-$totpStatus = json_decode(checkTOTPenabledVS($userId, $connect_kuberkosh_dbVS), true);
+$totpStatus = json_decode(
+    checkTOTPenabledVS($userId, $connect_kuberkosh_dbVS), 
+    true
+);
 
-// Redirect if TOTP is not enabled
+// Redirect if TOTP is enabled and MFA status is not set
 if ($totpStatus['TOTPenabled']) {
-    if (isset($_SESSION['mfa_ok']) == false) {
+    if (!isset($_SESSION['mfa_ok'])) {
         header('Location: index.php?mfa');
         exit();
     }

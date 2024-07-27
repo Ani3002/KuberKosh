@@ -9,7 +9,6 @@ settings, and other transaction-related pages. Each page is
 presented with relevant components, like navigation bars and
 sidebars, based on the parameter specified in the URL.
 */
-
 require_once ('php/functions.php');
 
 if ((isset($_GET['home']))) {
@@ -84,4 +83,10 @@ elseif (isset($_GET['send'])) {
     viewPage('collapsableSideBar');
     viewPage('navBar');
     viewPage('addMoney2');
+}
+elseif (isset($_GET['about'])) {
+    // for about page
+    viewPage('about');     
+    // viewPage('navBar');
+    viewPage('about2');  
 }

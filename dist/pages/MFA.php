@@ -1,4 +1,14 @@
 <?php
+/* 
+This PHP script ensures that a user is logged in and verifies
+if Time-based One-Time Password (TOTP) authentication is 
+enabled for the user. If TOTP is enabled, it presents the 
+user with a form to enter their TOTP. If TOTP is not enabled 
+or the user is not logged in, it redirects the user to 
+appropriate pages. The script includes client-side 
+validation and makes an AJAX request to verify the TOTP.
+*/
+
 include 'php/google-auth.php';
 
 global $connect_kuberkosh_db;
@@ -17,7 +27,10 @@ if (!isset($_SESSION['user_id'])) {
 $userId = $_SESSION['user_id'];
 
 // Check if TOTP is enabled for the user
-$totpStatus = json_decode(checkTOTPenabled($userId, $connect_kuberkosh_db), true);
+$totpStatus = json_decode(
+    checkTOTPenabled($userId, $connect_kuberkosh_db),
+    true
+);
 
 // Redirect if TOTP is not enabled
 if (!$totpStatus['TOTPenabled']) {
@@ -31,23 +44,14 @@ if (!$totpStatus['TOTPenabled']) {
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, 
+    initial-scale=1">
     <title>KuberKosh</title>
     <script src="js/bundle.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
-        rel="stylesheet">
 
-    <script src="js/jquery-3.5.1.min.js"></script>
-    <script src="js/popper.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="moment.min.js"></script>
-    <link rel="stylesheet" href="css/main.css">
 
-    
+    <!-- This script verifies a TOTP and redirects the user
+    or shows an error modal based on the response. -->
     <script>
         function verifyTOTP(event) {
             event.preventDefault(); // Prevent form submission
@@ -56,7 +60,8 @@ if (!$totpStatus['TOTPenabled']) {
 
             var xhr = new XMLHttpRequest();
             xhr.open("POST", "php/ajaxVerifyTOTP.php", true);
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.setRequestHeader("Content-Type",
+                "application/x-www-form-urlencoded");
 
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -65,8 +70,10 @@ if (!$totpStatus['TOTPenabled']) {
                     if (response.message === "valid OTP") {
                         window.location.href = "index.php?dash";
                     } else {
-                        // alert("Invalid TOTP");
-                        var myModal = new bootstrap.Modal(document.getElementById('invalidTOTPModal'));
+                        var myModal = new bootstrap.Modal(
+                            document.getElementById
+                                ('invalidTOTPModal')
+                        );
                         myModal.show();
                     }
                 }
@@ -84,28 +91,38 @@ if (!$totpStatus['TOTPenabled']) {
             <div class="mx-auto text-center">
                 <?php
                 if (isset($_GET['signup'])) {
-                    echo '<h4 class="auth-h1 text-center mt-2 mb-1">Create an account</h4>';
+                    echo '<h4 class="auth-h1 text-center mt-2
+                     mb-1">Create an account</h4>';
                 } elseif (isset($_GET['login'])) {
-                    echo '<h4 class="auth-h1 text-center mt-2 mb-1">Welcome Back</h4>';
+                    echo '<h4 class="auth-h1 text-center mt-2
+                     mb-1">Welcome Back</h4>';
                 } elseif (isset($_GET['mfa'])) {
-                    echo '<h4 class="auth-h1 text-center mt-6 mb-3">Complete 2FA</h4>';
+                    echo '<h4 class="auth-h1 text-center mt-6
+                     mb-3">Complete 2FA</h4>';
                 }
                 ?>
 
                 <?php
-                if ((isset($_GET['signup'])) || (isset($_GET['login']))) {
+                if (
+                    (isset($_GET['signup'])) ||
+                    (isset($_GET['login']))
+                ) {
                     ?>
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
-                                <a href="#" class="auth-btn d-flex align-items-center gap-2">
+                            <div class="col-lg-6 col-md-3 col-xs-12
+                             col-sm-6">
+                                <a href="#" class="auth-btn d-flex
+                                 align-items-center gap-2">
                                     <img src="/img/github.svg" alt="Login with" width="30" height="30">
                                     <span>Github</span>
                                 </a>
                             </div>
-                            <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6">
-                                <a href="<?php echo $google_client->createAuthUrl(); ?>"
-                                    class="auth-btn d-flex align-items-center gap-2">
+                            <div class="col-lg-6 col-md-3 col-xs-12
+                             col-sm-6">
+                                <a href="<?php echo
+                                    $google_client->createAuthUrl(); ?>" class="auth-btn d-flex 
+                                    align-items-center gap-2">
                                     <img src="/img/google.svg" alt="Login with" width="30" height="30">
                                     <span>Google</span>
                                 </a>
@@ -116,12 +133,14 @@ if (!$totpStatus['TOTPenabled']) {
                 </div>
                 <div class="mx-auto">
                     <div class="mt-100 mb-1">
-                        <label for="InputEmail" class="form-label">Email</label>
+                        <label for="InputEmail" class="form-label">
+                            Email</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                             placeholder="anirbanrouth.dev@proton.me">
                     </div>
                     <div class="mb-1">
-                        <label for="InputPassword" class="form-label">Password</label>
+                        <label for="InputPassword" class="form-label">
+                            Password</label>
                         <input type="password" class="form-control" id="exampleInputPassword1"
                             placeholder="Enter your password here">
                     </div>
@@ -131,16 +150,20 @@ if (!$totpStatus['TOTPenabled']) {
                     ?>
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6"></div>
-                        <div class="col-lg-6 col-md-3 col-xs-12 col-sm-6"></div>
+                        <div class="col-lg-6 col-md-3 col-xs-12
+                         col-sm-6"></div>
+                        <div class="col-lg-6 col-md-3 col-xs-12
+                         col-sm-6"></div>
                     </div>
                 </div>
-                <p class="mt-1 mb-1 auth-or"><?php echo $_SESSION['email_address'] ?></p>
+                <p class="mt-1 mb-1 auth-or"><?php echo
+                    $_SESSION['email_address'] ?></p>
 
         </div>
         <div class="mx-auto">
             <div class="mb-1">
-                <label for="InputPassword" class="form-label">TOTP</label>
+                <label for="InputPassword" class="form-label">
+                    TOTP</label>
                 <input type="password" class="form-control" id="totpInput" placeholder="Enter your TOTP here">
             </div>
         </div>
@@ -151,14 +174,23 @@ if (!$totpStatus['TOTPenabled']) {
     <div class="mt-1 mx-auto text-center">
         <?php
         if (isset($_GET['signup'])) {
-            echo '<button type="submit" class="auth-submit-btn bg-gradient">Create Account</button>';
-            echo '<p class="mt-1 auth-p"> Already have an account? <a href="index.php?login" class="auth-p-link">Log In</a></p>';
+            echo '<button type="submit" class="auth-submit-btn 
+            bg-gradient">Create Account</button>';
+            echo '<p class="mt-1 auth-p"> Already have an account? 
+                <a href="index.php?login" class="auth-p-link">
+                Log In</a></p>';
         } elseif (isset($_GET['login'])) {
-            echo '<button type="submit" class="auth-submit-btn bg-gradient">Log In</button>';
-            echo '<p class="mt-1 auth-p"> Don\'t have an account? <a href="index.php?signup" class="auth-p-link">Sign Up</a></p>';
+            echo '<button type="submit" class="auth-submit-btn 
+            bg-gradient">Log In</button>';
+            echo '<p class="mt-1 auth-p"> Don\'t have an account? 
+                <a href="index.php?signup" class="auth-p-link">
+                Sign Up</a></p>';
         } elseif (isset($_GET['mfa'])) {
-            echo '<button type="submit" class="auth-submit-btn bg-gradient">Verify TOTP</button>';
-            echo '<p class="mt-1 auth-p"> Lost TOTP? <a href="index.php?signup" class="auth-p-link">Contact Support</a></p>';
+            echo '<button type="submit" class="auth-submit-btn 
+            bg-gradient">Verify TOTP</button>';
+            echo '<p class="mt-1 auth-p"> Lost TOTP? 
+                <a href="index.php?signup" class="auth-p-link">
+                Contact Support</a></p>';
         }
         ?>
     </div>
@@ -166,19 +198,21 @@ if (!$totpStatus['TOTPenabled']) {
     </form>
     </div>
 
-
-
-    <!-- Modal -->
+    <!-- This code defines a modal that displays an error message
+     for an invalid TOTP input. -->
     <div class="modal fade" id="invalidTOTPModal" tabindex="-1" aria-labelledby="invalidTOTPModalLabel"
         aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-danger fw-semibold" id="invalidTOTPModalLabel">Invalid TOTP</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title text-danger fw-semibold" id="invalidTOTPModalLabel">
+                        Invalid TOTP</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
                 </div>
                 <div class="modal-body text-light fw-normal">
-                    The TOTP you entered is invalid. Please try again.
+                    The TOTP you entered is invalid.
+                    Please try again.
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
@@ -186,8 +220,6 @@ if (!$totpStatus['TOTPenabled']) {
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>

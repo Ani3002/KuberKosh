@@ -104,7 +104,11 @@ if (!empty(fetchWalletDetails($connect_kuberkosh_db, $userId)) && !empty(fetchWa
 </div>
 
 
+
 <script>
+    // JavaScript to havdle the Request money logiv to
+    // generate QR code and ERL
+
     // Function to generate QR code
     function generateQRCode(url) {
         var qrCodeContainer = document.getElementById("qrcode");
@@ -121,17 +125,24 @@ if (!empty(fetchWalletDetails($connect_kuberkosh_db, $userId)) && !empty(fetchWa
 
     // Function to generate and copy URL
     function generateAndCopyUrl() {
-        const receiverAddress = document.getElementById('receiver_address').value;
-        const amount = document.getElementById('money_send_amount_input').value;
-        const purpose = document.getElementById('dropdown_purpose_button_a').value;
-        const remarks = document.getElementById('money_sending_remarks').value;
+        const receiverAddress = document.getElementById('
+        receiver_address').value;
+        const amount = document.getElementById('
+        money_send_amount_input').value;
+        const purpose = document.getElementById('
+        dropdown_purpose_button_a').value;
+        const remarks = document.getElementById('
+        money_sending_remarks').value;
 
         // Check if amount is a valid number
         if (isNaN(amount) || amount <= 0) {
-            var modalElement = document.getElementById('failedModal');
-            var failedModalLabel = document.getElementById('failedModalLabel');
+            var modalElement = document.getElementById('
+            failedModal');
+            var failedModalLabel = document.getElementById('
+            failedModalLabel');
             failedModalLabel.textContent = "Failed";
-            var failedModalMessage = document.getElementById('failedModalMessage');
+            var failedModalMessage = document.getElementById('
+            failedModalMessage');
             failedModalMessage.textContent = "Please enter a valid amount.";
             var myModal = new bootstrap.Modal(modalElement);
             myModal.show();

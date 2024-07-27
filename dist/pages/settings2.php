@@ -878,17 +878,17 @@ if (!empty($walletDetails['wallet_address'])) {
         xhr.setRequestHeader('Content-Type', 'application/json');
 
         var dataToSend = JSON.stringify({ walletAddress: walletAddress });
-        alert('Data being sent to server: ' + dataToSend); // Debugging: Log data being sent to server
+        // alert('Data being sent to server: ' + dataToSend); // Debugging: Log data being sent to server
         xhr.send(dataToSend);
 
         xhr.onload = function () {
             if (xhr.status === 200) {
                 var response = JSON.parse(xhr.responseText);
-                alert('Response from server: ' + JSON.stringify(response)); // Debugging: Log response from server
+                // alert('Response from server: ' + JSON.stringify(response)); // Debugging: Log response from server
                 if (response.valid) {
                     // Valid wallet address, proceed to update database
                     updateWalletAddress(walletAddress, userId);
-                    alert('updated');
+                    // alert('updated');
                 } else {
                     alert('The provided wallet address is not available or already exists in the database');
                 }
